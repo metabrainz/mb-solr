@@ -21,9 +21,8 @@ import org.musicbrainz.mmd2.ObjectFactory;
 import org.musicbrainz.mmd2.Work;
 import org.musicbrainz.mmd2.WorkList;
 
-public class MBXMLWriter implements QueryResponseWriter
-{
-	
+public class MBXMLWriter implements QueryResponseWriter {
+
 	/**
 	 * The context used to create (un-)serialize XML
 	 */
@@ -36,18 +35,12 @@ public class MBXMLWriter implements QueryResponseWriter
 	 * The entity type of this MBXMLWriter
 	 */
 	private String entityType = null;
-	
+
 	private enum entityTypes {
-		artist,
-		area,
-		label,
-		recording,
-		release,
-		release_group,
-		work;
-		
-		public static boolean isValidType(String entityType){
-			for(entityTypes et: entityTypes.values()){
+		artist, area, label, recording, release, release_group, work;
+
+		public static boolean isValidType(String entityType) {
+			for (entityTypes et : entityTypes.values()) {
 				if (et.toString() == entityType) {
 					return true;
 				}
@@ -55,14 +48,15 @@ public class MBXMLWriter implements QueryResponseWriter
 			return false;
 		}
 	}
-	
+
 	public String getContentType(SolrQueryRequest arg0, SolrQueryResponse arg1) {
 		return CONTENT_TYPE_XML_UTF8;
 	}
 
 	public void init(NamedList initArgs) {
 		try {
-			context = JAXBContext.newInstance(org.musicbrainz.mmd2.ObjectFactory.class);
+			context = JAXBContext
+					.newInstance(org.musicbrainz.mmd2.ObjectFactory.class);
 			marshaller = context.createMarshaller();
 			unmarshaller = context.createUnmarshaller();
 		} catch (JAXBException e) {
@@ -74,41 +68,45 @@ public class MBXMLWriter implements QueryResponseWriter
 		 */
 		objectfactory = new ObjectFactory();
 		Object entityTypeTemp = initArgs.get("entitytype");
-		
+
 		if (entityTypeTemp == null) {
 			throw new RuntimeException("no entitytype given");
 		} else {
 			entityType = (String) entityType;
 		}
-		
-		if (entityTypes.isValidType(entityType)){
-			throw new RuntimeException(entityType + "is not a valid entity type");
+
+		if (entityTypes.isValidType(entityType)) {
+			throw new RuntimeException(entityType
+					+ "is not a valid entity type");
 		}
 	}
 
 	public void write(Writer writer, SolrQueryRequest req, SolrQueryResponse res)
 			throws IOException {
 		NamedList vals = res.getValues();
-		
-		org.apache.solr.response.ResultContext con = (ResultContext) vals.get("response");
-		
+
+		org.apache.solr.response.ResultContext con = (ResultContext) vals
+				.get("response");
+
 		Metadata metadata = objectfactory.createMetadata();
 		WorkList wl = objectfactory.createWorkList();
 		List<Work> works = wl.getWork();
-		
+
 		float maxScore = con.docs.maxScore();
 		DocIterator iter = con.docs.iterator();
 
-		while(iter.hasNext()){
+		while (iter.hasNext()) {
 			Integer id = iter.nextDoc();
 			Document doc = req.getSearcher().doc(id);
 			String store = doc.getField("_store").stringValue();
 			if (store == null) {
-				throw new RuntimeException("_store should be a string value but wasn't");
+				throw new RuntimeException(
+						"_store should be a string value but wasn't");
 			}
 			Work w = null;
 			try {
-				w = (Work) unmarshaller.unmarshal(new ByteArrayInputStream(store.getBytes()));
+				w = (Work) unmarshaller.unmarshal(new ByteArrayInputStream(
+						store.getBytes()));
 			} catch (JAXBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -118,7 +116,7 @@ public class MBXMLWriter implements QueryResponseWriter
 			w.setScore("meep");
 			works.add(w);
 		}
-		
+
 		metadata.setWorkList(wl);
 		StringWriter sw = new StringWriter();
 		try {
