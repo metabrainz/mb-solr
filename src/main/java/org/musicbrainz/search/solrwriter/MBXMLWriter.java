@@ -24,10 +24,17 @@ import org.musicbrainz.mmd2.WorkList;
 public class MBXMLWriter implements QueryResponseWriter
 {
 	
+	/**
+	 * The context used to create (un-)serialize XML
+	 */
 	private JAXBContext context = null;
 	private Marshaller marshaller = null;
 	private Unmarshaller unmarshaller = null;
 	private ObjectFactory objectfactory = null;
+
+	/**
+	 * The entity type of this MBXMLWriter
+	 */
 	private String entityType = null;
 	
 	private enum entityTypes {
@@ -61,6 +68,10 @@ public class MBXMLWriter implements QueryResponseWriter
 		} catch (JAXBException e) {
 			throw new RuntimeException(e);
 		}
+
+		/*
+		 * Check for which entity type we're generating responses
+		 */
 		objectfactory = new ObjectFactory();
 		Object entityTypeTemp = initArgs.get("entitytype");
 		
