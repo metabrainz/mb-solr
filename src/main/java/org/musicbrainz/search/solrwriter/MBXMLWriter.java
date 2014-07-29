@@ -107,10 +107,14 @@ public class MBXMLWriter implements QueryResponseWriter {
 		return CONTENT_TYPE_XML_UTF8;
 	}
 
+	private JAXBContext createJAXBContext() throws JAXBException {
+		return JAXBContext
+				.newInstance(org.musicbrainz.mmd2.ObjectFactory.class);
+	}
+
 	public void init(NamedList initArgs) {
 		try {
-			context = JAXBContext
-					.newInstance(org.musicbrainz.mmd2.ObjectFactory.class);
+			context = createJAXBContext();
 			marshaller = context.createMarshaller();
 			unmarshaller = context.createUnmarshaller();
 		} catch (JAXBException e) {
