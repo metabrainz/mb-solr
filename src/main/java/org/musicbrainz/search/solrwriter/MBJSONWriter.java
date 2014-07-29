@@ -44,6 +44,15 @@ public class MBJSONWriter extends MBXMLWriter {
 	}
 
 	@Override
+	protected Marshaller createMarshaller() throws JAXBException {
+		if (jsonContext == null) {
+			return null;
+		} else {
+			return jsonContext.createMarshaller();
+		}
+	}
+
+	@Override
 	public void init(NamedList initArgs) {
 		super.init(initArgs);
 		try {
@@ -53,15 +62,6 @@ public class MBJSONWriter extends MBXMLWriter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return;
-		}
-	}
-
-	@Override
-	protected Marshaller createMarshaller() throws JAXBException {
-		if (jsonContext == null) {
-			return null;
-		} else {
-			return jsonContext.createMarshaller();
 		}
 	}
 
