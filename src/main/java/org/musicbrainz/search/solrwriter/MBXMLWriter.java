@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -16,10 +17,7 @@ import org.apache.solr.common.util.NamedList;
 import org.apache.solr.request.SolrQueryRequest;
 import org.apache.solr.response.*;
 import org.apache.solr.search.DocIterator;
-import org.musicbrainz.mmd2.Metadata;
-import org.musicbrainz.mmd2.ObjectFactory;
-import org.musicbrainz.mmd2.Work;
-import org.musicbrainz.mmd2.WorkList;
+import org.musicbrainz.mmd2.*;
 
 public class MBXMLWriter implements QueryResponseWriter {
 
@@ -81,6 +79,27 @@ public class MBXMLWriter implements QueryResponseWriter {
 		}
 	}
 
+	private static void adjustScore(float maxScore, Object object,
+			float objectScore) throws IOException {
+		Method setScoreMethod = null;
+		try {
+			setScoreMethod = object.getClass().getMethod("setScore",
+					String.class);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(
+					"Expected an object with a setScore method");
+		}
+
+		int adjustedScore = (((int) (((objectScore / maxScore)) * 100)));
+
+		try {
+			setScoreMethod.invoke(object, Integer.toString(adjustedScore));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public void write(Writer writer, SolrQueryRequest req, SolrQueryResponse res)
 			throws IOException {
 		NamedList vals = res.getValues();
@@ -110,10 +129,12 @@ public class MBXMLWriter implements QueryResponseWriter {
 			} catch (JAXBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.out.println(store);
 				continue;
 			}
-			w.setScore("meep");
+			// TODO: this needs "score" in the field list of Solr, otherwise
+			// this causes a NullPointerException
+			adjustScore(maxScore, w, iter.score());
+
 			works.add(w);
 		}
 
