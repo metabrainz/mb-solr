@@ -25,10 +25,10 @@ public class MBXMLWriter implements QueryResponseWriter {
 	 * The context used to (un-)serialize XML
 	 */
 	private JAXBContext context = null;
-	private Marshaller marshaller = null;
 	private Unmarshaller unmarshaller = null;
+	protected Marshaller marshaller = null;
 	private ObjectFactory objectfactory = null;
-	private MetadataListWrapper metadatalistwrapper = null;
+	protected MetadataListWrapper metadatalistwrapper = null;
 
 	/**
 	 * The entity type of this MBXMLWriter
@@ -44,7 +44,8 @@ public class MBXMLWriter implements QueryResponseWriter {
 					return et;
 				}
 			}
-			throw new IllegalArgumentException(entityType + "is not a valid entity type");
+			throw new IllegalArgumentException(entityType
+					+ "is not a valid entity type");
 		}
 	}
 
@@ -54,7 +55,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 	 * for different entity types, as well as calling the appropriate method to
 	 * set the list on the {@link Metadata} object.
 	 */
-	private class MetadataListWrapper {
+	class MetadataListWrapper {
 		/**
 		 * The class of object that's kept in the list
 		 */
@@ -112,10 +113,14 @@ public class MBXMLWriter implements QueryResponseWriter {
 				.newInstance(org.musicbrainz.mmd2.ObjectFactory.class);
 	}
 
+	protected Marshaller createMarshaller() throws JAXBException {
+		return context.createMarshaller();
+	}
+
 	public void init(NamedList initArgs) {
 		try {
 			context = createJAXBContext();
-			marshaller = context.createMarshaller();
+			marshaller = createMarshaller();
 			unmarshaller = context.createUnmarshaller();
 		} catch (JAXBException e) {
 			throw new RuntimeException(e);
@@ -196,10 +201,11 @@ public class MBXMLWriter implements QueryResponseWriter {
 		doWrite(writer);
 	}
 
-	private void doWrite(Writer writer) throws IOException {
+	protected void doWrite(Writer writer) throws IOException {
 		StringWriter sw = new StringWriter();
 		try {
-			marshaller.marshal(this.metadatalistwrapper.getCompletedMetadata(), sw);
+			marshaller.marshal(this.metadatalistwrapper.getCompletedMetadata(),
+					sw);
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
