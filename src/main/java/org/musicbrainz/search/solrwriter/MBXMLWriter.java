@@ -28,6 +28,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 	private Marshaller marshaller = null;
 	private Unmarshaller unmarshaller = null;
 	private ObjectFactory objectfactory = null;
+	private MetadataListWrapper metadatalistwrapper = null;
 
 	/**
 	 * The entity type of this MBXMLWriter
@@ -44,6 +45,61 @@ public class MBXMLWriter implements QueryResponseWriter {
 				}
 			}
 			return false;
+		}
+	}
+
+	/**
+	 * MetadataListWrapper wraps common functionality in dealing with
+	 * {@link Metadata}. This includes generating the appropriate list object
+	 * for different entity types, as well as calling the appropriate method to
+	 * set the list on the {@link Metadata} object.
+	 */
+	private class MetadataListWrapper {
+		/**
+		 * The class of object that's kept in the list
+		 */
+		private Object MMDList = null;
+		private Metadata metadata = null;
+
+		public MetadataListWrapper() {
+			switch (entityType) {
+			case "work":
+				MMDList = objectfactory.createWorkList();
+				break;
+			default:
+				// This should never happen because MBXMLWriters init method
+				// aborts earlier
+				throw new IllegalArgumentException("invalid entity type: "
+						+ entityType);
+			}
+
+			this.metadata = objectfactory.createMetadata();
+		}
+
+		public List getLiveList() {
+			switch (entityType) {
+			case "work":
+				return ((WorkList) MMDList).getWork();
+			default:
+				// This should never happen because MBXMLWriters init method
+				// aborts earlier
+				throw new IllegalArgumentException("invalid entity type: "
+						+ entityType);
+			}
+		}
+
+		public Metadata getCompletedMetadata() {
+			switch (entityType) {
+			case "work":
+				metadata.setWorkList((WorkList) MMDList);
+				break;
+			default:
+				// This should never happen because MBXMLWriters init method
+				// aborts earlier
+				throw new IllegalArgumentException("invalid entity type: "
+						+ entityType);
+			}
+			return metadata;
 		}
 	}
 
@@ -77,6 +133,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 			throw new RuntimeException(entityType
 					+ "is not a valid entity type");
 		}
+
 	}
 
 	private static void adjustScore(float maxScore, Object object,
@@ -107,9 +164,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 		org.apache.solr.response.ResultContext con = (ResultContext) vals
 				.get("response");
 
-		Metadata metadata = objectfactory.createMetadata();
-		WorkList wl = objectfactory.createWorkList();
-		List<Work> works = wl.getWork();
+		List xmlList = this.metadatalistwrapper.getLiveList();
 
 		float maxScore = con.docs.maxScore();
 		DocIterator iter = con.docs.iterator();
@@ -135,13 +190,13 @@ public class MBXMLWriter implements QueryResponseWriter {
 			// this causes a NullPointerException
 			adjustScore(maxScore, w, iter.score());
 
-			works.add(w);
+			xmlList.add(w);
 		}
 
-		metadata.setWorkList(wl);
+
 		StringWriter sw = new StringWriter();
 		try {
-			marshaller.marshal(metadata, sw);
+			marshaller.marshal(this.metadatalistwrapper.getCompletedMetadata(), sw);
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
