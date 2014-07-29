@@ -22,7 +22,7 @@ import org.musicbrainz.mmd2.*;
 public class MBXMLWriter implements QueryResponseWriter {
 
 	/**
-	 * The context used to create (un-)serialize XML
+	 * The context used to (un-)serialize XML
 	 */
 	private JAXBContext context = null;
 	private Marshaller marshaller = null;
