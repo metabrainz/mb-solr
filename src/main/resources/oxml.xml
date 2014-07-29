@@ -1,0 +1,458 @@
+<?xml version="1.0"?>
+<xml-bindings
+        xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+        package-name="org.musicbrainz.mmd2">
+    <java-types>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="instrumentList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="seriesList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="editorList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="placeList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="areaList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="artistList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="releaseGroupList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="annotationList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="labelList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="recordingList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="urlList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="DefAreaElementInner">
+            <java-attributes>
+                <xml-element java-attribute="iso31661CodeList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="DefAreaElementInner">
+            <java-attributes>
+                <xml-element java-attribute="iso31662CodeList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="DefAreaElementInner">
+            <java-attributes>
+                <xml-element java-attribute="iso31663CodeList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="releaseList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="tagList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="LifeSpan">
+            <java-attributes>
+                <xml-element java-attribute="ended"  nillable="true">
+                    <xml-java-type-adapter value="org.musicbrainz.search.servlet.moxy.BooleanStringAdapter"/>
+                </xml-element>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="workList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Artist">
+            <java-attributes>
+                <xml-element java-attribute="ipiList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Artist">
+            <java-attributes>
+                <xml-element java-attribute="tagList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Release">
+            <java-attributes>
+                <xml-element java-attribute="artistCredit" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="ReleaseGroup">
+            <java-attributes>
+                <xml-element java-attribute="artistCredit" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Recording">
+            <java-attributes>
+                <xml-element java-attribute="artistCredit" xml-path="."/>
+                <xml-element java-attribute="video" nillable="true">
+                    <xml-java-type-adapter value="org.musicbrainz.search.servlet.moxy.BooleanStringAdapter"/>
+                </xml-element>
+            </java-attributes>
+        </java-type>
+        <java-type name="IpiList">
+            <java-attributes>
+                <xml-element java-attribute="ipi" name="ipis"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="LabelList">
+            <java-attributes>
+                <xml-element java-attribute="label" name="labels"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Label">
+            <java-attributes>
+                <xml-element java-attribute="tagList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Recording">
+            <java-attributes>
+                <xml-element java-attribute="tagList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Release">
+            <java-attributes>
+                <xml-element java-attribute="tagList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="TagList">
+            <java-attributes>
+                <xml-element java-attribute="tag" name="tags"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="AliasList">
+            <java-attributes>
+                <xml-element java-attribute="alias" name="aliases"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Work">
+            <java-attributes>
+                <xml-element java-attribute="aliasList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Instrument">
+            <java-attributes>
+                <xml-element java-attribute="aliasList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Series">
+            <java-attributes>
+                <xml-element java-attribute="aliasList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Work">
+            <java-attributes>
+                <xml-element java-attribute="iswcList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Recording">
+            <java-attributes>
+                <xml-element java-attribute="puidList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="IswcList">
+            <java-attributes>
+                <xml-element java-attribute="iswc" name="iswcs"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="UrlList">
+            <java-attributes>
+                <xml-element java-attribute="url" name="urls"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Work">
+            <java-attributes>
+                <xml-element java-attribute="tagList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Recording">
+            <java-attributes>
+                <xml-element java-attribute="releaseList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Release">
+            <java-attributes>
+                <xml-element java-attribute="mediumList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Release">
+            <java-attributes>
+                <xml-element java-attribute="releaseEventList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Recording">
+            <java-attributes>
+                <xml-element java-attribute="isrcList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="ReleaseGroup">
+            <java-attributes>
+                <xml-element java-attribute="secondaryTypeList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="ReleaseGroup">
+            <java-attributes>
+                <xml-element java-attribute="releaseList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="PuidList">
+            <java-attributes>
+                <xml-element java-attribute="puid" name="puids"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="AreaList">
+            <java-attributes>
+                <xml-element java-attribute="area" name="areas"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="PlaceList">
+            <java-attributes>
+                <xml-element java-attribute="place" name="places"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="InstrumentList">
+            <java-attributes>
+                <xml-element java-attribute="instrument" name="instruments"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="EditorList">
+            <java-attributes>
+                <xml-element java-attribute="editor" name="editors"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="ReleaseList">
+            <java-attributes>
+                <xml-element java-attribute="release" name="releases"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="ReleaseGroupList">
+            <java-attributes>
+                <xml-element java-attribute="releaseGroup" name="release-groups"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="MediumList">
+            <java-attributes>
+                <xml-element java-attribute="medium" name="media"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="IsrcList">
+            <java-attributes>
+                <xml-element java-attribute="isrc" name="isrcs"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="SecondaryTypeList">
+            <java-attributes>
+                <xml-element java-attribute="secondaryType" name="secondary-types"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="IsrcList">
+            <java-attributes>
+                <xml-element java-attribute="isrc" name="isrcs"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="ArtistCredit">
+            <java-attributes>
+                <xml-element java-attribute="nameCredit" name="artist-credit"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Medium">
+            <java-attributes>
+                <xml-element java-attribute="trackList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Label">
+            <java-attributes>
+                <xml-element java-attribute="ipiList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Label">
+            <java-attributes>
+                <xml-element java-attribute="aliasList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="cdstubList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Cdstub">
+            <java-attributes>
+                <xml-element java-attribute="trackList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Metadata">
+            <java-attributes>
+                <xml-element java-attribute="freedbDiscList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="FreedbDiscList">
+            <java-attributes>
+                <xml-element java-attribute="freedbDisc" name="freedb-discs"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="FreedbDisc">
+            <java-attributes>
+                <xml-element java-attribute="trackList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Release">
+            <java-attributes>
+                <xml-element java-attribute="labelInfoList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="LabelInfoList">
+            <java-attributes>
+                <xml-element java-attribute="labelInfo" name="label-info"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="DefAreaElementInner">
+            <java-attributes>
+                <xml-element java-attribute="aliasList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Place">
+            <java-attributes>
+                <xml-element java-attribute="aliasList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Artist">
+            <java-attributes>
+                <xml-element java-attribute="aliasList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="AnnotationList">
+            <java-attributes>
+                <xml-element java-attribute="annotation" name="annotations"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="CdstubList">
+            <java-attributes>
+                <xml-element java-attribute="cdstub" name="cdstubs"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="ReleaseGroup">
+            <java-attributes>
+                <xml-element java-attribute="tagList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Medium$TrackList">
+            <java-attributes>
+                <xml-element java-attribute="count" name="track-count"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Medium$TrackList">
+            <java-attributes>
+                <xml-element java-attribute="offset" name="track-offset"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="DiscList">
+            <java-attributes>
+                <xml-element java-attribute="count" name="disc-count"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="DiscList">
+            <java-attributes>
+                <xml-element java-attribute="offset" name="disc-offset"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Medium">
+            <java-attributes>
+                <xml-element java-attribute="discList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="ReleaseGroup">
+            <java-attributes>
+                <xml-transient java-attribute="type"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Relation">
+            <java-attributes>
+                <xml-element java-attribute="attributeList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Relation$AttributeList">
+            <java-attributes>
+                <xml-element java-attribute="attribute" name="attributes"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="WorkList">
+            <java-attributes>
+                <xml-element java-attribute="work">
+                    <xml-java-type-adapter value="org.musicbrainz.search.servlet.moxy.WorkAdapter"/>
+                </xml-element>
+            </java-attributes>
+        </java-type>
+        <java-type name="RelationList">
+            <java-attributes>
+                <xml-transient java-attribute="targetType"/>
+                <xml-element java-attribute="relation" name="relations"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="ReleaseEventList">
+            <java-attributes>
+                <xml-element java-attribute="releaseEvent" name="release-events"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Iso31661CodeList">
+            <java-attributes>
+                <xml-element java-attribute="iso31661Code" name="iso-3166-1-codes"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Iso31662CodeList">
+            <java-attributes>
+                <xml-element java-attribute="iso31662Code" name="iso-3166-2-codes"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Iso31663CodeList">
+            <java-attributes>
+                <xml-element java-attribute="iso31663Code" name="iso-3166-3-codes"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Alias">
+            <xml-type prop-order=""/>
+            <java-attributes>
+                <xml-element java-attribute="content" name="name"/>
+                <xml-element java-attribute="beginDate" name="begin-date" nillable="true"/>
+                <xml-element java-attribute="endDate" name="end-date" nillable="true"/>
+                <xml-element java-attribute="locale" name="locale" nillable="true"/>
+                <xml-element java-attribute="type" name="type" nillable="true"/>
+                <xml-element java-attribute="primary" nillable="true">
+                    <xml-java-type-adapter value="org.musicbrainz.search.servlet.moxy.BooleanStringAdapter"/>
+                </xml-element>
+            </java-attributes>
+        </java-type>
+    </java-types>
+</xml-bindings>
