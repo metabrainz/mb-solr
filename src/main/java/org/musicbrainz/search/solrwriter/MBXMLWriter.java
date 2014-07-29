@@ -33,18 +33,19 @@ public class MBXMLWriter implements QueryResponseWriter {
 	/**
 	 * The entity type of this MBXMLWriter
 	 */
-	private String entityType = null;
+	private entityTypes entityType = null;
 
 	private enum entityTypes {
 		artist, area, label, recording, release, release_group, work;
 
-		public static boolean isValidType(String entityType) {
+		public static entityTypes getType(String entityType) {
 			for (entityTypes et : entityTypes.values()) {
-				if (et.toString() == entityType) {
-					return true;
+				System.out.println(et.name());
+				if (et.name().equalsIgnoreCase(entityType)) {
+					return et;
 				}
 			}
-			return false;
+			throw new IllegalArgumentException(entityType + "is not a valid entity type");
 		}
 	}
 
@@ -63,7 +64,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		public MetadataListWrapper() {
 			switch (entityType) {
-			case "work":
+			case work:
 				MMDList = objectfactory.createWorkList();
 				break;
 			default:
@@ -78,7 +79,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		public List getLiveList() {
 			switch (entityType) {
-			case "work":
+			case work:
 				return ((WorkList) MMDList).getWork();
 			default:
 				// This should never happen because MBXMLWriters init method
@@ -90,7 +91,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		public Metadata getCompletedMetadata() {
 			switch (entityType) {
-			case "work":
+			case work:
 				metadata.setWorkList((WorkList) MMDList);
 				break;
 			default:
@@ -126,12 +127,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 		if (entityTypeTemp == null) {
 			throw new RuntimeException("no entitytype given");
 		} else {
-			entityType = (String) entityType;
-		}
-
-		if (entityTypes.isValidType(entityType)) {
-			throw new RuntimeException(entityType
-					+ "is not a valid entity type");
+			entityType = entityTypes.getType((String) entityTypeTemp);
 		}
 
 	}
