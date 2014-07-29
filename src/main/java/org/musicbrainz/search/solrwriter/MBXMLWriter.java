@@ -193,7 +193,10 @@ public class MBXMLWriter implements QueryResponseWriter {
 			xmlList.add(w);
 		}
 
+		doWrite(writer);
+	}
 
+	private void doWrite(Writer writer) throws IOException {
 		StringWriter sw = new StringWriter();
 		try {
 			marshaller.marshal(this.metadatalistwrapper.getCompletedMetadata(), sw);
