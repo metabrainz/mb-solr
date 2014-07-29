@@ -80,7 +80,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 	}
 
 	private static void adjustScore(float maxScore, Object object,
-			float objectScore) throws IOException {
+			float objectScore) {
 		Method setScoreMethod = null;
 		try {
 			setScoreMethod = object.getClass().getMethod("setScore",
