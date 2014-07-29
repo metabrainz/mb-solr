@@ -40,7 +40,6 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		public static entityTypes getType(String entityType) {
 			for (entityTypes et : entityTypes.values()) {
-				System.out.println(et.name());
 				if (et.name().equalsIgnoreCase(entityType)) {
 					return et;
 				}
