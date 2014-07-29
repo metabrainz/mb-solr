@@ -129,6 +129,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 			entityType = entityTypes.getType((String) entityTypeTemp);
 		}
 
+		metadatalistwrapper = new MetadataListWrapper();
 	}
 
 	private static void adjustScore(float maxScore, Object object,
