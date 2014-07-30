@@ -69,18 +69,4 @@ public class MBJSONWriter extends MBXMLWriter {
 	public String getContentType(SolrQueryRequest arg0, SolrQueryResponse arg1) {
 		return "application/json";
 	}
-
-	@Override
-	protected void doWrite(Writer writer) throws IOException {
-		StringWriter sw = new StringWriter();
-		try {
-			marshaller.marshal(this.metadatalistwrapper.getCompletedMetadata(),
-					sw);
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
-		writer.write(sw.toString());
-	}
 }

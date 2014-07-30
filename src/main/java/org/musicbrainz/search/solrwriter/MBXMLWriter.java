@@ -28,7 +28,6 @@ public class MBXMLWriter implements QueryResponseWriter {
 	private Unmarshaller unmarshaller = null;
 	protected Marshaller marshaller = null;
 	private ObjectFactory objectfactory = null;
-	protected MetadataListWrapper metadatalistwrapper = null;
 
 	/**
 	 * The entity type of this MBXMLWriter
@@ -56,16 +55,13 @@ public class MBXMLWriter implements QueryResponseWriter {
 	 * set the list on the {@link Metadata} object.
 	 */
 	class MetadataListWrapper {
-		/**
-		 * The class of object that's kept in the list
-		 */
 		private Object MMDList = null;
 		private Metadata metadata = null;
 
 		public MetadataListWrapper() {
 			switch (entityType) {
 			case work:
-				MMDList = objectfactory.createWorkList();
+				MMDList = (WorkList) objectfactory.createWorkList();
 				break;
 			default:
 				// This should never happen because MBXMLWriters init method
@@ -137,8 +133,6 @@ public class MBXMLWriter implements QueryResponseWriter {
 		} else {
 			entityType = entityTypes.getType((String) entityTypeTemp);
 		}
-
-		metadatalistwrapper = new MetadataListWrapper();
 	}
 
 	private static void adjustScore(float maxScore, Object object,
@@ -164,12 +158,14 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 	public void write(Writer writer, SolrQueryRequest req, SolrQueryResponse res)
 			throws IOException {
-		NamedList vals = res.getValues();
+		MetadataListWrapper metadatalistwrapper = new MetadataListWrapper();
 
+		NamedList vals = res.getValues();
+		
 		org.apache.solr.response.ResultContext con = (ResultContext) vals
 				.get("response");
-
-		List xmlList = this.metadatalistwrapper.getLiveList();
+		
+		List xmlList = metadatalistwrapper.getLiveList();
 
 		float maxScore = con.docs.maxScore();
 		DocIterator iter = con.docs.iterator();
@@ -198,13 +194,13 @@ public class MBXMLWriter implements QueryResponseWriter {
 			xmlList.add(w);
 		}
 
-		doWrite(writer);
+		doWrite(writer, metadatalistwrapper);
 	}
 
-	protected void doWrite(Writer writer) throws IOException {
+	protected void doWrite(Writer writer, MetadataListWrapper mlwrapper) throws IOException {
 		StringWriter sw = new StringWriter();
 		try {
-			marshaller.marshal(this.metadatalistwrapper.getCompletedMetadata(),
+			marshaller.marshal(mlwrapper.getCompletedMetadata(),
 					sw);
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
