@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.reflect.Method;
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -98,6 +99,21 @@ public class MBXMLWriter implements QueryResponseWriter {
 			}
 			return metadata;
 		}
+
+		public void setCountAndOffset(int count, int offset) {
+			switch (entityType) {
+			case work:
+				WorkList tempList = (WorkList) MMDList;
+				tempList.setCount(BigInteger.valueOf(count));
+				tempList.setOffset(BigInteger.valueOf(offset));
+				break;
+			default:
+				// This should never happen because MBXMLWriters init method
+				// aborts earlier
+				throw new IllegalArgumentException("invalid entity type: "
+						+ entityType);
+			}
+		}
 	}
 
 	public String getContentType(SolrQueryRequest arg0, SolrQueryResponse arg1) {
@@ -164,7 +180,10 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		ResultContext con = (ResultContext) vals
 				.get("response");
-		
+
+		metadatalistwrapper.setCountAndOffset(con.docs.matches(),
+				con.docs.offset());
+
 		List xmlList = metadatalistwrapper.getLiveList();
 
 		float maxScore = con.docs.maxScore();
@@ -197,11 +216,11 @@ public class MBXMLWriter implements QueryResponseWriter {
 		doWrite(writer, metadatalistwrapper);
 	}
 
-	protected void doWrite(Writer writer, MetadataListWrapper mlwrapper) throws IOException {
+	protected void doWrite(Writer writer, MetadataListWrapper mlwrapper)
+			throws IOException {
 		StringWriter sw = new StringWriter();
 		try {
-			marshaller.marshal(mlwrapper.getCompletedMetadata(),
-					sw);
+			marshaller.marshal(mlwrapper.getCompletedMetadata(), sw);
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
