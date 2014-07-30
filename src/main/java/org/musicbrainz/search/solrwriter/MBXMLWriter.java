@@ -161,8 +161,8 @@ public class MBXMLWriter implements QueryResponseWriter {
 		MetadataListWrapper metadatalistwrapper = new MetadataListWrapper();
 
 		NamedList vals = res.getValues();
-		
-		org.apache.solr.response.ResultContext con = (ResultContext) vals
+
+		ResultContext con = (ResultContext) vals
 				.get("response");
 		
 		List xmlList = metadatalistwrapper.getLiveList();
