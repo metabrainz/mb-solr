@@ -197,9 +197,9 @@ public class MBXMLWriter implements QueryResponseWriter {
 				throw new RuntimeException(
 						"_store should be a string value but wasn't");
 			}
-			Work w = null;
+			Object unmarshalledObj = null;
 			try {
-				w = (Work) unmarshaller.unmarshal(new ByteArrayInputStream(
+				unmarshalledObj = unmarshaller.unmarshal(new ByteArrayInputStream(
 						store.getBytes()));
 			} catch (JAXBException e) {
 				// TODO Auto-generated catch block
@@ -208,9 +208,9 @@ public class MBXMLWriter implements QueryResponseWriter {
 			}
 			// TODO: this needs "score" in the field list of Solr, otherwise
 			// this causes a NullPointerException
-			adjustScore(maxScore, w, iter.score());
+			adjustScore(maxScore, unmarshalledObj, iter.score());
 
-			xmlList.add(w);
+			xmlList.add(unmarshalledObj);
 		}
 
 		doWrite(writer, metadatalistwrapper);
