@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.util.List;
@@ -58,6 +59,8 @@ public class MBXMLWriter implements QueryResponseWriter {
 	class MetadataListWrapper {
 		private Object MMDList = null;
 		private Metadata metadata = null;
+		private Method setCountMethod = null;
+		private Method setOffsetMethod = null;
 
 		public MetadataListWrapper() {
 			switch (entityType) {
@@ -72,6 +75,14 @@ public class MBXMLWriter implements QueryResponseWriter {
 			}
 
 			this.metadata = objectfactory.createMetadata();
+			try {
+				setCountMethod = MMDList.getClass().getMethod("setOffset",
+						BigInteger.class);
+				setOffsetMethod = MMDList.getClass().getMethod("setOffset",
+						BigInteger.class);
+			} catch (NoSuchMethodException | SecurityException e) {
+				throw new RuntimeException(e);
+			}
 		}
 
 		public List getLiveList() {
@@ -101,17 +112,12 @@ public class MBXMLWriter implements QueryResponseWriter {
 		}
 
 		public void setCountAndOffset(int count, int offset) {
-			switch (entityType) {
-			case work:
-				WorkList tempList = (WorkList) MMDList;
-				tempList.setCount(BigInteger.valueOf(count));
-				tempList.setOffset(BigInteger.valueOf(offset));
-				break;
-			default:
-				// This should never happen because MBXMLWriters init method
-				// aborts earlier
-				throw new IllegalArgumentException("invalid entity type: "
-						+ entityType);
+			try {
+				setCountMethod.invoke(MMDList, count);
+				setOffsetMethod.invoke(MMDList, offset);
+			} catch (IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+				throw new RuntimeException(e);
 			}
 		}
 	}
