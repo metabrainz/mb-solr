@@ -178,8 +178,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		NamedList vals = res.getValues();
 
-		ResultContext con = (ResultContext) vals
-				.get("response");
+		ResultContext con = (ResultContext) vals.get("response");
 
 		metadatalistwrapper.setCountAndOffset(con.docs.matches(),
 				con.docs.offset());
@@ -199,8 +198,8 @@ public class MBXMLWriter implements QueryResponseWriter {
 			}
 			Object unmarshalledObj = null;
 			try {
-				unmarshalledObj = unmarshaller.unmarshal(new ByteArrayInputStream(
-						store.getBytes()));
+				unmarshalledObj = unmarshaller
+						.unmarshal(new ByteArrayInputStream(store.getBytes()));
 			} catch (JAXBException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
