@@ -57,6 +57,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 	 * set the list on the {@link Metadata} object.
 	 */
 	class MetadataListWrapper {
+		private List objList = null;
 		private Object MMDList = null;
 		private Metadata metadata = null;
 		private Method setCountMethod = null;
@@ -65,7 +66,8 @@ public class MBXMLWriter implements QueryResponseWriter {
 		public MetadataListWrapper() {
 			switch (entityType) {
 			case work:
-				MMDList = (WorkList) objectfactory.createWorkList();
+				MMDList = objectfactory.createWorkList();
+				objList = ((WorkList) MMDList).getWork();
 				break;
 			default:
 				// This should never happen because MBXMLWriters init method
@@ -86,15 +88,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 		}
 
 		public List getLiveList() {
-			switch (entityType) {
-			case work:
-				return ((WorkList) MMDList).getWork();
-			default:
-				// This should never happen because MBXMLWriters init method
-				// aborts earlier
-				throw new IllegalArgumentException("invalid entity type: "
-						+ entityType);
-			}
+			return objList;
 		}
 
 		public Metadata getCompletedMetadata() {
