@@ -107,8 +107,8 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		public void setCountAndOffset(int count, int offset) {
 			try {
-				setCountMethod.invoke(MMDList, count);
-				setOffsetMethod.invoke(MMDList, offset);
+				setCountMethod.invoke(MMDList, BigInteger.valueOf(count));
+				setOffsetMethod.invoke(MMDList, BigInteger.valueOf(offset));
 			} catch (IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException e) {
 				throw new RuntimeException(e);
