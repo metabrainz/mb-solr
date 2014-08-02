@@ -78,7 +78,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 			this.metadata = objectfactory.createMetadata();
 			try {
-				setCountMethod = MMDList.getClass().getMethod("setOffset",
+				setCountMethod = MMDList.getClass().getMethod("setCount",
 						BigInteger.class);
 				setOffsetMethod = MMDList.getClass().getMethod("setOffset",
 						BigInteger.class);
