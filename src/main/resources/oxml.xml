@@ -86,6 +86,7 @@
         <java-type name="LifeSpan">
             <java-attributes>
                 <xml-element java-attribute="ended"  nillable="true">
+                    <xml-java-type-adapter value="org.musicbrainz.search.servlet.moxy.BooleanStringAdapter"/>
                 </xml-element>
             </java-attributes>
         </java-type>
@@ -118,6 +119,7 @@
             <java-attributes>
                 <xml-element java-attribute="artistCredit" xml-path="."/>
                 <xml-element java-attribute="video" nillable="true">
+                    <xml-java-type-adapter value="org.musicbrainz.search.servlet.moxy.BooleanStringAdapter"/>
                 </xml-element>
             </java-attributes>
         </java-type>
@@ -409,6 +411,7 @@
         <java-type name="WorkList">
             <java-attributes>
                 <xml-element java-attribute="work">
+                    <xml-java-type-adapter value="org.musicbrainz.search.servlet.moxy.WorkAdapter"/>
                 </xml-element>
             </java-attributes>
         </java-type>
@@ -447,6 +450,7 @@
                 <xml-element java-attribute="locale" name="locale" nillable="true"/>
                 <xml-element java-attribute="type" name="type" nillable="true"/>
                 <xml-element java-attribute="primary" nillable="true">
+                    <xml-java-type-adapter value="org.musicbrainz.search.servlet.moxy.BooleanStringAdapter"/>
                 </xml-element>
             </java-attributes>
         </java-type>
