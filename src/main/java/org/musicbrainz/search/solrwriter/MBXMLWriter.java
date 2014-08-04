@@ -212,14 +212,9 @@ public class MBXMLWriter implements QueryResponseWriter {
 			xmlList.add(unmarshalledObj);
 		}
 
-		doWrite(writer, metadatalistwrapper);
-	}
-
-	protected void doWrite(Writer writer, MetadataListWrapper mlwrapper)
-			throws IOException {
 		StringWriter sw = new StringWriter();
 		try {
-			marshaller.marshal(mlwrapper.getCompletedMetadata(), sw);
+			marshaller.marshal(metadatalistwrapper.getCompletedMetadata(), sw);
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
