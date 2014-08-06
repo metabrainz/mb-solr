@@ -46,7 +46,7 @@ Valid values are:
 - label
 - recording
 - release
-- release-group
+- release_group
 - work
 
 Now the core needs to be reloaded.
