@@ -117,6 +117,24 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		public Metadata getCompletedMetadata() {
 			switch (entityType) {
+			case area:
+				metadata.setAreaList((AreaList) MMDList);
+				break;
+			case artist:
+				metadata.setArtistList((ArtistList) MMDList);
+				break;
+			case label:
+				metadata.setLabelList((LabelList) MMDList);
+				break;
+			case recording:
+				metadata.setRecordingList((RecordingList) MMDList);
+				break;
+			case release:
+				metadata.setReleaseList((ReleaseList) MMDList);
+				break;
+			case release_group:
+				metadata.setReleaseGroupList((ReleaseGroupList) MMDList);
+				break;
 			case work:
 				metadata.setWorkList((WorkList) MMDList);
 				break;
