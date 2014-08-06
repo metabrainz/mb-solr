@@ -65,6 +65,30 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		public MetadataListWrapper() {
 			switch (entityType) {
+			case area:
+				MMDList = objectfactory.createAreaList();
+				objList = ((AreaList) MMDList).getArea();
+				break;
+			case artist:
+				MMDList = objectfactory.createArtistList();
+				objList = ((ArtistList) MMDList).getArtist();
+				break;
+			case label:
+				MMDList = objectfactory.createLabelList();
+				objList = ((LabelList) MMDList).getLabel();
+				break;
+			case recording:
+				MMDList = objectfactory.createRecordingList();
+				objList = ((RecordingList) MMDList).getRecording();
+				break;
+			case release:
+				MMDList = objectfactory.createReleaseList();
+				objList = ((ReleaseList) MMDList).getRelease();
+				break;
+			case release_group:
+				MMDList = objectfactory.createReleaseGroupList();
+				objList = ((ReleaseGroupList) MMDList).getReleaseGroup();
+				break;
 			case work:
 				MMDList = objectfactory.createWorkList();
 				objList = ((WorkList) MMDList).getWork();
