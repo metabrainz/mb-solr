@@ -57,7 +57,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 	 * set the list on the {@link Metadata} object.
 	 */
 	class MetadataListWrapper {
-		private List<Object> objList = null;
+		private List objList = null;
 		private Object MMDList = null;
 		private Metadata metadata = null;
 		private Method setCountMethod = null;
@@ -87,7 +87,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 			}
 		}
 
-		public List<Object> getLiveList() {
+		public List getLiveList() {
 			return objList;
 		}
 
@@ -183,7 +183,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 		metadatalistwrapper.setCountAndOffset(con.docs.matches(),
 				con.docs.offset());
 
-		List<Object> xmlList = metadatalistwrapper.getLiveList();
+		List xmlList = metadatalistwrapper.getLiveList();
 
 		float maxScore = con.docs.maxScore();
 		DocIterator iter = con.docs.iterator();
