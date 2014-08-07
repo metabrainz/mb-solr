@@ -231,9 +231,15 @@ public class MBXMLWriter implements QueryResponseWriter {
 		DocIterator iter = con.docs.iterator();
 
 		while (iter.hasNext()) {
+			String store;
 			Integer id = iter.nextDoc();
 			Document doc = req.getSearcher().doc(id);
-			String store = doc.getField("_store").stringValue();
+			try {
+				store = doc.getField("_store").stringValue();
+			} catch (NullPointerException e) {
+				throw new RuntimeException(
+						"The document didn't include a _store value");
+			}
 			if (store == null) {
 				throw new RuntimeException(
 						"_store should be a string value but wasn't");
