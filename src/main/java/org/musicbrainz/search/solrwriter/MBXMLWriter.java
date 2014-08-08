@@ -52,6 +52,8 @@ import org.apache.solr.response.*;
 import org.apache.solr.search.DocIterator;
 import org.musicbrainz.mmd2.*;
 
+import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
+
 public class MBXMLWriter implements QueryResponseWriter {
 
 	/**
@@ -61,6 +63,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 	private Unmarshaller unmarshaller = null;
 	protected Marshaller marshaller = null;
 	private ObjectFactory objectfactory = null;
+	private NamespacePrefixMapper mapper = null;
 
 	/**
 	 * The entity type of this MBXMLWriter
@@ -199,7 +202,10 @@ public class MBXMLWriter implements QueryResponseWriter {
 	}
 
 	protected Marshaller createMarshaller() throws JAXBException {
-		return context.createMarshaller();
+		marshaller = context.createMarshaller();
+		marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper",
+				new MBNamespacePrefixMapper());
+		return marshaller;
 	}
 
 	public void init(NamedList initArgs) {
