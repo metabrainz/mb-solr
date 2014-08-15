@@ -8,6 +8,19 @@ for Solr cores running on an [mbsssss](https://github.com/mineo/mbsssss) schema.
 
 ## Installation
 
+### Installing brainz-mmd2-jaxb
+
+Clone the repository with Git:
+
+    git clone https://github.com/metabrainz/mmd-schema.git
+
+And install the package:
+
+    cd mmd-schema/brainz-mmd2-jaxb
+    mvn install
+
+### Installing the query writer
+
 Clone the repository with Git:
 
     git clone https://github.com/mineo/mb-solrquerywriter.git
