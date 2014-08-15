@@ -38,8 +38,9 @@ To do that, add the following lines as children of the **config** element:
     </queryResponseWriter>
 ```
 
-The solr.xml of [mbsssss](https://github.com/mineo/mbsssss) already includes
-this snippet, as well as the **sharedLib** configuration.
+The solrconfig.xml of the cores defined by
+[mbsssss](https://github.com/mineo/mbsssss) already includes this snippet, as
+well as the **sharedLib** configuration in the solr.xml file.
 
 **$entitytype** needs to be replaced by the entity type of the documents in the store.
 Valid values are:
