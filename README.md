@@ -61,3 +61,8 @@ are available:
 - **mbxml**, which returns mmd-compliant XML documents
 - **mbjson**, which returns JSON document as described by
   [this page](https://beta.musicbrainz.org/doc/Development/JSON_Web_Service)
+
+At the moment, the
+[field list](https://cwiki.apache.org/confluence/display/solr/Common+Query+Parameters#CommonQueryParameters-Thefl(FieldList)
+parameter of each query needs to include the **score** field for the code to
+work correctly.
