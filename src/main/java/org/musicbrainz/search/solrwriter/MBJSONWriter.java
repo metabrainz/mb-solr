@@ -1,8 +1,5 @@
 package org.musicbrainz.search.solrwriter;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
