@@ -253,9 +253,19 @@
                 <xml-element java-attribute="editor" name="editors"/>
             </java-attributes>
         </java-type>
+        <java-type name="ArtistList">
+            <java-attributes>
+                <xml-element java-attribute="artist" name="artists"/>
+            </java-attributes>
+        </java-type>
         <java-type name="ReleaseList">
             <java-attributes>
                 <xml-element java-attribute="release" name="releases"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="RecordingList">
+            <java-attributes>
+                <xml-element java-attribute="recording" name="recordings"/>
             </java-attributes>
         </java-type>
         <java-type name="ReleaseGroupList">
@@ -410,7 +420,7 @@
         </java-type>
         <java-type name="WorkList">
             <java-attributes>
-                <xml-element java-attribute="work">
+                <xml-element java-attribute="work" name="works">
                     <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.WorkAdapter"/>
                 </xml-element>
             </java-attributes>
@@ -445,7 +455,7 @@
             <xml-type prop-order=""/>
             <java-attributes>
                 <xml-element java-attribute="content" name="name"/>
-                <xml-element java-attribute="beginDate" name="begin-date" nillable="true"></xml-element>
+                <xml-element java-attribute="beginDate" name="begin-date" nillable="true"/>
                 <xml-element java-attribute="endDate" name="end-date" nillable="true"/>
                 <xml-element java-attribute="locale" name="locale" nillable="true"/>
                 <xml-element java-attribute="type" name="type" nillable="true"/>
