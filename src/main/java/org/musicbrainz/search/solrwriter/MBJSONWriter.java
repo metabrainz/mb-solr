@@ -63,9 +63,6 @@ public class MBJSONWriter extends MBXMLWriter {
 			return JAXBContextFactory.createContext(
 					new Class[] { Metadata.class }, properties);
 		} catch (JAXBException ex) {
-			// Unable to initilize
-			// jaxb/Users/paul/code/MusicBrainz/SearchServer/servlet/src/main/resources/oxml.xml
-			// context, should never happen
 			throw new RuntimeException(ex);
 		}
 	}
