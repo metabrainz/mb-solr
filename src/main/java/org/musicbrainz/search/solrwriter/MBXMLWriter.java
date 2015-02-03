@@ -111,6 +111,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 			case place:
 				MMDList = objectfactory.createPlaceList();
 				objList = ((PlaceList) MMDList).getPlace();
+				break;
 			case recording:
 				MMDList = objectfactory.createRecordingList();
 				objList = ((RecordingList) MMDList).getRecording();
