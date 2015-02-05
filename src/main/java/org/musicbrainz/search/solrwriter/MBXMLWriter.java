@@ -247,7 +247,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 	private static void adjustScore(float maxScore, Object object,
 			float objectScore) {
-		Method setScoreMethod = null;
+		Method setScoreMethod;
 		try {
 			setScoreMethod = object.getClass().getMethod("setScore",
 					String.class);
@@ -296,7 +296,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 				throw new RuntimeException(
 						"_store should be a string value but wasn't");
 			}
-			Object unmarshalledObj = null;
+			Object unmarshalledObj;
 			try {
 				unmarshalledObj = unmarshaller
 						.unmarshal(new ByteArrayInputStream(store.getBytes()));
