@@ -305,6 +305,22 @@ public class MBXMLWriter implements QueryResponseWriter {
 				e.printStackTrace();
 				continue;
 			}
+
+			/*
+			Areas are stored as {@link org.musicbrainz.mmd2.DefAreaElementInner.DefAreaElementInner}, but that is not
+			 defined as an XmlRootElement. To work around this, every area is stored in an AreaList with only one
+			 element that we access here.
+
+			 TODO: Figure out if there's a way around this.
+			 */
+			if (unmarshalledObj instanceof AreaList) {
+				List<DefAreaElementInner> arealist = ((AreaList) unmarshalledObj).getArea();
+				if (arealist.size() == 0) {
+					throw new RuntimeException("Expected an AreaList with at least one element");
+				}
+				unmarshalledObj = (Object) arealist.get(0);
+			}
+
 			// TODO: this needs "score" in the field list of Solr, otherwise
 			// this causes a NullPointerException
 			adjustScore(maxScore, unmarshalledObj, iter.score());
