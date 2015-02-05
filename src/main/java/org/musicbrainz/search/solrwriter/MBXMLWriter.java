@@ -318,7 +318,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 				if (arealist.size() == 0) {
 					throw new RuntimeException("Expected an AreaList with at least one element");
 				}
-				unmarshalledObj = (Object) arealist.get(0);
+				unmarshalledObj = arealist.get(0);
 			}
 
 			// TODO: this needs "score" in the field list of Solr, otherwise
