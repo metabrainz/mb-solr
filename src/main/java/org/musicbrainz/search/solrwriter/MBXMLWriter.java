@@ -306,10 +306,10 @@ public class MBXMLWriter implements QueryResponseWriter {
 				continue;
 			}
 
-			/*
-			Areas are stored as {@link org.musicbrainz.mmd2.DefAreaElementInner.DefAreaElementInner}, but that is not
-			 defined as an XmlRootElement. To work around this, every area is stored in an AreaList with only one
-			 element that we access here.
+			/**
+			 * Areas are stored as {@link org.musicbrainz.mmd2.DefAreaElementInner}, but that is not defined as an
+			 * XmlRootElement. To work around this, every area is stored in an AreaList with only one element that we
+			 * access here.
 
 			 TODO: Figure out if there's a way around this.
 			 */
