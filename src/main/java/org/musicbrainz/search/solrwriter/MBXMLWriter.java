@@ -68,7 +68,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 	private entityTypes entityType = null;
 
 	private enum entityTypes {
-		artist, area, cdstub, label, place, recording, release, release_group, tag, work;
+		annotation, artist, area, cdstub, label, place, recording, release, release_group, tag, work;
 
 		public static entityTypes getType(String entityType) {
 			for (entityTypes et : entityTypes.values()) {
