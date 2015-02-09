@@ -96,6 +96,10 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		public MetadataListWrapper() {
 			switch (entityType) {
+			case annotation:
+				MMDList = objectfactory.createAnnotationList();
+				objList = ((AnnotationList) MMDList).getAnnotation();
+				break;
 			case area:
 				MMDList = objectfactory.createAreaList();
 				objList = ((AreaList) MMDList).getArea();
@@ -160,6 +164,9 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		public Metadata getCompletedMetadata() {
 			switch (entityType) {
+			case annotation:
+				metadata.setAnnotationList((AnnotationList) MMDList);
+				break;
 			case area:
 				metadata.setAreaList((AreaList) MMDList);
 				break;
