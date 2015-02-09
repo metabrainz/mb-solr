@@ -77,7 +77,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 				}
 			}
 			throw new IllegalArgumentException(entityType
-					+ "is not a valid entity type");
+					+ " is not a valid entity type");
 		}
 	}
 
