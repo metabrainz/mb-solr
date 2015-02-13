@@ -58,12 +58,16 @@ well as the **sharedLib** configuration in the solr.xml file.
 **$entitytype** needs to be replaced by the entity type of the documents in the store.
 Valid values are:
 
-- artist
+- annotation
 - area
+- artist
+- cdstub
 - label
+- place
 - recording
 - release
 - release_group
+- tag
 - work
 
 Now the core needs to be reloaded.
