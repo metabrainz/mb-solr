@@ -179,11 +179,11 @@ public class MBXMLWriter implements QueryResponseWriter {
 			case label:
 				metadata.setLabelList((LabelList) MMDList);
 				break;
-			case recording:
-				metadata.setRecordingList((RecordingList) MMDList);
-				break;
 			case place:
 				metadata.setPlaceList((PlaceList) MMDList);
+				break;
+			case recording:
+				metadata.setRecordingList((RecordingList) MMDList);
 				break;
 			case release:
 				metadata.setReleaseList((ReleaseList) MMDList);
