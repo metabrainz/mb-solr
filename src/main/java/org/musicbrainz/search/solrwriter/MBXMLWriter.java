@@ -54,6 +54,11 @@ import org.musicbrainz.mmd2.*;
 
 public class MBXMLWriter implements QueryResponseWriter {
 
+	public static final String SCORE_NOT_IN_FIELD_LIST = "'score' is not in the field list";
+	public static final String AREALIST_NO_ELEMENTS = "Expected an AreaList with at least one element";
+	public static final String NO_STORE_VALUE = "The document didn't include a _store value";
+	public static final String STORE_NOT_A_STRING = "_store should be a string value but wasn't";
+	public static final String OBJECT_WITHOUT_SETSCORE = "Expected an object with a setScore method";
 	/**
 	 * The context used to (un-)serialize XML
 	 */
@@ -261,7 +266,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new RuntimeException(
-					"Expected an object with a setScore method");
+					OBJECT_WITHOUT_SETSCORE);
 		}
 
 		int adjustedScore = (((int) (((objectScore / maxScore)) * 100)));
@@ -297,11 +302,11 @@ public class MBXMLWriter implements QueryResponseWriter {
 				store = doc.getField("_store").stringValue();
 			} catch (NullPointerException e) {
 				throw new RuntimeException(
-						"The document didn't include a _store value");
+						NO_STORE_VALUE);
 			}
 			if (store == null) {
 				throw new RuntimeException(
-						"_store should be a string value but wasn't");
+						STORE_NOT_A_STRING);
 			}
 			Object unmarshalledObj;
 			try {
@@ -323,14 +328,18 @@ public class MBXMLWriter implements QueryResponseWriter {
 			if (unmarshalledObj instanceof AreaList) {
 				List<DefAreaElementInner> arealist = ((AreaList) unmarshalledObj).getArea();
 				if (arealist.size() == 0) {
-					throw new RuntimeException("Expected an AreaList with at least one element");
+					throw new RuntimeException(AREALIST_NO_ELEMENTS);
 				}
 				unmarshalledObj = arealist.get(0);
 			}
 
 			// TODO: this needs "score" in the field list of Solr, otherwise
 			// this causes a NullPointerException
-			adjustScore(maxScore, unmarshalledObj, iter.score());
+			try {
+				adjustScore(maxScore, unmarshalledObj, iter.score());
+			} catch (NullPointerException e) {
+				throw new RuntimeException(SCORE_NOT_IN_FIELD_LIST);
+			}
 
 			xmlList.add(unmarshalledObj);
 		}
