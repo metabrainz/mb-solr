@@ -35,5 +35,10 @@ public class MBXMLWriterTest extends SolrTestCaseJ4{
 	}
 
 	@Test
+	public void testArea() throws Exception {
+		ArrayList<String> doc = new ArrayList<>(Arrays.asList(new String[]{
+				"area", "Thüringen",
+				"mbid", "ff2ee1ad-febe-4b48-8999-e77870b62744"}));
+		performCoreTest("area", doc);
 	}
 }
