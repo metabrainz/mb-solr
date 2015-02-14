@@ -27,7 +27,6 @@ public class MBXMLWriterTest extends SolrTestCaseJ4{
 		xmlfilepath = MBXMLWriterTest.class.getResource(corename + "-list.xml").getFile();
 		content = Files.readAllBytes(Paths.get(xmlfilepath));
 		xml = new String(content);
-		Source control = Input.fromMemory(xml).build();
 
 		String response = h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
 		Source test = Input.fromMemory(response).build();
