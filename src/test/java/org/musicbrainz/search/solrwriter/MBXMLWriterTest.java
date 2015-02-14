@@ -1,12 +1,15 @@
 package org.musicbrainz.search.solrwriter;
 
 import org.apache.solr.SolrTestCaseJ4;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.xmlunit.builder.DiffBuilder;
 import org.xmlunit.builder.Input;
 import org.xmlunit.diff.Diff;
 
 import javax.xml.transform.Source;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -59,5 +62,43 @@ public class MBXMLWriterTest extends SolrTestCaseJ4{
 				"area", "Thüringen",
 				"mbid", "ff2ee1ad-febe-4b48-8999-e77870b62744"}));
 		performCoreTest("area", doc);
+	}
+
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+
+	@Test
+	/**
+	 * Check that a useful error message is shown to the user if 'score' is not in the field list.
+	 */
+	public void testNoScoreException() throws Exception {
+		// artist could be any valid core name
+		initCore("solrconfig.xml", "schema.xml", "mbsssss", "artist");
+		ArrayList<String> doc = new ArrayList<String>(Arrays.asList(new String[]{
+				"mbid",	"9b58672a-e68e-4972-956e-a8985a165a1f",
+				"artist", "Howard Shore",
+				"sortname", "Shore, Howard"}));
+		addDocument("artist", doc);
+		thrown.expectMessage(MBXMLWriter.SCORE_NOT_IN_FIELD_LIST);
+		h.query(req("q", "*:*", "wt", "mbxml"));
+		deleteCore();
+	}
+
+	@Test
+	/**
+	 * Check that a useful error message is shown to the user if the document doesn't have a '_store' field.
+	 */
+	public void testNoStore() throws Exception {
+		// artist could be any valid core name
+		initCore("solrconfig.xml", "schema.xml", "mbsssss", "artist");
+		ArrayList<String> doc = new ArrayList<String>(Arrays.asList(new String[]{
+				"mbid",	"9b58672a-e68e-4972-956e-a8985a165a1f",
+				"artist", "Howard Shore",
+				"sortname", "Shore, Howard"}));
+		assertU(adoc(doc.toArray(new String[doc.size()])));
+		assertU(commit());
+		thrown.expectMessage(MBXMLWriter.NO_STORE_VALUE);
+		h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
+		deleteCore();
 	}
 }
