@@ -1,6 +1,7 @@
 package org.musicbrainz.search.solrwriter;
 
 import org.apache.solr.SolrTestCaseJ4;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -33,7 +34,6 @@ public class MBXMLWriterTest extends SolrTestCaseJ4{
 
 		Diff d = DiffBuilder.compare(Input.fromMemory(xml)).withTest(test).build();
 		assertFalse(d.hasDifferences());
-		deleteCore();
 	}
 
 	public void addDocument(String corename, ArrayList<String> documentValues) throws IOException {
@@ -44,6 +44,14 @@ public class MBXMLWriterTest extends SolrTestCaseJ4{
 		documentValues.add(0, "_store");
 		assertU(adoc((documentValues.toArray(new String[documentValues.size()]))));
 		assertU(commit());
+	}
+
+	@After
+	/**
+	 * Call deleteCore after each test method.
+	 */
+	public void deleteCoreAfterTestMethod() {
+		deleteCore();
 	}
 
 
@@ -81,7 +89,6 @@ public class MBXMLWriterTest extends SolrTestCaseJ4{
 		addDocument("artist", doc);
 		thrown.expectMessage(MBXMLWriter.SCORE_NOT_IN_FIELD_LIST);
 		h.query(req("q", "*:*", "wt", "mbxml"));
-		deleteCore();
 	}
 
 	@Test
@@ -99,6 +106,5 @@ public class MBXMLWriterTest extends SolrTestCaseJ4{
 		assertU(commit());
 		thrown.expectMessage(MBXMLWriter.NO_STORE_VALUE);
 		h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
-		deleteCore();
 	}
 }
