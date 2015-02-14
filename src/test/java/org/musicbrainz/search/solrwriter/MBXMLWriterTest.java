@@ -1,8 +1,12 @@
 package org.musicbrainz.search.solrwriter;
 
 import org.apache.solr.SolrTestCaseJ4;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.xmlunit.builder.DiffBuilder;
+import org.xmlunit.builder.Input;
+import org.xmlunit.diff.Diff;
+
+import javax.xml.transform.Source;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -22,7 +26,13 @@ public class MBXMLWriterTest extends SolrTestCaseJ4{
 		xmlfilepath = MBXMLWriterTest.class.getResource(corename + "-list.xml").getFile();
 		content = Files.readAllBytes(Paths.get(xmlfilepath));
 		xml = new String(content);
-		assertEquals(xml, h.query(req("q", "*:*", "fl", "score", "wt", "mbxml")));
+		Source control = Input.fromMemory(xml).build();
+
+		String response = h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
+		Source test = Input.fromMemory(response).build();
+
+		Diff d = DiffBuilder.compare(Input.fromMemory(xml)).withTest(test).build();
+		assertFalse(d.hasDifferences());
 		deleteCore();
 	}
 	@Test

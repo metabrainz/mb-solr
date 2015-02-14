@@ -1,7 +1,0 @@
-In case these tests fail with a difference in the line ending, do the following
-in vim:
-
-:set binary
-:set noeol
-delete and insert the last character in the file
-:wq
