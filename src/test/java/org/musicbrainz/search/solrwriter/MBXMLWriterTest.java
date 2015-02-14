@@ -15,13 +15,10 @@ import java.util.Arrays;
 public class MBXMLWriterTest extends SolrTestCaseJ4{
 	private void performCoreTest(String corename, ArrayList<String> documentValues) throws Exception {
 		initCore("solrconfig.xml", "schema.xml", "mbsssss", corename);
-		String xmlfilepath = MBXMLWriterTest.class.getResource(corename + ".xml").getFile();
-		byte[] content = Files.readAllBytes(Paths.get(xmlfilepath));
-		String xml = new String(content);
-		documentValues.add(0, xml);
-		documentValues.add(0, "_store");
-		assertU(adoc((documentValues.toArray(new String[documentValues.size()]))));
-		assertU(commit());
+		addDocument(corename, documentValues);
+		String xmlfilepath;
+		byte[] content;
+		String xml;
 
 		xmlfilepath = MBXMLWriterTest.class.getResource(corename + "-list.xml").getFile();
 		content = Files.readAllBytes(Paths.get(xmlfilepath));
@@ -35,6 +32,18 @@ public class MBXMLWriterTest extends SolrTestCaseJ4{
 		assertFalse(d.hasDifferences());
 		deleteCore();
 	}
+
+	public void addDocument(String corename, ArrayList<String> documentValues) throws IOException {
+		String xmlfilepath = MBXMLWriterTest.class.getResource(corename + ".xml").getFile();
+		byte[] content = Files.readAllBytes(Paths.get(xmlfilepath));
+		String xml = new String(content);
+		documentValues.add(0, xml);
+		documentValues.add(0, "_store");
+		assertU(adoc((documentValues.toArray(new String[documentValues.size()]))));
+		assertU(commit());
+	}
+
+
 	@Test
 	public void testArtist() throws Exception {
 		ArrayList<String> doc = new ArrayList<String>(Arrays.asList(new String[]{
