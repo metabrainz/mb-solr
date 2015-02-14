@@ -36,14 +36,51 @@ public class MBXMLWriterTest extends SolrTestCaseJ4{
 		assertFalse(d.hasDifferences());
 	}
 
-	public void addDocument(String corename, ArrayList<String> documentValues) throws IOException {
-		String xmlfilepath = MBXMLWriterTest.class.getResource(corename + ".xml").getFile();
-		byte[] content = Files.readAllBytes(Paths.get(xmlfilepath));
-		String xml = new String(content);
-		documentValues.add(0, xml);
-		documentValues.add(0, "_store");
+	/**
+	 * Add a document containing documentValues to the current core.
+	 * @param filename If not null, the files content will be added to the documents '_store' field.
+	 * @param documentValues
+	 * @throws IOException
+	 */
+	public void addDocument(String filename, ArrayList<String> documentValues) throws IOException {
+		if (filename != null) {
+			String xmlfilepath = MBXMLWriterTest.class.getResource(filename + ".xml").getFile();
+			byte[] content = Files.readAllBytes(Paths.get(xmlfilepath));
+			String xml = new String(content);
+			documentValues.add(0, xml);
+			documentValues.add(0, "_store");
+		}
 		assertU(adoc((documentValues.toArray(new String[documentValues.size()]))));
 		assertU(commit());
+	}
+
+	/**
+	 * Add a document containing documentValues to the current core.
+	 * @param documentValues
+	 * @throws IOException
+	 */
+	public void addDocument(ArrayList<String> documentValues) throws IOException {
+		addDocument(null, documentValues);
+	}
+
+	/**
+	 * Setup a new working core and add a document to it.
+	 * @param withStore If true, the document will include a '_store' field. If false, it won't.
+	 * @throws Exception
+	 */
+	public void prepareExceptionTest(Boolean withStore) throws Exception {
+		// artist could be any valid core name
+		initCore("solrconfig.xml", "schema.xml", "mbsssss", "artist");
+		ArrayList<String> doc = new ArrayList<String>(Arrays.asList(new String[]{
+				"mbid", "9b58672a-e68e-4972-956e-a8985a165a1f",
+				"artist", "Howard Shore",
+				"sortname", "Shore, Howard"}));
+		if (withStore) {
+			addDocument("artist", doc);
+		}
+		else {
+			addDocument(null, doc);
+		}
 	}
 
 	@After
@@ -80,13 +117,7 @@ public class MBXMLWriterTest extends SolrTestCaseJ4{
 	 * Check that a useful error message is shown to the user if 'score' is not in the field list.
 	 */
 	public void testNoScoreException() throws Exception {
-		// artist could be any valid core name
-		initCore("solrconfig.xml", "schema.xml", "mbsssss", "artist");
-		ArrayList<String> doc = new ArrayList<String>(Arrays.asList(new String[]{
-				"mbid",	"9b58672a-e68e-4972-956e-a8985a165a1f",
-				"artist", "Howard Shore",
-				"sortname", "Shore, Howard"}));
-		addDocument("artist", doc);
+		prepareExceptionTest(true);
 		thrown.expectMessage(MBXMLWriter.SCORE_NOT_IN_FIELD_LIST);
 		h.query(req("q", "*:*", "wt", "mbxml"));
 	}
@@ -95,15 +126,8 @@ public class MBXMLWriterTest extends SolrTestCaseJ4{
 	/**
 	 * Check that a useful error message is shown to the user if the document doesn't have a '_store' field.
 	 */
-	public void testNoStore() throws Exception {
-		// artist could be any valid core name
-		initCore("solrconfig.xml", "schema.xml", "mbsssss", "artist");
-		ArrayList<String> doc = new ArrayList<String>(Arrays.asList(new String[]{
-				"mbid",	"9b58672a-e68e-4972-956e-a8985a165a1f",
-				"artist", "Howard Shore",
-				"sortname", "Shore, Howard"}));
-		assertU(adoc(doc.toArray(new String[doc.size()])));
-		assertU(commit());
+	public void testNoStoreException() throws Exception {
+		prepareExceptionTest(false);
 		thrown.expectMessage(MBXMLWriter.NO_STORE_VALUE);
 		h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
 	}
