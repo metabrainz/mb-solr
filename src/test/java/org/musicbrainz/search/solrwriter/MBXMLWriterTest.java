@@ -53,6 +53,9 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 	}
 
 	@Test
+	/**
+	 * Check that the XML document returned is the same as the one we stored in the first place.
+	 */
 	public void performCoreTest() throws Exception {
 		addDocument(true);
 		String xmlfilepath;
