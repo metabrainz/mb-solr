@@ -59,6 +59,9 @@ public class MBXMLWriter implements QueryResponseWriter {
 	public static final String NO_STORE_VALUE = "The document didn't include a _store value";
 	public static final String STORE_NOT_A_STRING = "_store should be a string value but wasn't";
 	public static final String OBJECT_WITHOUT_SETSCORE = "Expected an object with a setScore method";
+	public static final String UNMARSHALLING_STORE_FAILED = "Unmarshalling the _store field of a document failed. The" +
+			" field contained the following value: ";
+
 	/**
 	 * The context used to (un-)serialize XML
 	 */
@@ -313,9 +316,9 @@ public class MBXMLWriter implements QueryResponseWriter {
 				unmarshalledObj = unmarshaller
 						.unmarshal(new ByteArrayInputStream(store.getBytes()));
 			} catch (JAXBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				continue;
+				// Propagate the error to the user. By simply repeating the same search without mbxml/mbjson response
+				// writer, we can figure out which document caused this.
+				throw new RuntimeException(UNMARSHALLING_STORE_FAILED + store);
 			}
 
 			/**

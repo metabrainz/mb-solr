@@ -29,14 +29,21 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 	/**
 	 * Add a document containing doc to the current core.
 	 * @param withStore whether the _store field should be populated with data
+	 * @param storeValue allows specifying the value for the _store field by setting it to a value different from null
 	 * @throws IOException
 	 */
-	public void addDocument(boolean withStore) throws IOException {
+	public void addDocument(boolean withStore, String storeValue) throws IOException {
 		ArrayList<String> values = new ArrayList<>(doc);
 		if (withStore) {
-			String xmlfilepath = MBXMLWriterTest.class.getResource(corename + ".xml").getFile();
-			byte[] content = Files.readAllBytes(Paths.get(xmlfilepath));
-			String xml = new String(content);
+			String xml;
+			if (storeValue != null) {
+				xml = storeValue;
+			}
+			else {
+				String xmlfilepath = MBXMLWriterTest.class.getResource(corename + ".xml").getFile();
+				byte[] content = Files.readAllBytes(Paths.get(xmlfilepath));
+				xml = new String(content);
+			}
 
 			values.add(0, xml);
 			values.add(0, "_store");
@@ -46,6 +53,10 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 		assertU(commit());
 	}
 
+
+	public void addDocument(boolean withStore) throws Exception {
+		addDocument(withStore, null);
+	}
 
 	@After
 	public void After () {
@@ -93,6 +104,17 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 	public void testNoStoreException() throws Exception {
 		addDocument(false);
 		thrown.expectMessage(MBXMLWriter.NO_STORE_VALUE);
+		h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
+	}
+
+	@Test
+	/**
+	 * Check that the expected error message is shown for documents with a '_store' field with a value that can't be
+	 * unmarshalled.
+	 */
+	public void testInvalidStoreException() throws Exception {
+		addDocument(true, "invalid");
+		thrown.expectMessage(MBXMLWriter.UNMARSHALLING_STORE_FAILED + "invalid");
 		h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
 	}
 }
