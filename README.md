@@ -23,7 +23,7 @@ And install the package:
 
 Clone the repository with Git:
 
-    git clone https://github.com/mineo/mb-solrquerywriter.git
+    git clone -r https://github.com/mineo/mb-solrquerywriter.git
 
 Navigate to the **mb-solrquerywriter** folder in a terminal and build a JAR
 file:
