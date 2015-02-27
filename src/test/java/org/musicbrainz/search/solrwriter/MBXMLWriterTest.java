@@ -78,9 +78,9 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 		xml = new String(content);
 
 		String response = h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
-		Source test = Input.fromMemory(response).build();
+		Source test = Input.fromString(response).build();
 
-		Diff d = DiffBuilder.compare(Input.fromMemory(xml)).withTest(test).build();
+		Diff d = DiffBuilder.compare(Input.fromString(xml)).withTest(test).build();
 		assertFalse(d.hasDifferences());
 	}
 
