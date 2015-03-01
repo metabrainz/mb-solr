@@ -83,3 +83,7 @@ At the moment, the
 [field list](https://cwiki.apache.org/confluence/display/solr/Common+Query+Parameters#CommonQueryParameters-Thefl)
 parameter of each query needs to include the **score** field for the code to
 work correctly.
+
+A branch of the MusicBrainz server that can query a Solr server with this
+QueryResponseWriter is available at
+[Bitbucket](https://bitbucket.org/mineo/musicbrainz-server/branch/solr-search).
