@@ -9,6 +9,7 @@ import org.junit.rules.ExpectedException;
 import org.xmlunit.builder.DiffBuilder;
 import org.xmlunit.builder.Input;
 import org.xmlunit.diff.Diff;
+import org.xmlunit.diff.Difference;
 
 import javax.xml.transform.Source;
 import java.io.IOException;
@@ -81,6 +82,11 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 		Source test = Input.fromString(response).build();
 
 		Diff d = DiffBuilder.compare(Input.fromString(xml)).withTest(test).build();
+		if (d.hasDifferences()) {
+			for (Difference diff : d.getDifferences()) {
+				System.err.println(diff.toString());
+			}
+		}
 		assertFalse(d.hasDifferences());
 	}
 
