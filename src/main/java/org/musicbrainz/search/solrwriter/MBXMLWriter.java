@@ -76,7 +76,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 	private entityTypes entityType = null;
 
 	private enum entityTypes {
-		annotation, artist, area, cdstub, editor, label, place, recording, release, release_group, tag, work;
+		annotation, artist, area, cdstub, editor, label, place, recording, release, release_group, series, tag, work;
 
 		public static entityTypes getType(String entityType) {
 			for (entityTypes et : entityTypes.values()) {
@@ -144,6 +144,10 @@ public class MBXMLWriter implements QueryResponseWriter {
 				MMDList = objectfactory.createReleaseGroupList();
 				objList = ((ReleaseGroupList) MMDList).getReleaseGroup();
 				break;
+			case series:
+				MMDList = objectfactory.createSeriesList();
+				objList = ((SeriesList) MMDList).getSeries();
+				break;
 			case tag:
 				MMDList = objectfactory.createTagList();
 				objList = ((TagList) MMDList).getTag();
@@ -205,6 +209,9 @@ public class MBXMLWriter implements QueryResponseWriter {
 				break;
 			case release_group:
 				metadata.setReleaseGroupList((ReleaseGroupList) MMDList);
+				break;
+			case series:
+				metadata.setSeriesList((SeriesList) MMDList);
 				break;
 			case tag:
 				metadata.setTagList((TagList) MMDList);
