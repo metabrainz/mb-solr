@@ -62,11 +62,13 @@ Valid values are:
 - area
 - artist
 - cdstub
+- editor
 - label
 - place
 - recording
 - release
 - release_group
+- series
 - tag
 - work
 
