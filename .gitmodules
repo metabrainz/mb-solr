@@ -1,3 +1,6 @@
 [submodule "mbsssss"]
 	path = mbsssss
-	url = https://github.com/jeffweeksio/mbsssss.git
+	url = https://github.com/jeffweeksio/mbsssss
+	branch = port-analysis-boost
+[submodule]
+	mbsssss = branch.port-analysis-boost
