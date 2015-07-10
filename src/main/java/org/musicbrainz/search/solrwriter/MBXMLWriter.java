@@ -130,8 +130,8 @@ public class MBXMLWriter implements QueryResponseWriter {
 					objList = ((EventList) MMDList).getEvent();
 					break;
 			case freedb:
-					MMDList = objectfactory.createFreedbList();
-					objList = ((FreedbList) MMDList).getFreedb();
+					MMDList = objectfactory.createFreedbDiscList();
+					objList = ((FreedbDiscList) MMDList).getFreedbDisc();
 					break;
   		case instrument:
 					MMDList = objectfactory.createInstrumentList();
@@ -216,7 +216,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 				metadata.setEventList((EventList) MMDList);
 				break;
 			case freedb:
-				metadata.setFreedbList((FreedbList) MMDList);
+				metadata.setFreedbDiscList((FreedbDiscList) MMDList);
 				break;
 			case instrument:
 				metadata.setInstrumentList((InstrumentList) MMDList);
