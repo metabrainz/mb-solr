@@ -1,21 +1,21 @@
 /*
  * Copyright (c) 2014, Wieland Hoffmann
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
- * 
+ *
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  * this list of conditions and the following disclaimer in the documentation and/or
  * other materials provided with the distribution.
- * 
+ *
  * 3. Neither the name of the copyright holder nor the names of its contributors
  * may be used to endorse or promote products derived from this software without
  * specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -76,7 +76,8 @@ public class MBXMLWriter implements QueryResponseWriter {
 	private entityTypes entityType = null;
 
 	private enum entityTypes {
-		annotation, artist, area, cdstub, editor, label, place, recording, release, release_group, series, tag, work;
+		annotation, artist, area, cdstub, editor, event, freedb, instrument, label, place, recording,
+		release, release_group, series, tag, work, url;
 
 		public static entityTypes getType(String entityType) {
 			for (entityTypes et : entityTypes.values()) {
@@ -124,6 +125,18 @@ public class MBXMLWriter implements QueryResponseWriter {
 				MMDList = objectfactory.createEditorList();
 				objList = ((EditorList) MMDList).getEditor();
 				break;
+			case event:
+					MMDList = objectfactory.createEventList();
+					objList = ((EventList) MMDList).getEvent();
+					break;
+			case freedb:
+					MMDList = objectfactory.createFreedbList();
+					objList = ((FreedbList) MMDList).getFreedb();
+					break;
+  		case instrument:
+					MMDList = objectfactory.createInstrumentList();
+					objList = ((InstrumentList) MMDList).getInstrument();
+					break;
 			case label:
 				MMDList = objectfactory.createLabelList();
 				objList = ((LabelList) MMDList).getLabel();
@@ -155,6 +168,10 @@ public class MBXMLWriter implements QueryResponseWriter {
 			case work:
 				MMDList = objectfactory.createWorkList();
 				objList = ((WorkList) MMDList).getWork();
+				break;
+			case url:
+				MMDList = objectfactory.createUrlList();
+				objList = ((UrlList) MMDList).getUrl();
 				break;
 			default:
 				// This should never happen because MBXMLWriters init method
@@ -195,6 +212,15 @@ public class MBXMLWriter implements QueryResponseWriter {
 			case editor:
 				metadata.setEditorList((EditorList) MMDList);
 				break;
+			case event:
+				metadata.setEventList((EventList) MMDList);
+				break;
+			case freedb:
+				metadata.setFreedbList((FreedbList) MMDList);
+				break;
+			case instrument:
+				metadata.setInstrumentList((InstrumentList) MMDList);
+				break;
 			case label:
 				metadata.setLabelList((LabelList) MMDList);
 				break;
@@ -218,6 +244,9 @@ public class MBXMLWriter implements QueryResponseWriter {
 				break;
 			case work:
 				metadata.setWorkList((WorkList) MMDList);
+				break;
+			case url:
+				metadata.setUrlList((UrlList) MMDList);
 				break;
 			default:
 				// This should never happen because MBXMLWriters init method
