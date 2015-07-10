@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, Wieland Hoffmann
+ * Copyright (c) 2014-2015, Wieland Hoffmann and Jeff Weeks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
