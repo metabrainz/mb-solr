@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class MBXMLWriterPlaceTest extends MBXMLWriterTest {
 	static {
 		corename = "place";
-		doc = new ArrayList<>(Arrays.asList(new String[]{
+		doc = new ArrayList<String>(Arrays.asList(new String[]{
 				"mbid", uuid,
 				"place", "Ilmbühne"}));
 	}
