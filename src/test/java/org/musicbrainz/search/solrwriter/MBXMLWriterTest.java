@@ -49,6 +49,8 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 					fileInputStream = new FileInputStream(file);
 					fileInputStream.read(content);
 					fileInputStream.close();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 				xml = new String(content);
 			}
@@ -89,6 +91,9 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 			fileInputStream = new FileInputStream(file);
 			fileInputStream.read(content);
 			fileInputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		xml = new String(content);
 
 		String response = h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
