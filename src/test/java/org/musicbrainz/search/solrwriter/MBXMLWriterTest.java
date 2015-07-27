@@ -86,6 +86,7 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 		xmlfilepath = MBXMLWriterTest.class.getResource(corename + "-list.xml").getFile();
 		File file = new File(xmlfilepath);
 		FileInputStream fileInputStream = null;
+		content = new byte[(int) file.length()];
 		try {
 			fileInputStream = new FileInputStream(file);
 			fileInputStream.read(content);
