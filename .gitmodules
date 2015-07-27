@@ -2,4 +2,4 @@
 [submodule "mbsssss"]
 	path = mbsssss
 	url = http://github.com/jeffweeksio/mbsssss
-	branch = master
+	branch = origin
