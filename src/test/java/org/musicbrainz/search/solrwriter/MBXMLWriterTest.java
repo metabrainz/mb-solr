@@ -13,8 +13,8 @@ import org.xmlunit.diff.Difference;
 
 import javax.xml.transform.Source;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import com.google.common.io.Files;
 import java.util.ArrayList;
 
 public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
@@ -42,7 +42,14 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 			}
 			else {
 				String xmlfilepath = MBXMLWriterTest.class.getResource(corename + ".xml").getFile();
-				byte[] content = Files.toByteArray(File(xmlfilepath));
+				File file = new File(xmlfilepath);
+				FileInputStream fileInputStream = null;
+				byte[] content = new byte[(int) file.length()];
+				try {
+					fileInputStream = new FileInputStream(file);
+					fileInputStream.read(content);
+					fileInputStream.close();
+				}
 				xml = new String(content);
 			}
 
@@ -75,7 +82,13 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 		String xml;
 
 		xmlfilepath = MBXMLWriterTest.class.getResource(corename + "-list.xml").getFile();
-		content = Files.toByteArray(File(xmlfilepath));
+		File file = new File(xmlfilepath);
+		FileInputStream fileInputStream = null;
+		byte[] content = new byte[(int) file.length()];
+		try {
+			fileInputStream = new FileInputStream(file);
+			fileInputStream.read(content);
+			fileInputStream.close();
 		xml = new String(content);
 
 		String response = h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
