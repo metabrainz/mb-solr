@@ -34,7 +34,7 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 	 * @throws IOException
 	 */
 	public void addDocument(boolean withStore, String storeValue) throws IOException {
-		ArrayList<String> values = new ArrayList<String>(doc);
+		ArrayList<String> values = new ArrayList<>(doc);
 		if (withStore) {
 			String xml;
 			if (storeValue != null) {
@@ -124,3 +124,4 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 		h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
 	}
 }
+

@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class MBXMLWriterRecordingTest extends MBXMLWriterTest {
 	static {
 		corename = "recording";
-		doc = new ArrayList<String>(Arrays.asList(new String[]{
+		doc = new ArrayList<>(Arrays.asList(new String[]{
 				"mbid", uuid,
 				"recording", "Roots and Beginnings",
 				"name", "Roots and Beginnings",

@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class MBXMLWriterReleaseTest extends MBXMLWriterTest{
 	static {
 		corename = "release";
-		doc = new ArrayList<String>(Arrays.asList(new String[]{
+		doc = new ArrayList<>(Arrays.asList(new String[]{
 				"mbid", uuid,
 				"artist", "Chiptunes = WIN \\m|♥|m/",
 				"artistname", "Chiptunes = WIN \\m|♥|m/",
