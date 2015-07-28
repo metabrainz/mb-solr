@@ -12,9 +12,9 @@ import org.xmlunit.diff.Diff;
 import org.xmlunit.diff.Difference;
 
 import javax.xml.transform.Source;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
@@ -34,7 +34,7 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 	 * @throws IOException
 	 */
 	public void addDocument(boolean withStore, String storeValue) throws IOException {
-		ArrayList<String> values = new ArrayList<>(doc);
+		ArrayList<String> values = new ArrayList<String>(doc);
 		if (withStore) {
 			String xml;
 			if (storeValue != null) {
@@ -42,7 +42,16 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 			}
 			else {
 				String xmlfilepath = MBXMLWriterTest.class.getResource(corename + ".xml").getFile();
-				byte[] content = Files.readAllBytes(Paths.get(xmlfilepath));
+				File file = new File(xmlfilepath);
+				FileInputStream fileInputStream = null;
+				byte[] content = new byte[(int) file.length()];
+				try {
+					fileInputStream = new FileInputStream(file);
+					fileInputStream.read(content);
+					fileInputStream.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				xml = new String(content);
 			}
 
@@ -75,7 +84,16 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 		String xml;
 
 		xmlfilepath = MBXMLWriterTest.class.getResource(corename + "-list.xml").getFile();
-		content = Files.readAllBytes(Paths.get(xmlfilepath));
+		File file = new File(xmlfilepath);
+		FileInputStream fileInputStream = null;
+		content = new byte[(int) file.length()];
+		try {
+			fileInputStream = new FileInputStream(file);
+			fileInputStream.read(content);
+			fileInputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		xml = new String(content);
 
 		String response = h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
@@ -124,4 +142,3 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 		h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
 	}
 }
-

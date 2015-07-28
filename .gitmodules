@@ -1,5 +1,5 @@
 
 [submodule "mbsssss"]
 	path = mbsssss
-	url = http://github.com/jeffweeksio/mbsssss
-	branch = origin
+	url = https://github.com/jeffweeksio/mbsssss.git
+	branch = master
