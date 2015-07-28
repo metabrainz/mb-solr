@@ -13,8 +13,8 @@ import org.xmlunit.diff.Difference;
 
 import javax.xml.transform.Source;
 import java.io.IOException;
-import com.google.guava.guava-gwt.nio.file.Files;
-import com.google.guava.guava-gwt.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
