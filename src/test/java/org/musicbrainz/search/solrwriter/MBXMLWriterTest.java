@@ -14,7 +14,6 @@ import org.xmlunit.diff.Difference;
 import javax.xml.transform.Source;
 import java.io.IOException;
 import com.google.common.io.Files;
-import com.google.common.io.Resources;
 import java.util.ArrayList;
 
 public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
@@ -42,7 +41,7 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 			}
 			else {
 				String xmlfilepath = MBXMLWriterTest.class.getResource(corename + ".xml").getFile();
-				byte[] content = Files.toByteArray(Resources.getResource(xmlfilepath));
+				byte[] content = Files.toByteArray(xmlfilepath);
 				xml = new String(content);
 			}
 
@@ -75,7 +74,7 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 		String xml;
 
 		xmlfilepath = MBXMLWriterTest.class.getResource(corename + "-list.xml").getFile();
-		content = Files.toByteArray(Resources.getResource(xmlfilepath));
+		content = Files.toByteArray(xmlfilepath);
 		xml = new String(content);
 
 		String response = h.query(req("q", "*:*", "fl", "score", "wt", "mbxml"));
