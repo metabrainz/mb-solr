@@ -186,9 +186,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 						BigInteger.class);
 				setOffsetMethod = MMDList.getClass().getMethod("setOffset",
 						BigInteger.class);
-			} catch (NoSuchMethodException e) {
-				throw new RuntimeException(e);
-			} catch (SecurityException e) {
+			} catch (NoSuchMethodException | SecurityException e) {
 				throw new RuntimeException(e);
 			}
 		}
@@ -263,11 +261,8 @@ public class MBXMLWriter implements QueryResponseWriter {
 			try {
 				setCountMethod.invoke(MMDList, BigInteger.valueOf(count));
 				setOffsetMethod.invoke(MMDList, BigInteger.valueOf(offset));
-			} catch (IllegalAccessException e) {
-				throw new RuntimeException(e);
-			} catch (IllegalArgumentException e) {
-				throw new RuntimeException(e);
-			} catch (InvocationTargetException e) {
+			} catch (IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
 				throw new RuntimeException(e);
 			}
 		}
