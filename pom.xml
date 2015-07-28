@@ -71,14 +71,6 @@
 			<version>2.5.3-RC1</version>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
-=======
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava-gwt</artifactId>
-			<version>18.0</version>
-		</dependency>
-		<dependency>
->>>>>>> parent of c038f8e... replaced java.nio.file* with com.google.guava.guava-io* for JVM 1.6 compatibility
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-test-framework</artifactId>
 			<version>5.2.0</version>

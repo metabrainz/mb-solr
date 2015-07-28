@@ -14,8 +14,13 @@ import org.xmlunit.diff.Difference;
 import javax.xml.transform.Source;
 import java.io.IOException;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.nio.file.Files;
 import java.nio.file.Paths;
+=======
+import com.google.guava.guava-gwt.nio.file.Files;
+import com.google.guava.guava-gwt.nio.file.Paths;
+>>>>>>> parent of c038f8e... replaced java.nio.file* with com.google.guava.guava-io* for JVM 1.6 compatibility
 =======
 import com.google.guava.guava-gwt.nio.file.Files;
 import com.google.guava.guava-gwt.nio.file.Paths;
