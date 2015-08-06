@@ -76,7 +76,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 	private entityTypes entityType = null;
 
 	private enum entityTypes {
-		annotation, artist, area, cdstub, editor, event, freedb, instrument, label, place, recording,
+		annotation, artist, area, cdstub, editor, event, instrument, label, place, recording,
 		release, release_group, series, tag, work, url;
 
 		public static entityTypes getType(String entityType) {
@@ -128,10 +128,6 @@ public class MBXMLWriter implements QueryResponseWriter {
 			case event:
 					MMDList = objectfactory.createEventList();
 					objList = ((EventList) MMDList).getEvent();
-					break;
-			case freedb:
-					MMDList = objectfactory.createFreedbDiscList();
-					objList = ((FreedbDiscList) MMDList).getFreedbDisc();
 					break;
   		case instrument:
 					MMDList = objectfactory.createInstrumentList();
@@ -214,9 +210,6 @@ public class MBXMLWriter implements QueryResponseWriter {
 				break;
 			case event:
 				metadata.setEventList((EventList) MMDList);
-				break;
-			case freedb:
-				metadata.setFreedbDiscList((FreedbDiscList) MMDList);
 				break;
 			case instrument:
 				metadata.setInstrumentList((InstrumentList) MMDList);
