@@ -1,3 +1,5 @@
+
 [submodule "mbsssss"]
 	path = mbsssss
-	url = https://github.com/mineo/mbsssss
+	url = https://github.com/jeffweeksio/mbsssss.git
+	branch = master
