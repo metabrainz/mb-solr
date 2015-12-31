@@ -63,6 +63,9 @@ Valid values are:
 - artist
 - cdstub
 - editor
+- event
+- freedb
+- instrument
 - label
 - place
 - recording
@@ -71,9 +74,10 @@ Valid values are:
 - series
 - tag
 - work
+- url
 
 Now the core needs to be reloaded.
-After that, two new values for the 
+After that, two new values for the
 [wt paramter](https://cwiki.apache.org/confluence/display/solr/Response+Writers)
 are available:
 
