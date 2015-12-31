@@ -126,13 +126,13 @@ public class MBXMLWriter implements QueryResponseWriter {
 				objList = ((EditorList) MMDList).getEditor();
 				break;
 			case event:
-					MMDList = objectfactory.createEventList();
-					objList = ((EventList) MMDList).getEvent();
-					break;
-  		case instrument:
-					MMDList = objectfactory.createInstrumentList();
-					objList = ((InstrumentList) MMDList).getInstrument();
-					break;
+				MMDList = objectfactory.createEventList();
+				objList = ((EventList) MMDList).getEvent();
+				break;
+  			case instrument:
+				MMDList = objectfactory.createInstrumentList();
+				objList = ((InstrumentList) MMDList).getInstrument();
+				break;
 			case label:
 				MMDList = objectfactory.createLabelList();
 				objList = ((LabelList) MMDList).getLabel();
