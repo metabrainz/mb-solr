@@ -93,16 +93,16 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 
-	//@Test
+	@Test
 	/**
 	 * Check that a useful error message is shown to the user if 'score' is not in the field list.
-	 * REMOVED BECAUSE SCORE IS NOW ADDED TO THE FIELD LIST VIA REQUEST HANDLER
+	 * @TODO Automatically add 'score' via the (default) field list
 	 */
-	//public void testNoScoreException() throws Exception {
-	//	addDocument(true);
-	//	thrown.expectMessage(MBXMLWriter.SCORE_NOT_IN_FIELD_LIST);
-	//	h.query(req("q", "*:*", "wt", "mbxml"));
-	//}
+	public void testNoScoreException() throws Exception {
+		addDocument(true);
+		thrown.expectMessage(MBXMLWriter.SCORE_NOT_IN_FIELD_LIST);
+		h.query(req("q", "*:*", "wt", "mbxml"));
+	}
 
 	@Test
 	/**
