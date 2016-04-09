@@ -512,7 +512,7 @@
                 <xml-element java-attribute="locale" name="locale" nillable="true"/>
                 <xml-element java-attribute="type" name="type" nillable="true"/>
                 <xml-element java-attribute="primary" nillable="true">
-                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.BooleanStringAdapter"/>
+                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.BooleanAliasTypeAdapter"/>
                 </xml-element>
             </java-attributes>
         </java-type>
