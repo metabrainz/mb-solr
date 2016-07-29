@@ -30,12 +30,12 @@
 package org.musicbrainz.search.analysis;
 
 import org.apache.lucene.index.FieldInvertState;
-import org.apache.lucene.search.similarities.DefaultSimilarity;
+import org.apache.lucene.search.similarities.ClassicSimilarity;
 
 /**
  * Calculates a score for a match, overridden to deal with problems with alias fields in artist and label indexes
  */
-public class AliasSimilarity extends DefaultSimilarity
+public class AliasSimilarity extends ClassicSimilarity
 {
    /**
      * Calculates a value which is inversely proportional to the number of terms in the field. When multiple

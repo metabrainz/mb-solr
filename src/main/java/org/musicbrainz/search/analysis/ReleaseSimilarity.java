@@ -30,7 +30,7 @@
 package org.musicbrainz.search.analysis;
 
 import org.apache.lucene.index.FieldInvertState;
-import org.apache.lucene.search.similarities.DefaultSimilarity;
+import org.apache.lucene.search.similarities.ClassicSimilarity;
 
 /**
  * Calculates a score for a match, overridden to deal with problems with recordings and
@@ -41,7 +41,7 @@ import org.apache.lucene.search.similarities.DefaultSimilarity;
  *
  */
 
-public class ReleaseSimilarity extends DefaultSimilarity
+public class ReleaseSimilarity extends ClassicSimilarity
 {
     /**
      * Calculates a value which is inversely proportional to the number of terms in the field. When multiple
@@ -74,7 +74,7 @@ public class ReleaseSimilarity extends DefaultSimilarity
      * However if a release group contains many releases all withe same name, then release groups linked to
      * multiple releases would have an unfair advantage.
      *
-     * The default computeNorm method would cancel out this advantage,  but we don't calculate the norms for the
+     * The Classic computeNorm method would cancel out this advantage,  but we don't calculate the norms for the
      * releaseName field because that could give a disadvantage
      *
      * @param freq

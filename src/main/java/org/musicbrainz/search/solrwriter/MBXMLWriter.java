@@ -325,13 +325,13 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		ResultContext con = (ResultContext) vals.get("response");
 
-		metadatalistwrapper.setCountAndOffset(con.docs.matches(),
-				con.docs.offset());
+		metadatalistwrapper.setCountAndOffset(con.getDocList().matches(),
+				con.getDocList().offset());
 
 		List xmlList = metadatalistwrapper.getLiveList();
 
-		float maxScore = con.docs.maxScore();
-		DocIterator iter = con.docs.iterator();
+		float maxScore = con.getDocList().maxScore();
+		DocIterator iter = con.getDocList().iterator();
 
 		while (iter.hasNext()) {
 			String store;
