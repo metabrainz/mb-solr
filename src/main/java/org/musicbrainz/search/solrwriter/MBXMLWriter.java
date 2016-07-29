@@ -50,6 +50,7 @@ import org.apache.solr.common.util.NamedList;
 import org.apache.solr.request.SolrQueryRequest;
 import org.apache.solr.response.*;
 import org.apache.solr.search.DocIterator;
+import org.apache.solr.search.DocList;
 import org.musicbrainz.mmd2.*;
 
 public class MBXMLWriter implements QueryResponseWriter {
@@ -324,14 +325,15 @@ public class MBXMLWriter implements QueryResponseWriter {
 		NamedList vals = res.getValues();
 
 		ResultContext con = (ResultContext) vals.get("response");
+		DocList doclist = con.getDocList();
 
-		metadatalistwrapper.setCountAndOffset(con.getDocList().matches(),
-				con.getDocList().offset());
+		metadatalistwrapper.setCountAndOffset(doclist.matches(),
+				doclist.offset());
 
 		List xmlList = metadatalistwrapper.getLiveList();
 
-		float maxScore = con.getDocList().maxScore();
-		DocIterator iter = con.getDocList().iterator();
+		float maxScore = doclist.maxScore();
+		DocIterator iter = doclist.iterator();
 
 		while (iter.hasNext()) {
 			String store;
