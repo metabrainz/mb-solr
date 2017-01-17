@@ -96,7 +96,6 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 	@Test
 	/**
 	 * Check that a useful error message is shown to the user if 'score' is not in the field list.
-	 * @TODO Automatically add 'score' via the (default) field list
 	 */
 	public void testNoScoreException() throws Exception {
 		addDocument(true);
