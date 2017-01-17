@@ -101,7 +101,7 @@ public abstract class MBXMLWriterTest extends SolrTestCaseJ4{
 	public void testNoScoreException() throws Exception {
 		addDocument(true);
 		thrown.expectMessage(MBXMLWriter.SCORE_NOT_IN_FIELD_LIST);
-		h.query(req("q", "*:*", "wt", "mbxml"));
+		h.query(req("q", "*:*", "fl", "*", "wt", "mbxml"));
 	}
 
 	@Test
