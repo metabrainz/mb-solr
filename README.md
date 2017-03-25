@@ -91,5 +91,5 @@ parameter of each query needs to include the **score** field for the code to
 work correctly.
 
 A branch of the MusicBrainz server that can query a Solr server with this
-QueryResponseWriter is available at
-[Bitbucket](https://bitbucket.org/mineo/musicbrainz-server/branch/solr-search).
+QueryResponseWriter is available on
+[GitHub](https://github.com/mineo/musicbrainz-server/tree/solr-search).
