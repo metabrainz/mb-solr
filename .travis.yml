@@ -1,0 +1,10 @@
+language: java
+jdk:
+  - oraclejdk8
+cache:
+  directories:
+    - $HOME/.m2
+before_install:
+  - pushd mmd-schema/brainz-mmd2-jaxb
+  - mvn -DskipTests install
+  - popd
