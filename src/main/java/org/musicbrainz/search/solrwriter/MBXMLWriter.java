@@ -304,7 +304,6 @@ public class MBXMLWriter implements QueryResponseWriter {
 			setScoreMethod = object.getClass().getMethod("setScore",
 					String.class);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			throw new RuntimeException(
 					OBJECT_WITHOUT_SETSCORE);
 		}
@@ -389,7 +388,6 @@ public class MBXMLWriter implements QueryResponseWriter {
 		try {
 			marshaller.marshal(metadatalistwrapper.getCompletedMetadata(), sw);
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return;
 		}
