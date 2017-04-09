@@ -39,6 +39,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -80,14 +81,13 @@ public class MBXMLWriter implements QueryResponseWriter {
 		annotation, artist, area, cdstub, editor, event, instrument, label, place, recording,
 		release, release_group, series, tag, work, url;
 
-		public static entityTypes getType(String entityType) {
+		public static Optional<entityTypes> getType(String entityType) {
 			for (entityTypes et : entityTypes.values()) {
 				if (et.name().equalsIgnoreCase(entityType)) {
-					return et;
+					return Optional.of(et);
 				}
 			}
-			throw new IllegalArgumentException(entityType
-					+ " is not a valid entity type");
+			return Optional.empty();
 		}
 	}
 
@@ -288,13 +288,10 @@ public class MBXMLWriter implements QueryResponseWriter {
 		 * Check for which entity type we're generating responses
 		 */
 		objectfactory = new ObjectFactory();
-		Object entityTypeTemp = initArgs.get("entitytype");
-
-		if (entityTypeTemp == null) {
-			throw new RuntimeException("no entitytype given");
-		} else {
-			entityType = entityTypes.getType((String) entityTypeTemp);
-		}
+		entityType = Optional.ofNullable(initArgs.get("entitytype"))
+				.map(String::valueOf)
+				.flatMap(entityTypes::getType)
+				.orElseThrow(() -> new RuntimeException("no valid entitytype given"));
 	}
 
 	private static void adjustScore(float maxScore, Object object,
