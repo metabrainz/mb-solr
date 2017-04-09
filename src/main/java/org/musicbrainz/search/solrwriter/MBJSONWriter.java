@@ -51,7 +51,7 @@ public class MBJSONWriter extends MBXMLWriter {
 	 */
 	private JAXBContext jsonContext = null;
 
-	private JAXBContext createJAXBJSONContext() throws JAXBException {
+	private JAXBContext createJAXBJSONContext() {
 		try {
 			Map<String, Object> properties = new HashMap<String, Object>(3);
 			properties.put(JAXBContextProperties.OXM_METADATA_SOURCE,
