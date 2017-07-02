@@ -333,7 +333,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		while (iter.hasNext()) {
 			String store;
-			Integer id = iter.nextDoc();
+			int id = iter.nextDoc();
 			Document doc = req.getSearcher().doc(id);
 			try {
 				store = doc.getField("_store").stringValue();
