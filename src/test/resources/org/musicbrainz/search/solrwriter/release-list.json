@@ -1,0 +1,99 @@
+{
+    "count": 1,
+    "offset": 0,
+    "releases": [
+        {
+            "id": "871f12ec-6259-4e93-b440-9108559c38b1",
+            "score": "100",
+            "count": 1,
+            "title": "Chiptunes = WIN \\m|♥|m/",
+            "status": {
+                "name": "Official"
+            },
+            "packaging": "None",
+            "text-representation": {
+                "language": "eng",
+                "script": "Latn"
+            },
+            "artist-credit": [
+                {
+                    "artist": {
+                        "id": "2b542c4a-694a-49b9-b475-9f55f99436a1",
+                        "name": "Chiptunes = WIN \\m|♥|m/",
+                        "sort-name": "Chiptunes = WIN \\m|♥|m/",
+                        "aliases": [
+                            {
+                                "sort-name": "Chiptunes = WIN",
+                                "name": "Chiptunes = WIN",
+                                "locale": null,
+                                "type": null,
+                                "primary": null,
+                                "begin-date": null,
+                                "end-date": null
+                            }
+                        ]
+                    }
+                }
+            ],
+            "release-group": {
+                "id": "268d91a0-1a7f-4600-bfd4-74d738eb7de4",
+                "primary-type": {
+                    "name": "Album"
+                },
+                "secondary-types": [
+                    {
+                        "name": "Compilation"
+                    }
+                ]
+            },
+            "date": "2012-06-05",
+            "country": "XW",
+            "release-events": [
+                {
+                    "date": "2012-06-05",
+                    "area": {
+                        "id": "525d4e18-3d00-31b9-a58b-a146a916de8f",
+                        "name": "[Worldwide]",
+                        "sort-name": "[Worldwide]",
+                        "iso-3166-1-codes": [
+                            "XW"
+                        ]
+                    }
+                }
+            ],
+            "barcode": "",
+            "label-info": [
+                {
+                    "label": {
+                        "id": "7669cf9a-7328-44cf-96ba-b2dc9d534ed8",
+                        "name": "Chiptunes = WIN \\m|♥|m/"
+                    }
+                }
+            ],
+            "track-count": 51,
+            "media": [
+                {
+                    "format": {
+                        "name": "Digital Media"
+                    },
+                    "disc-count": 0,
+                    "track-count": 51
+                }
+            ],
+            "tags": [
+                {
+                    "count": 1,
+                    "name": "bitunes"
+                },
+                {
+                    "count": 1,
+                    "name": "bandcamp"
+                },
+                {
+                    "count": 2,
+                    "name": "chiptunes"
+                }
+            ]
+        }
+    ]
+}

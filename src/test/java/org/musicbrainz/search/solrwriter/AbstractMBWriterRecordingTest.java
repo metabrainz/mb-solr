@@ -3,10 +3,10 @@ package org.musicbrainz.search.solrwriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MBXMLWriterRecordingTest extends MBXMLWriterTest {
-	static {
-		corename = "recording";
-		doc = new ArrayList<>(Arrays.asList(new String[]{
+public abstract class AbstractMBWriterRecordingTest extends AbstractMBWriterTest {
+	@Override
+	public ArrayList<String> getDoc() {
+		return new ArrayList<>(Arrays.asList(new String[]{
 				"mbid", uuid,
 				"recording", "Roots and Beginnings",
 				"name", "Roots and Beginnings",

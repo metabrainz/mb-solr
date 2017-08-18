@@ -1,0 +1,168 @@
+{
+    "count": 1,
+    "offset": 0,
+    "recordings": [
+        {
+            "id": "3e0bdde6-74e0-46d4-855a-4493589fd6b2",
+            "score": "100",
+            "title": "Roots and Beginnings",
+            "length": 391000,
+            "video": null,
+            "artist-credit": [
+                {
+                    "artist": {
+                        "id": "9b58672a-e68e-4972-956e-a8985a165a1f",
+                        "name": "Howard Shore",
+                        "sort-name": "Shore, Howard",
+                        "aliases": [
+                            {
+                                "sort-name": "Howard Shaw",
+                                "name": "Howard Shaw",
+                                "locale": null,
+                                "type": null,
+                                "primary": null,
+                                "begin-date": null,
+                                "end-date": null
+                            },
+                            {
+                                "sort-name": "H. Shore",
+                                "name": "H. Shore",
+                                "locale": null,
+                                "type": null,
+                                "primary": null,
+                                "begin-date": null,
+                                "end-date": null
+                            },
+                            {
+                                "sort-name": "Shore",
+                                "name": "Shore",
+                                "locale": null,
+                                "type": null,
+                                "primary": null,
+                                "begin-date": null,
+                                "end-date": null
+                            }
+                        ]
+                    }
+                }
+            ],
+            "releases": [
+                {
+                    "id": "e7fe61ca-65b8-4abb-8723-1e7c1a5e0a49",
+                    "title": "The Lord of the Rings: The Return of the King: The Complete Recordings",
+                    "status": {
+                        "name": "Official"
+                    },
+                    "release-group": {
+                        "id": "f5fd971c-a1a2-33da-95b0-473e0176df83",
+                        "primary-type": {
+                            "name": "Album"
+                        },
+                        "secondary-types": [
+                            {
+                                "name": "Soundtrack"
+                            }
+                        ]
+                    },
+                    "date": "2007-11-20",
+                    "country": "US",
+                    "release-events": [
+                        {
+                            "date": "2007-11-20",
+                            "area": {
+                                "id": "489ce91b-6658-3307-9877-795b68554c98",
+                                "name": "United States",
+                                "sort-name": "United States",
+                                "iso-3166-1-codes": [
+                                    "US"
+                                ]
+                            }
+                        }
+                    ],
+                    "track-count": 106,
+                    "media": [
+                        {
+                            "position": 1,
+                            "format": {
+                                "name": "CD"
+                            },
+                            "track": [
+                                {
+                                    "id": "fc51bf50-c329-3d93-bb1b-e4f55cf00db8",
+                                    "number": "1",
+                                    "title": "Roots and Beginnings",
+                                    "length": 391000
+                                }
+                            ],
+                            "track-count": 15,
+                            "track-offset": 0
+                        }
+                    ]
+                },
+                {
+                    "id": "e7fe61ca-65b8-4abb-8723-1e7c1a5e0a49",
+                    "title": "The Lord of the Rings: The Return of the King: The Complete Recordings",
+                    "status": {
+                        "name": "Official"
+                    },
+                    "release-group": {
+                        "id": "f5fd971c-a1a2-33da-95b0-473e0176df83",
+                        "primary-type": {
+                            "name": "Album"
+                        },
+                        "secondary-types": [
+                            {
+                                "name": "Soundtrack"
+                            }
+                        ]
+                    },
+                    "date": "2007-11-20",
+                    "country": "US",
+                    "release-events": [
+                        {
+                            "date": "2007-11-20",
+                            "area": {
+                                "id": "489ce91b-6658-3307-9877-795b68554c98",
+                                "name": "United States",
+                                "sort-name": "United States",
+                                "iso-3166-1-codes": [
+                                    "US"
+                                ]
+                            }
+                        }
+                    ],
+                    "track-count": 106,
+                    "media": [
+                        {
+                            "position": 5,
+                            "format": {
+                                "name": "DVD"
+                            },
+                            "track": [
+                                {
+                                    "id": "af77973d-3ca5-38e3-89ff-c742c94f59af",
+                                    "number": "1",
+                                    "title": "Roots and Beginnings",
+                                    "length": 391000
+                                }
+                            ],
+                            "track-count": 53,
+                            "track-offset": 0
+                        }
+                    ]
+                }
+            ],
+            "isrcs": [
+                {
+                    "id": "USRE10701410"
+                }
+            ],
+            "tags": [
+                {
+                    "count": 2,
+                    "name": "soundtrack"
+                }
+            ]
+        }
+    ]
+}

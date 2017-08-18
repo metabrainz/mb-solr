@@ -1,0 +1,59 @@
+{
+    "count": 1,
+    "offset": 0,
+    "areas": [
+        {
+            "id": "ff2ee1ad-febe-4b48-8999-e77870b62744",
+            "type": "Subdivision",
+            "score": "100",
+            "name": "Thüringen",
+            "sort-name": "Thüringen",
+            "iso-3166-2-codes": [
+                "DE-TH"
+            ],
+            "life-span": {
+                "ended": null
+            },
+            "aliases": [
+                {
+                    "sort-name": "Thüringen",
+                    "name": "Thüringen",
+                    "locale": "de",
+                    "type": "Area name",
+                    "primary": true,
+                    "begin-date": null,
+                    "end-date": null
+                },
+                {
+                    "sort-name": "Thuringia",
+                    "name": "Thuringia",
+                    "locale": "en",
+                    "type": "Area name",
+                    "primary": true,
+                    "begin-date": null,
+                    "end-date": null
+                }
+            ],
+            "relation-list": [
+                {
+                    "relations": [
+                        {
+                            "type": "part of",
+                            "type-id": "de7cc874-8b1b-3a05-8272-f3834c968fb7",
+                            "target": {
+                                "name": "85752fda-13c4-31a3-bee5-0e5cb1f51dad"
+                            },
+                            "direction": "backward",
+                            "area": {
+                                "id": "85752fda-13c4-31a3-bee5-0e5cb1f51dad",
+                                "type": "Country",
+                                "name": "Germany",
+                                "sort-name": "Germany"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

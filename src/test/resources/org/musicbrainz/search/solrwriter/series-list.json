@@ -1,0 +1,33 @@
+{
+    "count": 1,
+    "offset": 0,
+    "series": [
+        {
+            "id": "d271a712-90a9-43fb-9470-3151ebb9389a",
+            "type": "Release",
+            "score": "100",
+            "name": "The World Roots Music Library",
+            "disambiguation": "2008",
+            "aliases": [
+                {
+                    "sort-name": "ザ・ワールド・ルーツ・ミュージック・ライブラリー",
+                    "name": "ザ・ワールド・ルーツ・ミュージック・ライブラリー",
+                    "locale": "ja",
+                    "type": "Series name",
+                    "primary": true,
+                    "begin-date": null,
+                    "end-date": null
+                },
+                {
+                    "sort-name": "World Roots Music Library, The",
+                    "name": "The World Roots Music Library",
+                    "locale": "en",
+                    "type": "Series name",
+                    "primary": true,
+                    "begin-date": null,
+                    "end-date": null
+                }
+            ]
+        }
+    ]
+}

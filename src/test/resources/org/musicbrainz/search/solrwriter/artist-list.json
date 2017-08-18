@@ -1,0 +1,102 @@
+{
+    "count": 1,
+    "offset": 0,
+    "artists": [
+        {
+            "id": "9b58672a-e68e-4972-956e-a8985a165a1f",
+            "type": "Person",
+            "score": "100",
+            "count": 10,
+            "name": "Howard Shore",
+            "sort-name": "Shore, Howard",
+            "country": "CA",
+            "area": {
+                "id": "71bbafaa-e825-3e15-8ca9-017dcad1748b",
+                "name": "Canada",
+                "sort-name": "Canada"
+            },
+            "begin-area": {
+                "id": "74b24e62-d2fe-42d2-9d96-31f2da756c77",
+                "name": "Toronto",
+                "sort-name": "Toronto"
+            },
+            "disambiguation": "",
+            "life-span": {
+                "begin": "1946-10-18",
+                "end": "",
+                "ended": null
+            },
+            "aliases": [
+                {
+                    "sort-name": "Shore",
+                    "name": "Shore",
+                    "locale": null,
+                    "type": null,
+                    "primary": null,
+                    "begin-date": null,
+                    "end-date": null
+                },
+                {
+                    "sort-name": "Howard Shaw",
+                    "name": "Howard Shaw",
+                    "locale": null,
+                    "type": null,
+                    "primary": null,
+                    "begin-date": null,
+                    "end-date": null
+                },
+                {
+                    "sort-name": "H. Shore",
+                    "name": "H. Shore",
+                    "locale": null,
+                    "type": null,
+                    "primary": null,
+                    "begin-date": null,
+                    "end-date": null
+                }
+            ],
+            "tags": [
+                {
+                    "count": 1,
+                    "name": "lord of the rings"
+                },
+                {
+                    "count": 2,
+                    "name": "classical"
+                },
+                {
+                    "count": 2,
+                    "name": "canadian"
+                },
+                {
+                    "count": 1,
+                    "name": "film composer"
+                },
+                {
+                    "count": 1,
+                    "name": "score"
+                },
+                {
+                    "count": 1,
+                    "name": "academy award winner"
+                },
+                {
+                    "count": 1,
+                    "name": "easy listening soundtracks and musicals"
+                },
+                {
+                    "count": 2,
+                    "name": "soundtrack"
+                },
+                {
+                    "count": 1,
+                    "name": "howard"
+                },
+                {
+                    "count": 1,
+                    "name": "shore"
+                }
+            ]
+        }
+    ]
+}

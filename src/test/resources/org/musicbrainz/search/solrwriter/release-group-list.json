@@ -1,0 +1,45 @@
+{
+    "count": 1,
+    "offset": 0,
+    "release-groups": [
+        {
+            "id": "268d91a0-1a7f-4600-bfd4-74d738eb7de4",
+            "score": "100",
+            "count": 1,
+            "title": "Chiptunes = WIN \\m|♥|m/",
+            "primary-type": {
+                "name": "Album"
+            },
+            "secondary-types": [
+                {
+                    "name": "Compilation"
+                }
+            ],
+            "artist-credit": [
+                {
+                    "artist": {
+                        "id": "89ad4ac3-39f7-470e-963a-56509c546377",
+                        "name": "Various Artists",
+                        "sort-name": "Various Artists",
+                        "disambiguation": "add compilations to this artist"
+                    }
+                }
+            ],
+            "releases": [
+                {
+                    "id": "871f12ec-6259-4e93-b440-9108559c38b1",
+                    "title": "Chiptunes = WIN \\m|♥|m/",
+                    "status": {
+                        "name": "Official"
+                    }
+                }
+            ],
+            "tags": [
+                {
+                    "count": 1,
+                    "name": "electronic"
+                }
+            ]
+        }
+    ]
+}
