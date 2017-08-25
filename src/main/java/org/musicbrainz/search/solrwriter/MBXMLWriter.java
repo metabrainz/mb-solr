@@ -31,6 +31,23 @@
 
 package org.musicbrainz.search.solrwriter;
 
+import org.apache.lucene.document.Document;
+import org.apache.solr.common.util.NamedList;
+import org.apache.solr.request.SolrQueryRequest;
+import org.apache.solr.response.QueryResponseWriter;
+import org.apache.solr.response.ResultContext;
+import org.apache.solr.response.SolrQueryResponse;
+import org.apache.solr.search.DocIterator;
+import org.apache.solr.search.DocList;
+import org.musicbrainz.mmd2.*;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -38,21 +55,9 @@ import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
-import org.apache.lucene.document.Document;
-import org.apache.solr.common.util.NamedList;
-import org.apache.solr.request.SolrQueryRequest;
-import org.apache.solr.response.*;
-import org.apache.solr.search.DocIterator;
-import org.apache.solr.search.DocList;
-import org.musicbrainz.mmd2.*;
 
 public class MBXMLWriter implements QueryResponseWriter {
 
@@ -381,13 +386,33 @@ public class MBXMLWriter implements QueryResponseWriter {
 			xmlList.add(unmarshalledObj);
 		}
 
+		XMLGregorianCalendar now = getNow();
+
+		Metadata metadata = metadatalistwrapper.getCompletedMetadata();
+		metadata.setCreated(now);
+
 		StringWriter sw = new StringWriter();
 		try {
-			marshaller.marshal(metadatalistwrapper.getCompletedMetadata(), sw);
+			marshaller.marshal(metadata, sw);
 		} catch (JAXBException e) {
 			e.printStackTrace();
 			return;
 		}
 		writer.write(sw.toString());
+	}
+
+	/**
+	 *
+	 * @return The current date and time.
+	 */
+	public static XMLGregorianCalendar getNow() {
+		GregorianCalendar calendar = new GregorianCalendar();
+		DatatypeFactory factory = null;
+		try {
+			factory = DatatypeFactory.newInstance();
+		} catch (DatatypeConfigurationException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		return factory.newXMLGregorianCalendar(calendar);
 	}
 }

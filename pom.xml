@@ -107,6 +107,12 @@
 			<version>1.25.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>name.falgout.jeffrey.testing</groupId>
+			<artifactId>lambda-matcher</artifactId>
+			<version>0.2.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
