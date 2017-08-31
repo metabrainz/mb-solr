@@ -1,0 +1,35 @@
+{
+    "count": 1,
+    "offset": 0,
+    "places": [
+        {
+            "id": "fd60135e-d173-4a56-87fd-1f1c4bc62bd1",
+            "type": "Venue",
+            "score": "100",
+            "name": "Ilmbühne",
+            "coordinates": {
+                "latitude": "50.99508",
+                "longitude": "11.36062"
+            },
+            "area": {
+                "id": "c7644e45-dec4-43fd-aad6-35036b8e911d",
+                "name": "Weimar",
+                "sort-name": "Weimar"
+            },
+            "life-span": {
+                "ended": null
+            },
+            "aliases": [
+                {
+                    "sort-name": "Lindenrondell",
+                    "name": "Lindenrondell",
+                    "locale": null,
+                    "type": "Search hint",
+                    "primary": null,
+                    "begin-date": null,
+                    "end-date": null
+                }
+            ]
+        }
+    ]
+}

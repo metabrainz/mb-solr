@@ -1,0 +1,103 @@
+{
+    "count": 1,
+    "offset": 0,
+    "labels": [
+        {
+            "id": "5a584032-dcef-41bb-9f8b-19540116fb1c",
+            "type": "Original Production",
+            "score": "100",
+            "name": "Deutsche Grammophon",
+            "sort-name": "Deutsche Grammophon",
+            "label-code": 173,
+            "country": "DE",
+            "area": {
+                "id": "85752fda-13c4-31a3-bee5-0e5cb1f51dad",
+                "name": "Germany",
+                "sort-name": "Germany"
+            },
+            "life-span": {
+                "begin": "1898",
+                "ended": null
+            },
+            "aliases": [
+                {
+                    "sort-name": "Deutsche Grammaphon",
+                    "name": "Deutsche Grammaphon",
+                    "locale": null,
+                    "type": null,
+                    "primary": null,
+                    "begin-date": null,
+                    "end-date": null
+                },
+                {
+                    "sort-name": "Deutsche Grammophone",
+                    "name": "Deutsche Grammophone",
+                    "locale": null,
+                    "type": null,
+                    "primary": null,
+                    "begin-date": null,
+                    "end-date": null
+                },
+                {
+                    "sort-name": "Deutsche Grammophon Gesellschaft",
+                    "name": "Deutsche Grammophon Gesellschaft",
+                    "locale": null,
+                    "type": null,
+                    "primary": null,
+                    "begin-date": null,
+                    "end-date": null
+                },
+                {
+                    "sort-name": "Deutsche Grammophon GmbH",
+                    "name": "Deutsche Grammophon GmbH",
+                    "locale": null,
+                    "type": null,
+                    "primary": null,
+                    "begin-date": null,
+                    "end-date": null
+                },
+                {
+                    "sort-name": "Deutsche Grammophon (Universal)",
+                    "name": "Deutsche Grammophon (Universal)",
+                    "locale": null,
+                    "type": null,
+                    "primary": null,
+                    "begin-date": null,
+                    "end-date": null
+                },
+                {
+                    "sort-name": "Deutsche Gramophon",
+                    "name": "Deutsche Gramophon",
+                    "locale": null,
+                    "type": null,
+                    "primary": null,
+                    "begin-date": null,
+                    "end-date": null
+                },
+                {
+                    "sort-name": "DG",
+                    "name": "DG",
+                    "locale": null,
+                    "type": null,
+                    "primary": null,
+                    "begin-date": null,
+                    "end-date": null
+                }
+            ],
+            "tags": [
+                {
+                    "count": 2,
+                    "name": "classical"
+                },
+                {
+                    "count": 1,
+                    "name": "tomatito"
+                },
+                {
+                    "count": 1,
+                    "name": "deutsche grammophon beethoven"
+                }
+            ]
+        }
+    ]
+}
