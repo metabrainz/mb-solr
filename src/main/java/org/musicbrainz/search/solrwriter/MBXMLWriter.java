@@ -319,6 +319,19 @@ public class MBXMLWriter implements QueryResponseWriter {
 		}
 	}
 
+    private void writeResponse(Writer writer, MetadataListWrapper metadatalistwrapper)
+            throws IOException {
+        StringWriter sw = new StringWriter();
+        try {
+            marshaller.marshal(metadatalistwrapper.getCompletedMetadata(), sw);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+            return;
+        }
+        writer.write(sw.toString());
+
+    }
+
 	public void write(Writer writer, SolrQueryRequest req, SolrQueryResponse res)
 			throws IOException {
 		MetadataListWrapper metadatalistwrapper = new MetadataListWrapper();
@@ -326,6 +339,11 @@ public class MBXMLWriter implements QueryResponseWriter {
 		NamedList vals = res.getValues();
 
 		ResultContext con = (ResultContext) vals.get("response");
+		if (con == null)
+		{
+			writeResponse(writer, metadatalistwrapper);
+			return;
+		}
 		DocList doclist = con.getDocList();
 
 		metadatalistwrapper.setCountAndOffset(doclist.matches(),
