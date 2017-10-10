@@ -135,7 +135,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 				MMDList = objectfactory.createEventList();
 				objList = ((EventList) MMDList).getEvent();
 				break;
-  			case instrument:
+			case instrument:
 				MMDList = objectfactory.createInstrumentList();
 				objList = ((InstrumentList) MMDList).getInstrument();
 				break;
@@ -319,18 +319,18 @@ public class MBXMLWriter implements QueryResponseWriter {
 		}
 	}
 
-    private void writeResponse(Writer writer, MetadataListWrapper metadatalistwrapper)
-            throws IOException {
-        StringWriter sw = new StringWriter();
-        try {
-            marshaller.marshal(metadatalistwrapper.getCompletedMetadata(), sw);
-        } catch (JAXBException e) {
-            e.printStackTrace();
-            return;
-        }
-        writer.write(sw.toString());
+	private void writeResponse(Writer writer, MetadataListWrapper metadatalistwrapper)
+			throws IOException {
+		StringWriter sw = new StringWriter();
+		try {
+			marshaller.marshal(metadatalistwrapper.getCompletedMetadata(), sw);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			return;
+		}
+		writer.write(sw.toString());
 
-    }
+	}
 
 	public void write(Writer writer, SolrQueryRequest req, SolrQueryResponse res)
 			throws IOException {
@@ -339,11 +339,14 @@ public class MBXMLWriter implements QueryResponseWriter {
 		NamedList vals = res.getValues();
 
 		ResultContext con = (ResultContext) vals.get("response");
+		
 		if (con == null)
 		{
+			metadatalistwrapper.setCountAndOffset(0, 0);
 			writeResponse(writer, metadatalistwrapper);
 			return;
 		}
+
 		DocList doclist = con.getDocList();
 
 		metadatalistwrapper.setCountAndOffset(doclist.matches(),
