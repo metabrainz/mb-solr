@@ -299,7 +299,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 		Method setScoreMethod;
 		try {
 			setScoreMethod = object.getClass().getMethod("setScore",
-					String.class);
+					Integer.class);
 		} catch (Exception e) {
 			throw new RuntimeException(
 					OBJECT_WITHOUT_SETSCORE);
@@ -308,7 +308,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 		int adjustedScore = (((int) (((objectScore / maxScore)) * 100)));
 
 		try {
-			setScoreMethod.invoke(object, Integer.toString(adjustedScore));
+			setScoreMethod.invoke(object, adjustedScore);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
