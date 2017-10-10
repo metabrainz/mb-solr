@@ -5,7 +5,7 @@
         {
             "id": "fd60135e-d173-4a56-87fd-1f1c4bc62bd1",
             "type": "Venue",
-            "score": "100",
+            "score": 100,
             "name": "Ilmbühne",
             "coordinates": {
                 "latitude": "50.99508",

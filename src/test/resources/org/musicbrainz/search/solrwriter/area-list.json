@@ -5,7 +5,7 @@
         {
             "id": "ff2ee1ad-febe-4b48-8999-e77870b62744",
             "type": "Subdivision",
-            "score": "100",
+            "score": 100,
             "name": "Thüringen",
             "sort-name": "Thüringen",
             "iso-3166-2-codes": [
