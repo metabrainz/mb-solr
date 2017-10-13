@@ -1,5 +1,7 @@
 package org.musicbrainz.search.solrwriter;
 
+import org.hamcrest.Matcher;
+
 import static net.javacrumbs.jsonunit.JsonMatchers.jsonEquals;
 import static org.junit.Assert.assertThat;
 
@@ -16,6 +18,11 @@ public interface MBJSONWriterTestInterface extends MBWriterTestInterface {
 
 	@Override
 	default void compare(String expected, String actual) {
-		assertThat(actual, jsonEquals(expected));
+		Matcher isValidXMLGregorianCalendarMatcher =
+				MBWriterTestInterface.isValidXMLGregorianCalendarMatcher();
+		assertThat(actual, jsonEquals(expected).withMatcher
+				("validXMLGregorianCalendar",
+						isValidXMLGregorianCalendarMatcher));
 	}
+
 }
