@@ -73,8 +73,10 @@ public class MBXMLWriter implements QueryResponseWriter {
 	 * The context used to (un-)serialize XML
 	 */
 	private JAXBContext context = null;
+	protected JAXBContext errorContext = null;
 	private Unmarshaller unmarshaller = null;
 	protected Marshaller marshaller = null;
+	protected Marshaller errorMarshaller = null;
 	private ObjectFactory objectfactory = null;
 
 	/**
@@ -135,7 +137,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 				MMDList = objectfactory.createEventList();
 				objList = ((EventList) MMDList).getEvent();
 				break;
-  			case instrument:
+			case instrument:
 				MMDList = objectfactory.createInstrumentList();
 				objList = ((InstrumentList) MMDList).getInstrument();
 				break;
@@ -276,14 +278,24 @@ public class MBXMLWriter implements QueryResponseWriter {
 				.newInstance(org.musicbrainz.mmd2.ObjectFactory.class);
 	}
 
+	protected JAXBContext createJAXBErrorContext() throws JAXBException {
+		return JAXBContext.newInstance(MBError.class);
+	}
+
 	protected Marshaller createMarshaller() throws JAXBException {
 		return context.createMarshaller();
+	}
+
+	protected Marshaller createErrorMarshaller() throws JAXBException {
+		return errorContext.createMarshaller();
 	}
 
 	public void init(NamedList initArgs) {
 		try {
 			context = createJAXBContext();
+			errorContext = createJAXBErrorContext();
 			marshaller = createMarshaller();
+			errorMarshaller = createErrorMarshaller();
 			unmarshaller = context.createUnmarshaller();
 		} catch (JAXBException e) {
 			throw new RuntimeException(e);
@@ -321,6 +333,29 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 	public void write(Writer writer, SolrQueryRequest req, SolrQueryResponse res)
 			throws IOException {
+
+		StringWriter sw = new StringWriter();
+
+		Exception solrError = res.getException();
+
+		if (solrError != null)
+		{
+			MBError mbError = new MBError();
+			int code = Integer.parseInt(res.getResponseHeader().get("status").toString());
+
+			mbError.setCode(code);
+			mbError.setMessage(solrError.getMessage());
+
+			try {
+				errorMarshaller.marshal(mbError, sw);
+			} catch (JAXBException e) {
+				e.printStackTrace();
+			}
+
+			writer.write(sw.toString());
+			return;
+		}
+		
 		MetadataListWrapper metadatalistwrapper = new MetadataListWrapper();
 
 		NamedList vals = res.getValues();
@@ -391,7 +426,6 @@ public class MBXMLWriter implements QueryResponseWriter {
 		Metadata metadata = metadatalistwrapper.getCompletedMetadata();
 		metadata.setCreated(now);
 
-		StringWriter sw = new StringWriter();
 		try {
 			marshaller.marshal(metadata, sw);
 		} catch (JAXBException e) {

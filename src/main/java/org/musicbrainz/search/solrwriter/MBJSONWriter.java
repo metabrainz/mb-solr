@@ -77,11 +77,32 @@ public class MBJSONWriter extends MBXMLWriter {
 	}
 
 	@Override
+	protected JAXBContext createJAXBErrorContext() throws JAXBException {
+		Map<String, Object> properties = new HashMap<String, Object>();
+		properties
+				.put(JAXBContextProperties.MEDIA_TYPE, "application/json");
+		properties.put(JAXBContextProperties.JSON_INCLUDE_ROOT, true);
+		return JAXBContextFactory.createContext(
+				new Class[] { MBError.class }, properties);
+	}
+
+	@Override
+	protected Marshaller createErrorMarshaller() throws JAXBException {
+		if (errorContext == null) {
+			return null;
+		} else {
+			return errorContext.createMarshaller();
+		}
+	}
+
+	@Override
 	public void init(NamedList initArgs) {
 		super.init(initArgs);
 		try {
 			jsonContext = createJAXBJSONContext();
+			errorContext = createJAXBErrorContext();
 			marshaller = createMarshaller();
+			errorMarshaller = createErrorMarshaller();
 		} catch (JAXBException ex) {
 			throw new RuntimeException(ex);
 		}
