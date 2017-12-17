@@ -1,4 +1,4 @@
-# MusicBrainz Query Response Writer for Solr [![Build Status](https://travis-ci.org/metabrainz/mb-solrquerywriter.svg?branch=master)](https://travis-ci.org/metabrainz/mb-solrquerywriter)
+# MusicBrainz Solr [![Build Status](https://travis-ci.org/metabrainz/mb-solr.svg?branch=master)](https://travis-ci.org/metabrainz/mb-solr)
 
 This package includes a
 [QueryResponseWriter](https://cwiki.apache.org/confluence/display/solr/Response+Writers)
