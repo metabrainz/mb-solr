@@ -23,7 +23,7 @@ And install the package:
 
 Clone the repository with Git:
 
-    git clone --recursive https://github.com/mineo/mb-solrquerywriter.git
+    git clone --recursive https://github.com/metabrainz/mb-solr.git
 
 Navigate to the **mb-solrquerywriter** folder in a terminal and build a JAR
 file:
@@ -93,3 +93,9 @@ work correctly.
 A branch of the MusicBrainz server that can query a Solr server with this
 QueryResponseWriter is available on
 [GitHub](https://github.com/mineo/musicbrainz-server/tree/solr-search).
+
+## Docker Installation
+
+Simply run
+
+    docker-compose up
