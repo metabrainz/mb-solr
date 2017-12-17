@@ -10,3 +10,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8983:8983"
+    volumes:
+      - solr-data:/opt/solr/server/solr/data
+
+volumes:
+  solr-data:
