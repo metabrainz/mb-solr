@@ -16,7 +16,7 @@ public abstract class AbstractMBWriterTest extends SolrTestCaseJ4 implements
 		MBWriterTestInterface {
 	@BeforeClass
 	public static void beforeClass() throws Exception {
-		initCore("solrconfig.xml", "schema.xml", "mbsssss", getCorename());
+		initCore("solrconfig.xml", "schema.xml", "../mbsssss", getCorename());
 	}
 
 	public static String corename;

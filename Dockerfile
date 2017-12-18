@@ -11,9 +11,9 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
             openjdk8 \
             openssh
 
-# Caching the maven dependencies so that these are built only if 
+# Caching the maven dependencies so that these are built only if
 # the dependencies are changed and not the source code.
-COPY ./pom.xml mb-solrquerywriter/pom.xml
+COPY ./mb-solrquerywriter/pom.xml mb-solrquerywriter/pom.xml
 COPY ./mmd-schema/brainz-mmd2-jaxb/pom.xml brainz-mmd2-jaxb/pom.xml
 RUN cd brainz-mmd2-jaxb && \
     mvn verify clean --fail-never && \
@@ -22,7 +22,7 @@ RUN cd brainz-mmd2-jaxb && \
     cd ..
 
 COPY ./mmd-schema/brainz-mmd2-jaxb brainz-mmd2-jaxb
-COPY . mb-solrquerywriter
+COPY ./mb-solrquerywriter mb-solrquerywriter
 RUN cd brainz-mmd2-jaxb && \
     mvn install && \
     cd ../mb-solrquerywriter && \
