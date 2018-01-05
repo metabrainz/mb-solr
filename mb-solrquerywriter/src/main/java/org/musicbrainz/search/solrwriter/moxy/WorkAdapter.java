@@ -28,6 +28,7 @@
 
 package org.musicbrainz.search.solrwriter.moxy;
 
+import org.musicbrainz.mmd2.LanguageList;
 import org.musicbrainz.mmd2.Relation;
 import org.musicbrainz.mmd2.RelationList;
 import org.musicbrainz.mmd2.Work;
@@ -40,6 +41,7 @@ public class WorkAdapter extends XmlAdapter<WorkAdapter.AdaptedWork, Work> {
 
     public static class AdaptedWork extends Work {
         public List<Relation> relations = new ArrayList<Relation>();
+        public List<String> languages = new ArrayList<String>();
     }
 
     /**
@@ -58,6 +60,10 @@ public class WorkAdapter extends XmlAdapter<WorkAdapter.AdaptedWork, Work> {
             }
         }
 
+        for(LanguageList.Language language : work.getLanguageList().getLanguage()) {
+            adaptedWork.languages.add(language.getValue());
+        }
+
         //Also need to copy any other elements/attributes we may want to output
         adaptedWork.setAliasList(work.getAliasList());
         adaptedWork.setArtistCredit(work.getArtistCredit());
@@ -65,7 +71,6 @@ public class WorkAdapter extends XmlAdapter<WorkAdapter.AdaptedWork, Work> {
         adaptedWork.setId(work.getId());
         adaptedWork.setIswcList(work.getIswcList());
         adaptedWork.setLanguage(work.getLanguage());
-        adaptedWork.setLanguageList(work.getLanguageList());
         adaptedWork.setRating(work.getRating());
         adaptedWork.setScore(work.getScore());
         adaptedWork.setTitle(work.getTitle());
