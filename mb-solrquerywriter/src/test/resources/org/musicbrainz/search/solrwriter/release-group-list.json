@@ -8,13 +8,9 @@
             "score": 100,
             "count": 1,
             "title": "Chiptunes = WIN \\m|♥|m/",
-            "primary-type": {
-                "name": "Album"
-            },
+            "primary-type": "Album",
             "secondary-types": [
-                {
-                    "name": "Compilation"
-                }
+                 "Compilation"
             ],
             "artist-credit": [
                 {
@@ -30,9 +26,7 @@
                 {
                     "id": "871f12ec-6259-4e93-b440-9108559c38b1",
                     "title": "Chiptunes = WIN \\m|♥|m/",
-                    "status": {
-                        "name": "Official"
-                    }
+                    "status": "Official"
                 }
             ],
             "tags": [

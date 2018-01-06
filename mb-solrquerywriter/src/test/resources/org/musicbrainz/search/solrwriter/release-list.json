@@ -8,9 +8,7 @@
             "score": 100,
             "count": 1,
             "title": "Chiptunes = WIN \\m|♥|m/",
-            "status": {
-                "name": "Official"
-            },
+            "status": "Official",
             "packaging": "None",
             "text-representation": {
                 "language": "eng",
@@ -38,13 +36,9 @@
             ],
             "release-group": {
                 "id": "268d91a0-1a7f-4600-bfd4-74d738eb7de4",
-                "primary-type": {
-                    "name": "Album"
-                },
+                "primary-type": "Album",
                 "secondary-types": [
-                    {
-                        "name": "Compilation"
-                    }
+                    "Compilation"
                 ]
             },
             "date": "2012-06-05",
@@ -74,9 +68,7 @@
             "track-count": 51,
             "media": [
                 {
-                    "format": {
-                        "name": "Digital Media"
-                    },
+                    "format": "Digital Media",
                     "disc-count": 0,
                     "track-count": 51
                 }
