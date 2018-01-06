@@ -107,6 +107,13 @@
         </java-type>
         <java-type name="Artist">
             <java-attributes>
+                <xml-element java-attribute="gender">
+                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.StringGenderAdapter"/>
+                </xml-element>
+            </java-attributes>
+        </java-type>
+        <java-type name="Artist">
+            <java-attributes>
                 <xml-element java-attribute="tagList" xml-path="."/>
             </java-attributes>
         </java-type>
@@ -231,6 +238,9 @@
         <java-type name="Release">
             <java-attributes>
                 <xml-element java-attribute="releaseEventList" xml-path="."/>
+                <xml-element java-attribute="status">
+                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.StringStatusAdapter"/>
+                </xml-element>
             </java-attributes>
         </java-type>
         <java-type name="Recording">
@@ -310,7 +320,9 @@
         </java-type>
         <java-type name="SecondaryTypeList">
             <java-attributes>
-                <xml-element java-attribute="secondaryType" name="secondary-types"/>
+                <xml-element java-attribute="secondaryType" name="secondary-types">
+                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.StringSecondaryTypeAdapter"/>
+                </xml-element>
             </java-attributes>
         </java-type>
         <java-type name="IsrcList">
@@ -326,6 +338,13 @@
         <java-type name="Medium">
             <java-attributes>
                 <xml-element java-attribute="trackList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Medium">
+            <java-attributes>
+                <xml-element java-attribute="format">
+                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.StringFormatAdapter"/>
+                </xml-element>
             </java-attributes>
         </java-type>
         <java-type name="Label">
@@ -421,6 +440,9 @@
         <java-type name="ReleaseGroup">
             <java-attributes>
                 <xml-element java-attribute="tagList" xml-path="."/>
+                <xml-element java-attribute="primaryType" name="primary-type">
+                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.StringPrimaryTypeAdapter"/>
+                </xml-element>
             </java-attributes>
         </java-type>
         <java-type name="Medium$TrackList">
