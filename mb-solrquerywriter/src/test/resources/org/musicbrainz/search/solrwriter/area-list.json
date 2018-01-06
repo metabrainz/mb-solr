@@ -41,9 +41,7 @@
                         {
                             "type": "part of",
                             "type-id": "de7cc874-8b1b-3a05-8272-f3834c968fb7",
-                            "target": {
-                                "name": "85752fda-13c4-31a3-bee5-0e5cb1f51dad"
-                            },
+                            "target": "85752fda-13c4-31a3-bee5-0e5cb1f51dad",
                             "direction": "backward",
                             "area": {
                                 "id": "85752fda-13c4-31a3-bee5-0e5cb1f51dad",

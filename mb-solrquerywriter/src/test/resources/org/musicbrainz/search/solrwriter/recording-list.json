@@ -51,18 +51,12 @@
                 {
                     "id": "e7fe61ca-65b8-4abb-8723-1e7c1a5e0a49",
                     "title": "The Lord of the Rings: The Return of the King: The Complete Recordings",
-                    "status": {
-                        "name": "Official"
-                    },
+                    "status": "Official",
                     "release-group": {
                         "id": "f5fd971c-a1a2-33da-95b0-473e0176df83",
-                        "primary-type": {
-                            "name": "Album"
-                        },
+                        "primary-type": "Album",
                         "secondary-types": [
-                            {
-                                "name": "Soundtrack"
-                            }
+                            "Soundtrack"
                         ]
                     },
                     "date": "2007-11-20",
@@ -84,9 +78,7 @@
                     "media": [
                         {
                             "position": 1,
-                            "format": {
-                                "name": "CD"
-                            },
+                            "format": "CD",
                             "track": [
                                 {
                                     "id": "fc51bf50-c329-3d93-bb1b-e4f55cf00db8",
@@ -103,18 +95,12 @@
                 {
                     "id": "e7fe61ca-65b8-4abb-8723-1e7c1a5e0a49",
                     "title": "The Lord of the Rings: The Return of the King: The Complete Recordings",
-                    "status": {
-                        "name": "Official"
-                    },
+                    "status": "Official",
                     "release-group": {
                         "id": "f5fd971c-a1a2-33da-95b0-473e0176df83",
-                        "primary-type": {
-                            "name": "Album"
-                        },
+                        "primary-type": "Album",
                         "secondary-types": [
-                            {
-                                "name": "Soundtrack"
-                            }
+                          "Soundtrack"
                         ]
                     },
                     "date": "2007-11-20",
@@ -136,9 +122,7 @@
                     "media": [
                         {
                             "position": 5,
-                            "format": {
-                                "name": "DVD"
-                            },
+                            "format": "DVD",
                             "track": [
                                 {
                                     "id": "af77973d-3ca5-38e3-89ff-c742c94f59af",
