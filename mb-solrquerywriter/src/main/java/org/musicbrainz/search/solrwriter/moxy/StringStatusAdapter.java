@@ -32,13 +32,7 @@ import org.musicbrainz.mmd2.Status;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class StringStatusAdapter extends XmlAdapter<String, Status> {
-
-    @Override
-    public Status unmarshal(String v) throws Exception {
-        throw new UnsupportedOperationException("Umarshalling json back to model not supported");
-    }
-
+public class StringStatusAdapter extends NotUnmarshallableXmlAdapter<String, Status> {
     @Override
     public String marshal(Status v) throws Exception {
         return v.getContent();

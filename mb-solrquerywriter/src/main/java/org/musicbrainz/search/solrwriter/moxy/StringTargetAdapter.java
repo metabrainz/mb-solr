@@ -32,13 +32,7 @@ import org.musicbrainz.mmd2.Target;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class StringTargetAdapter extends XmlAdapter<String, Target> {
-
-    @Override
-    public Target unmarshal(String v) throws Exception {
-        throw new UnsupportedOperationException("Umarshalling json back to model not supported");
-    }
-
+public class StringTargetAdapter extends NotUnmarshallableXmlAdapter<String, Target> {
     @Override
     public String marshal(Target v) throws Exception {
         return v.getValue();

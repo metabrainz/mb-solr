@@ -31,13 +31,7 @@ package org.musicbrainz.search.solrwriter.moxy;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class BooleanAliasTypeAdapter extends XmlAdapter<Boolean, String> {
-
-    @Override
-    public String unmarshal(Boolean v) throws Exception {
-        throw new UnsupportedOperationException("Umarshalling json back to model not supported");
-    }
-
+public class BooleanAliasTypeAdapter extends NotUnmarshallableXmlAdapter<Boolean, String> {
     @Override
     public Boolean marshal(String v) throws Exception {
         if (v == null) {

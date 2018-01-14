@@ -32,13 +32,7 @@ import org.musicbrainz.mmd2.SecondaryType;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class StringSecondaryTypeAdapter extends XmlAdapter<String, SecondaryType> {
-
-    @Override
-    public SecondaryType unmarshal(String v) throws Exception {
-        throw new UnsupportedOperationException("Umarshalling json back to model not supported");
-    }
-
+public class StringSecondaryTypeAdapter extends NotUnmarshallableXmlAdapter<String, SecondaryType> {
     @Override
     public String marshal(SecondaryType v) throws Exception {
         return v.getContent();
