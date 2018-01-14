@@ -32,13 +32,7 @@ import org.musicbrainz.mmd2.PrimaryType;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class StringPrimaryTypeAdapter extends XmlAdapter<String, PrimaryType> {
-
-    @Override
-    public PrimaryType unmarshal(String v) throws Exception {
-        throw new UnsupportedOperationException("Umarshalling json back to model not supported");
-    }
-
+public class StringPrimaryTypeAdapter extends NotUnmarshallableXmlAdapter<String, PrimaryType> {
     @Override
     public String marshal(PrimaryType v) throws Exception {
         return v.getContent();

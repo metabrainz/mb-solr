@@ -32,13 +32,7 @@ import org.musicbrainz.mmd2.Gender;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class StringGenderAdapter extends XmlAdapter<String, Gender> {
-
-    @Override
-    public Gender unmarshal(String v) throws Exception {
-        throw new UnsupportedOperationException("Umarshalling json back to model not supported");
-    }
-
+public class StringGenderAdapter extends NotUnmarshallableXmlAdapter<String, Gender> {
     @Override
     public String marshal(Gender v) throws Exception {
         return v.getContent();

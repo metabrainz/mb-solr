@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkAdapter extends XmlAdapter<WorkAdapter.AdaptedWork, Work> {
+public class WorkAdapter extends NotUnmarshallableXmlAdapter<WorkAdapter.AdaptedWork, Work> {
 
     public static class AdaptedWork extends Work {
         public List<Relation> relations = new ArrayList<Relation>();
@@ -80,13 +80,4 @@ public class WorkAdapter extends XmlAdapter<WorkAdapter.AdaptedWork, Work> {
         adaptedWork.setUserTagList(work.getUserTagList());
         return adaptedWork;
     }
-
-    /*
-    Not used in Search Server
-     */
-    @Override
-    public Work unmarshal(AdaptedWork adaptedWork) throws Exception {
-        throw new UnsupportedOperationException("Umarshalling json back to model not supported");
-    }
-
 }

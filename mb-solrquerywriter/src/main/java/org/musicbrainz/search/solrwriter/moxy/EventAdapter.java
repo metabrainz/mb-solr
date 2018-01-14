@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventAdapter extends XmlAdapter<EventAdapter.AdaptedEvent, Event> {
+public class EventAdapter extends NotUnmarshallableXmlAdapter<EventAdapter.AdaptedEvent, Event> {
 
     public static class AdaptedEvent extends Event {
         public List<Relation> relations = new ArrayList<Relation>();
@@ -50,7 +50,6 @@ public class EventAdapter extends XmlAdapter<EventAdapter.AdaptedEvent, Event> {
      */
     @Override
     public AdaptedEvent marshal(Event event) throws Exception {
-        
         AdaptedEvent adaptedEvent = new AdaptedEvent();
         for(RelationList relationList : event.getRelationList()) {
             for(Relation relation : relationList.getRelation()) {
@@ -73,14 +72,5 @@ public class EventAdapter extends XmlAdapter<EventAdapter.AdaptedEvent, Event> {
         adaptedEvent.setUserTagList(event.getUserTagList());
         return adaptedEvent;
     }
-
-    /*
-    Not used in Search Server
-     */
-    @Override
-    public Event unmarshal(AdaptedEvent adaptedEvent) throws Exception {
-        throw new UnsupportedOperationException("Umarshalling json back to model not supported");
-    }
-
 }
 
