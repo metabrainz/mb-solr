@@ -258,7 +258,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 			return metadata;
 		}
 
-		public void setCountAndOffset(int count, int offset) {
+		public void setCountAndOffset(long count, long offset) {
 			try {
 				setCountMethod.invoke(MMDList, BigInteger.valueOf(count));
 				setOffsetMethod.invoke(MMDList, BigInteger.valueOf(offset));
@@ -355,7 +355,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 			writer.write(sw.toString());
 			return;
 		}
-		
+
 		MetadataListWrapper metadatalistwrapper = new MetadataListWrapper();
 
 		NamedList vals = res.getValues();
