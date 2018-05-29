@@ -60,9 +60,13 @@ public class WorkAdapter extends NotUnmarshallableXmlAdapter<WorkAdapter.Adapted
             }
         }
 
-        for(LanguageList.Language language : work.getLanguageList().getLanguage()) {
-            adaptedWork.languages.add(language.getValue());
+        LanguageList languageList = work.getLanguageList();
+        if (languageList != null)
+        {
+            for(LanguageList.Language language: languageList.getLanguage())
+                adaptedWork.languages.add(language.getValue());
         }
+
 
         //Also need to copy any other elements/attributes we may want to output
         adaptedWork.setAliasList(work.getAliasList());
