@@ -315,9 +315,7 @@
         </java-type>
         <java-type name="IsrcList">
             <java-attributes>
-                <xml-element java-attribute="isrc" name="isrcs">
-                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.StringIsrcAdapter"/>
-                </xml-element>
+                <xml-element java-attribute="isrc" name="isrcs"/>
             </java-attributes>
         </java-type>
         <java-type name="SecondaryTypeList">
