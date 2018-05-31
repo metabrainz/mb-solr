@@ -16,4 +16,9 @@ deploy:
   provider: releases
   api_key:
     secure: AySi8wvNxlziW1xHuXV8LRyMkSDZ3apVmL/qmrjV8rtxFcJ/eRnqLyG/EkTPE1pLYHFJp6iZv4Z9v86zwbrYV9gdJPE02Deh2uOb4P6lAciI70LRcM7M27I8gBSxcGl6+gDYwZa5jBOlErME8HwoF+bKOuix9HWkzm5nX9O76WZ/0XZL7gKtrhFuWgu+a1t+wilNXiOHWHJ4UvMtrmt4EmuGV/qCFjp45O+LxYDXQHBJE/m7nmvtwfs7JK5tPK1KF17LkP/QcldHkllPMzB5875nGy2hJ1uJNgRh6AMui3rIsYHs4QhUPwYQy5+xlc4oEK40gGVLzcNymFM5+kZWuKARhkRVMGxHO94T2OCJnC1pFyTcUuNI8qkZYg2bs0XMEHVt+jCKzUmltb54lOk5bzpJEgiczPFoKAP0Gl19SNehecFb8BOkF7cB2Nctq7Rg8y86m6njwNiT1HeluABQ6wu9Y8mF3/q6xaEUZMzIvaTBWYkkYOzFpUjaeVB0UuZ4GSetTVDoJW48/Bu1s29Eb+RDH8VxoyFXjf0lIt7z3Qq541QiOi2oU3C4Td7/zowC0dX03DMCcm4yxlXJ/G/lGZTOx1hyRXVR9JM4zbghKOu9HqQptKhDuxAnVY4LIWqLdTb/qDD/3PpUBBMYIqWEUYg203g7dk60B5JrzoiR/1Y=
+  file_glob: true
   file: target/*.jar
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
