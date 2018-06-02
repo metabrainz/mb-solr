@@ -32,8 +32,11 @@
 package org.musicbrainz.search.solrwriter;
 
 import org.apache.lucene.document.Document;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.util.NamedList;
 import org.apache.solr.request.SolrQueryRequest;
+import org.apache.solr.response.BasicResultContext;
 import org.apache.solr.response.QueryResponseWriter;
 import org.apache.solr.response.ResultContext;
 import org.apache.solr.response.SolrQueryResponse;
@@ -56,6 +59,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -359,8 +363,31 @@ public class MBXMLWriter implements QueryResponseWriter {
 		MetadataListWrapper metadatalistwrapper = new MetadataListWrapper();
 
 		NamedList vals = res.getValues();
+		Object response = vals.get("response");
+		if(response instanceof BasicResultContext) {
+			parseSolrResponse((ResultContext) response, metadatalistwrapper, req);
+		}
+		else if (response instanceof SolrDocumentList)
+		{
+			parseSolrResponse((SolrDocumentList) response, metadatalistwrapper);
+		}
+		XMLGregorianCalendar now = getNow();
 
-		ResultContext con = (ResultContext) vals.get("response");
+		Metadata metadata = metadatalistwrapper.getCompletedMetadata();
+		metadata.setCreated(now);
+
+		try {
+			marshaller.marshal(metadata, sw);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			return;
+		}
+		writer.write(sw.toString());
+	}
+
+
+	public void parseSolrResponse(ResultContext con, MetadataListWrapper metadatalistwrapper, SolrQueryRequest req) throws IOException {
+
 		DocList doclist = con.getDocList();
 
 		metadatalistwrapper.setCountAndOffset(doclist.matches(),
@@ -421,20 +448,71 @@ public class MBXMLWriter implements QueryResponseWriter {
 			xmlList.add(unmarshalledObj);
 		}
 
-		XMLGregorianCalendar now = getNow();
-
-		Metadata metadata = metadatalistwrapper.getCompletedMetadata();
-		metadata.setCreated(now);
-
-		try {
-			marshaller.marshal(metadata, sw);
-		} catch (JAXBException e) {
-			e.printStackTrace();
-			return;
-		}
-		writer.write(sw.toString());
 	}
 
+
+	public void parseSolrResponse(SolrDocumentList doclist, MetadataListWrapper metadatalistwrapper)
+	{
+
+
+		metadatalistwrapper.setCountAndOffset(doclist.getNumFound(),
+				doclist.getStart());
+
+		List xmlList = metadatalistwrapper.getLiveList();
+
+		float maxScore = doclist.getMaxScore();
+		Iterator<SolrDocument> iter = doclist.iterator();
+
+		while (iter.hasNext()) {
+			String store;
+			SolrDocument doc = iter.next();
+			try {
+				store = (String) doc.get("_store");
+			} catch (NullPointerException e) {
+				throw new RuntimeException(
+						NO_STORE_VALUE);
+			}
+			if (store == null) {
+				throw new RuntimeException(
+						STORE_NOT_A_STRING);
+			}
+			Object unmarshalledObj;
+			try {
+				unmarshalledObj = unmarshaller
+						.unmarshal(new ByteArrayInputStream(store.getBytes()));
+			} catch (JAXBException e) {
+				// Propagate the error to the user. By simply repeating the same search without mbxml/mbjson response
+				// writer, we can figure out which document caused this.
+				throw new RuntimeException(UNMARSHALLING_STORE_FAILED + store);
+			}
+
+			/**
+			 * Areas are stored as {@link org.musicbrainz.mmd2.DefAreaElementInner}, but that is not defined as an
+			 * XmlRootElement. To work around this, every area is stored in an AreaList with only one element that we
+			 * access here.
+
+			 TODO: Figure out if there's a way around this.
+			 */
+			if (unmarshalledObj instanceof AreaList) {
+				List<DefAreaElementInner> arealist = ((AreaList) unmarshalledObj).getArea();
+				if (arealist.size() == 0) {
+					throw new RuntimeException(AREALIST_NO_ELEMENTS);
+				}
+				unmarshalledObj = arealist.get(0);
+			}
+
+			// TODO: this needs "score" in the field list of Solr, otherwise
+			// this causes a NullPointerException
+			try {
+				adjustScore(maxScore, unmarshalledObj, (float) doc.get("score"));
+			} catch (NullPointerException e) {
+				throw new RuntimeException(SCORE_NOT_IN_FIELD_LIST);
+			}
+
+			xmlList.add(unmarshalledObj);
+		}
+
+	}
 	/**
 	 *
 	 * @return The current date and time.
