@@ -419,7 +419,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 			} catch (JAXBException e) {
 				// Propagate the error to the user. By simply repeating the same search without mbxml/mbjson response
 				// writer, we can figure out which document caused this.
-				throw new RuntimeException(UNMARSHALLING_STORE_FAILED + store);
+				throw new RuntimeException(UNMARSHALLING_STORE_FAILED + store, e);
 			}
 
 			/**
