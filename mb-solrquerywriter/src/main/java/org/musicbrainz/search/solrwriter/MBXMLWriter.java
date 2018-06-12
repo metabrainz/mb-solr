@@ -78,8 +78,6 @@ public class MBXMLWriter implements QueryResponseWriter {
 	 */
 	private JAXBContext context = null;
 	protected JAXBContext errorContext = null;
-	private Unmarshaller unmarshaller = null;
-	protected Marshaller marshaller = null;
 	protected Marshaller errorMarshaller = null;
 	private ObjectFactory objectfactory = null;
 
@@ -298,9 +296,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 		try {
 			context = createJAXBContext();
 			errorContext = createJAXBErrorContext();
-			marshaller = createMarshaller();
 			errorMarshaller = createErrorMarshaller();
-			unmarshaller = context.createUnmarshaller();
 		} catch (JAXBException e) {
 			throw new RuntimeException(e);
 		}
@@ -375,8 +371,8 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		Metadata metadata = metadatalistwrapper.getCompletedMetadata();
 		metadata.setCreated(now);
-
 		try {
+			Marshaller marshaller = createMarshaller();
 			marshaller.marshal(metadata, sw);
 		} catch (JAXBException e) {
 			e.printStackTrace();
@@ -389,7 +385,12 @@ public class MBXMLWriter implements QueryResponseWriter {
 	public void parseSolrResponse(ResultContext con, MetadataListWrapper metadatalistwrapper, SolrQueryRequest req) throws IOException {
 
 		DocList doclist = con.getDocList();
-
+		Unmarshaller unmarshaller = null;
+		try {
+			unmarshaller = context.createUnmarshaller();
+		} catch (JAXBException e) {
+			throw new RuntimeException(e);
+		}
 		metadatalistwrapper.setCountAndOffset(doclist.matches(),
 				doclist.offset());
 
@@ -457,6 +458,12 @@ public class MBXMLWriter implements QueryResponseWriter {
 
 		metadatalistwrapper.setCountAndOffset(doclist.getNumFound(),
 				doclist.getStart());
+		Unmarshaller unmarshaller = null;
+		try {
+			unmarshaller = context.createUnmarshaller();
+		} catch (JAXBException e) {
+			throw new RuntimeException(e);
+		}
 
 		List xmlList = metadatalistwrapper.getLiveList();
 

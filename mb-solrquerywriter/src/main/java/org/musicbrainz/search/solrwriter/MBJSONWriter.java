@@ -101,7 +101,6 @@ public class MBJSONWriter extends MBXMLWriter {
 		try {
 			jsonContext = createJAXBJSONContext();
 			errorContext = createJAXBErrorContext();
-			marshaller = createMarshaller();
 			errorMarshaller = createErrorMarshaller();
 		} catch (JAXBException ex) {
 			throw new RuntimeException(ex);
