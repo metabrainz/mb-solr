@@ -96,28 +96,6 @@ public abstract class AbstractMBWriterTest extends SolrTestCaseJ4 implements
 
 	@Test
 	/**
-	 * Check that a useful error message is shown to the user if 'score' is
-	 * not in the field list.
-	 */
-	public void testNoScoreException() throws Exception {
-		addDocument(true);
-		thrown.expectMessage(MBXMLWriter.SCORE_NOT_IN_FIELD_LIST);
-		h.query(req("q", "*:*", "fl", "*", "wt", getWritername()));
-	}
-
-	@Test
-	/**
-	 * Check that a useful error message is shown to the user if the document
-	 * doesn't have a '_store' field.
-	 */
-	public void testNoStoreException() throws Exception {
-		addDocument(false);
-		thrown.expectMessage(MBXMLWriter.NO_STORE_VALUE);
-		h.query(req("q", "*:*", "fl", "score", "wt", getWritername()));
-	}
-
-	@Test
-	/**
 	 * Check that the expected error message is shown for documents with a
 	 * '_store' field with a value that can't be
 	 * unmarshalled.
