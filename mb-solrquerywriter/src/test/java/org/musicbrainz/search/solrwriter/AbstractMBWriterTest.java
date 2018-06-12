@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractMBWriterTest extends SolrTestCaseJ4 implements
 		MBWriterTestInterface {
@@ -38,7 +39,7 @@ public abstract class AbstractMBWriterTest extends SolrTestCaseJ4 implements
 	 *                   setting it to a value different from null
 	 * @throws IOException
 	 */
-	void addDocument(boolean withStore, String storeValue) throws IOException {
+	void addDocument(boolean withStore, String storeValue) throws IOException, InterruptedException {
 		ArrayList<String> values = new ArrayList<>(getDoc());
 		if (withStore) {
 			String xml;
@@ -56,7 +57,7 @@ public abstract class AbstractMBWriterTest extends SolrTestCaseJ4 implements
 		}
 
 		assertU(adoc((values.toArray(new String[values.size()]))));
-		assertU(commit());
+		TimeUnit.SECONDS.sleep(2);
 	}
 
 	void addDocument(boolean withStore) throws Exception {
@@ -75,6 +76,7 @@ public abstract class AbstractMBWriterTest extends SolrTestCaseJ4 implements
 	 */
 	public void performCoreTest() throws Exception {
 		addDocument(true);
+		// Sleep to allow auto soft commit
 		String expectedFile;
 		byte[] content;
 		String expected;
@@ -87,7 +89,7 @@ public abstract class AbstractMBWriterTest extends SolrTestCaseJ4 implements
 		content = Files.readAllBytes(Paths.get(expectedFile));
 		expected = new String(content);
 
-		String response = h.query(req("q", "*:*", "wt", getWritername()));
+		String response = h.query(req("qt", "/advanced", "q", "*:*", "wt", getWritername()));
 		compare(expected, response);
 	}
 
@@ -102,8 +104,9 @@ public abstract class AbstractMBWriterTest extends SolrTestCaseJ4 implements
 	 */
 	public void testInvalidStoreException() throws Exception {
 		addDocument(true, "invalid");
+		// Sleep to allow auto soft commit
 		thrown.expectMessage(MBXMLWriter.UNMARSHALLING_STORE_FAILED +
 				"invalid");
-		h.query(req("q", "*:*", "fl", "score", "wt", getWritername()));
+		h.query(req("qt", "/advanced", "q", "*:*", "wt", getWritername()));
 	}
 }
