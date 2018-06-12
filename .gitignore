@@ -1,1 +1,3 @@
 mb-solrquerywriter/target*
+.idea/
+*.iml
