@@ -25,7 +25,7 @@ Clone the repository with Git:
 
     git clone --recursive https://github.com/metabrainz/mb-solr.git
 
-Navigate to the **mb-solrquerywriter** folder in a terminal and build a JAR
+Navigate to the **mb-solr** folder in a terminal and build a JAR
 file:
 
     mvn package

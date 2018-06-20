@@ -9,7 +9,7 @@ before_install:
 - pushd mmd-schema/brainz-mmd2-jaxb
 - mvn -DskipTests install
 - popd
-- cd mb-solrquerywriter
+- cd mb-solr
 after_success:
 - mvn package -DskipTests
 deploy:
