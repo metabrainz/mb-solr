@@ -13,19 +13,19 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
 
 # Caching the maven dependencies so that these are built only if
 # the dependencies are changed and not the source code.
-COPY ./mb-solrquerywriter/pom.xml mb-solrquerywriter/pom.xml
+COPY ./mb-solr/pom.xml mb-solr/pom.xml
 COPY ./mmd-schema/brainz-mmd2-jaxb/pom.xml brainz-mmd2-jaxb/pom.xml
 RUN cd brainz-mmd2-jaxb && \
     mvn verify clean --fail-never && \
-    cd ../mb-solrquerywriter && \
+    cd ../mb-solr && \
     mvn verify clean --fail-never && \
     cd ..
 
 COPY ./mmd-schema/brainz-mmd2-jaxb brainz-mmd2-jaxb
-COPY ./mb-solrquerywriter mb-solrquerywriter
+COPY ./mb-solr mb-solr
 RUN cd brainz-mmd2-jaxb && \
     mvn install && \
-    cd ../mb-solrquerywriter && \
+    cd ../mb-solr && \
     mvn package -DskipTests && \
     mkdir -p /opt/solr/lib && \
     cp target/solrwriter-0.0.1-SNAPSHOT-jar-with-dependencies.jar /opt/solr/lib

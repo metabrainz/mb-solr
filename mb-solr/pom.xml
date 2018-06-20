@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.musicbrainz.search</groupId>
-	<artifactId>solrwriter</artifactId>
+	<artifactId>mb-solr</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>solrwriter</name>
+	<name>mb-solr</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -129,6 +129,24 @@
 
 	<build>
 		<plugins>
+			<plugin>
+			  <groupId>de.jflex</groupId>
+			  <artifactId>jflex-maven-plugin</artifactId>
+			  <version>1.6.1</version>
+			  <executions>
+			    <execution>
+			      <goals>
+			        <goal>generate</goal>
+			      </goals>
+			      <configuration>
+			        <outputDirectory>src/main/java</outputDirectory>
+			        <lexDefinitions>
+			          <lexDefinition>src/main/java/org/musicbrainz/search/analysis/MusicbrainzTokenizerImpl.jflex</lexDefinition>
+			        </lexDefinitions>
+			      </configuration>
+			    </execution>
+			  </executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
