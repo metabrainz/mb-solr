@@ -107,6 +107,11 @@
         </java-type>
         <java-type name="Artist">
             <java-attributes>
+                <xml-element java-attribute="isniList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Artist">
+            <java-attributes>
                 <xml-element java-attribute="gender">
                     <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.StringGenderAdapter"/>
                 </xml-element>
@@ -143,6 +148,11 @@
         <java-type name="IpiList">
             <java-attributes>
                 <xml-element java-attribute="ipi" name="ipis"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="IsniList">
+            <java-attributes>
+                <xml-element java-attribute="isni" name="isnis"/>
             </java-attributes>
         </java-type>
         <java-type name="LabelList">
@@ -347,6 +357,11 @@
         <java-type name="Label">
             <java-attributes>
                 <xml-element java-attribute="ipiList" xml-path="."/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Label">
+            <java-attributes>
+                <xml-element java-attribute="isniList" xml-path="."/>
             </java-attributes>
         </java-type>
         <java-type name="Label">
