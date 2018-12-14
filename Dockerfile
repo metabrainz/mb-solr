@@ -1,4 +1,4 @@
-FROM solr:7.3.0-alpine
+FROM solr:7.5.0-alpine
 
 # Resetting value set in the parent image
 USER root
@@ -28,7 +28,7 @@ RUN cd brainz-mmd2-jaxb && \
     cd ../mb-solr && \
     mvn package -DskipTests && \
     mkdir -p /opt/solr/lib && \
-    cp target/solrwriter-0.0.1-SNAPSHOT-jar-with-dependencies.jar /opt/solr/lib
+    cp target/mb-solr-0.0.1-SNAPSHOT-jar-with-dependencies.jar /opt/solr/lib
 
 ENV SOLR_HOME /opt/solr/server/solr
 COPY ./mbsssss $SOLR_HOME/mycores/mbsssss

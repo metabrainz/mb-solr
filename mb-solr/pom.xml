@@ -37,23 +37,23 @@
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-core</artifactId>
-			<version>7.3.0</version>
+			<version>7.5.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.ibm.icu</groupId>
 			<artifactId>icu4j</artifactId>
-			<version>59.1</version>
+			<version>62.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-analyzers-icu</artifactId>
-			<version>7.3.0</version>
+			<version>7.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-analysis-extras</artifactId>
-			<version>7.3.0</version>
+			<version>7.5.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -74,19 +74,19 @@
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-test-framework</artifactId>
-			<version>7.3.0</version>
+			<version>7.5.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-test-framework</artifactId>
-			<version>7.3.0</version>
+			<version>7.5.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-core</artifactId>
-			<version>7.3.0</version>
+			<version>7.5.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -116,13 +116,13 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.5</version>
+			<version>1.7.24</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.5</version>
+			<version>1.7.24</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
