@@ -32,7 +32,7 @@ elif [[ $version =~ ^[0-9]+\.[0-9]+$ ]]; then
 fi
 
 # add aliases if version is of format major.minor.patch
-if [[ $version =~ ^([0-9]+)\.([0-9]+)\.[0-9]\+$ ]]; then
+if [[ $version =~ ^([0-9]+)\.([0-9]+)\.[0-9]+$ ]]; then
   major=${BASH_REMATCH[1]}
   minor=${BASH_REMATCH[2]}
   version_aliases=( "${major}.${minor}" "${major}" )
