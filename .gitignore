@@ -1,3 +1,4 @@
 mb-solr/target*
 .idea/
 *.iml
+/build-*.log
