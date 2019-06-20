@@ -1,4 +1,4 @@
-FROM solr:7.7.2-alpine
+FROM metabrainz/solr:7.7.2-alpine
 
 # Resetting value set in the parent image
 USER root
