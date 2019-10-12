@@ -19,6 +19,7 @@ deploy:
   file_glob: true
   file: target/*.jar
   skip_cleanup: true
+  draft: true
   on:
     all_branches: true
     tags: true
