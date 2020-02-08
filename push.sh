@@ -19,6 +19,7 @@ image_name='metabrainz/mb-solr'
 
 cd "$(dirname "${BASH_SOURCE[0]}")/"
 
+DOCKER_CMD=${DOCKER_CMD:-docker}
 vcs_ref=`git describe --always --broken --dirty --tags`
 version=${vcs_ref#v}
 
@@ -49,16 +50,16 @@ tag=${version}
 tag_aliases=${version_aliases[@]}
 timestamp=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 
-docker build \
+${DOCKER_CMD} build \
   --build-arg MB_SOLR_VERSION=${version} \
   --build-arg BUILD_DATE=${timestamp} \
   --build-arg VCS_REF=${vcs_ref} \
   --tag ${image_name}:${tag} . \
   | tee ./"build-${version}-at-${timestamp}.log"
 
-docker push ${image_name}:${tag}
+${DOCKER_CMD} push ${image_name}:${tag}
 
 for tag_alias in ${tag_aliases[@]}; do
-  docker tag ${image_name}:${tag} metabrainz/mb-solr:${tag_alias}
-  docker push ${image_name}:${tag_alias}
+  ${DOCKER_CMD} tag ${image_name}:${tag} metabrainz/mb-solr:${tag_alias}
+  ${DOCKER_CMD} push ${image_name}:${tag_alias}
 done
