@@ -43,6 +43,13 @@ LABEL org.label-schema.build-date="${BUILD_DATE}" \
 # Resetting value set in the parent image
 USER root
 
+RUN apk update && \
+    apk add --no-cache \
+        # Needed to decompress search index dumps
+        zstd \
+        && \
+    rm -rf /var/cache/apk/*
+
 COPY --from=builder \
      mb-solr/target/mb-solr-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
      /opt/solr/lib/
