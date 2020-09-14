@@ -9,7 +9,6 @@ public abstract class AbstractMBWriterRecordingTest extends AbstractMBWriterTest
 		return new ArrayList<>(Arrays.asList(new String[]{
 				"mbid", uuid,
 				"recording", "Roots and Beginnings",
-				"name", "Roots and Beginnings",
 				"arid", "9b58672a-e68e-4972-956e-a8985a165a1f",
 				"artist", "Howard Shore",
 				"artistname", "Howard Shore",
