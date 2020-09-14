@@ -57,7 +57,7 @@ public abstract class AbstractMBWriterTest extends SolrTestCaseJ4 implements
 		}
 
 		assertU(adoc((values.toArray(new String[values.size()]))));
-		TimeUnit.SECONDS.sleep(2);
+		TimeUnit.SECONDS.sleep(15);
 	}
 
 	void addDocument(boolean withStore) throws Exception {
