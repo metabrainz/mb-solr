@@ -251,6 +251,7 @@
                 <xml-element java-attribute="status">
                     <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.StringStatusAdapter"/>
                 </xml-element>
+                <xml-element java-attribute="packaging" xml-path="." />
             </java-attributes>
         </java-type>
         <java-type name="Recording">
@@ -540,6 +541,12 @@
 			    <xml-attribute java-attribute="id" name="primary-type-id" />
 		    </java-attributes>
 	    </java-type>
+        <java-type name="Packaging">
+            <java-attributes>
+                <xml-element java-attribute="content" name="packaging" />
+                <xml-attribute java-attribute="id" name="packaging-id" />
+            </java-attributes>
+        </java-type>
         <java-type name="Alias">
             <xml-type prop-order=""/>
             <java-attributes>
