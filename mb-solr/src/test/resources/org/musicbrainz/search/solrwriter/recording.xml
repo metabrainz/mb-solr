@@ -17,7 +17,7 @@
     <release-list>
         <release id="e7fe61ca-65b8-4abb-8723-1e7c1a5e0a49">
             <title>The Lord of the Rings: The Return of the King: The Complete Recordings</title>
-            <status>Official</status>
+            <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
             <release-group id="f5fd971c-a1a2-33da-95b0-473e0176df83" type="Soundtrack">
                 <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
                 <secondary-type-list>
@@ -56,7 +56,7 @@
         </release>
         <release id="e7fe61ca-65b8-4abb-8723-1e7c1a5e0a49">
             <title>The Lord of the Rings: The Return of the King: The Complete Recordings</title>
-            <status>Official</status>
+            <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
             <release-group id="f5fd971c-a1a2-33da-95b0-473e0176df83" type="Soundtrack">
                 <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
                 <secondary-type-list>

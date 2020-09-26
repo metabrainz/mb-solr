@@ -1,6 +1,6 @@
 <release xmlns="http://musicbrainz.org/ns/mmd-2.0#" id="871f12ec-6259-4e93-b440-9108559c38b1">
     <title>Chiptunes = WIN \m|♥|m/</title>
-    <status>Official</status>
+    <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
     <packaging id="119eba76-b343-3e02-a292-f0f00644bb9b">None</packaging>
     <text-representation>
         <language>eng</language>
