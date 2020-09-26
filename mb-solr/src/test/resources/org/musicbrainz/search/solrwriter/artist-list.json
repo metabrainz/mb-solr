@@ -11,6 +11,8 @@
             "name": "Howard Shore",
             "sort-name": "Shore, Howard",
             "country": "CA",
+            "gender": "Male",
+            "gender-id": "36d3d30a-839d-3eda-8cb3-29be4384e4a9",
             "area": {
                 "id": "71bbafaa-e825-3e15-8ca9-017dcad1748b",
                 "name": "Canada",
