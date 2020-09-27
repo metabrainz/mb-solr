@@ -1,4 +1,4 @@
-ARG MAVEN_TAG=3.9.6-eclipse-temurin-8
+ARG MAVEN_TAG=3.9.6-eclipse-temurin-11
 ARG SOLR_NAME=metabrainz/solr
 ARG SOLR_TAG=7.7.2-alpine
 
