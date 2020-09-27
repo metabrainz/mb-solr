@@ -28,14 +28,31 @@
 
 package org.musicbrainz.search.solrwriter.moxy;
 
-import org.musicbrainz.mmd2.SecondaryType;
+import org.musicbrainz.mmd2.SecondaryTypeList;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import javax.xml.bind.annotation.XmlElement;
+import java.util.ArrayList;
+import java.util.List;
 
-public class StringSecondaryTypeAdapter extends NotUnmarshallableXmlAdapter<String, SecondaryType> {
+public class SecondaryTypeListAdapter extends NotUnmarshallableXmlAdapter<SecondaryTypeListAdapter.AdaptedSecondaryTypeList, SecondaryTypeList> {
+
+    public static class AdaptedSecondaryTypeList extends SecondaryTypeList {
+        @XmlElement(name = "secondary-types")
+        public List<String> secondaryTypes = new ArrayList<>();
+        
+        @XmlElement(name = "secondary-type-ids")
+        public List<String> secondaryTypeIds = new ArrayList<>();
+    }
+
     @Override
-    public String marshal(SecondaryType v) throws Exception {
-        return v.getContent();
+    public SecondaryTypeListAdapter.AdaptedSecondaryTypeList marshal (SecondaryTypeList secondaryTypes) throws Exception
+    {
+        AdaptedSecondaryTypeList adaptedSecondaryTypes = new AdaptedSecondaryTypeList();
+        secondaryTypes.getSecondaryType().forEach(secondaryType -> {
+            adaptedSecondaryTypes.secondaryTypes.add(secondaryType.getContent());
+            adaptedSecondaryTypes.secondaryTypeIds.add(secondaryType.getId());
+        });
+        return adaptedSecondaryTypes;
     }
 
 }
