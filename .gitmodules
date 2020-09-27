@@ -5,4 +5,4 @@
 	branch = master
 [submodule "mmd-schema"]
 	path = mmd-schema
-	url = https://github.com/metabrainz/mmd-schema.git
+	url = https://github.com/amcap1712/mmd-schema.git
