@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Build image from the currently checked out version of
 # MusicBrainz Solr search server (mb-solr)
