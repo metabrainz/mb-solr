@@ -101,6 +101,14 @@ QueryResponseWriter is available on
 
 ## Docker Installation
 
-Simply run
+Clone the repository with Git:
+
+    git clone --recursive https://github.com/metabrainz/mb-solr.git
+
+Either run it alone on port 8983:
 
     docker-compose up
+
+Or build a tagged image to run with [MusicBrainz Docker](https://github.com/metabrainz/musicbrainz-docker):
+
+    ./build.sh
