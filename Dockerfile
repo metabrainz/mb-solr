@@ -10,9 +10,10 @@ COPY ./mb-solr/pom.xml mb-solr/pom.xml
 COPY ./mmd-schema/brainz-mmd2-jaxb/pom.xml brainz-mmd2-jaxb/pom.xml
 RUN cd brainz-mmd2-jaxb && \
     mvn verify clean --fail-never && \
+    echo BUILD SUCCESS is expected above && \
     cd ../mb-solr && \
     mvn verify clean --fail-never && \
-    cd ..
+    echo BUILD FAILURE is expected above because brainz-mmd-jaxb is not installed yet
 
 COPY ./mmd-schema/brainz-mmd2-jaxb brainz-mmd2-jaxb
 COPY ./mb-solr mb-solr
