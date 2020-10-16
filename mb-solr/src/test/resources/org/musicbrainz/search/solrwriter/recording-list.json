@@ -55,6 +55,7 @@
                     "release-group": {
                         "id": "f5fd971c-a1a2-33da-95b0-473e0176df83",
                         "primary-type": "Album",
+                        "primary-type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc",
                         "secondary-types": [
                             "Soundtrack"
                         ]
@@ -99,6 +100,7 @@
                     "release-group": {
                         "id": "f5fd971c-a1a2-33da-95b0-473e0176df83",
                         "primary-type": "Album",
+                        "primary-type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc",
                         "secondary-types": [
                           "Soundtrack"
                         ]
