@@ -57,7 +57,12 @@
                         "primary-type": "Album",
                         "primary-type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc",
                         "secondary-types": [
-                            "Soundtrack"
+                            "Soundtrack",
+                            "Live"
+                        ],
+                        "secondary-type-ids": [
+                            "22a628ad-c082-3c4f-b1b6-d41665107b88",
+                            "6fd474e2-6b58-3102-9d17-d6f7eb7da0a0"
                         ]
                     },
                     "date": "2007-11-20",
@@ -102,7 +107,12 @@
                         "primary-type": "Album",
                         "primary-type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc",
                         "secondary-types": [
-                          "Soundtrack"
+                            "Soundtrack",
+                            "Live"
+                        ],
+                        "secondary-type-ids": [
+                            "22a628ad-c082-3c4f-b1b6-d41665107b88",
+                            "6fd474e2-6b58-3102-9d17-d6f7eb7da0a0"
                         ]
                     },
                     "date": "2007-11-20",

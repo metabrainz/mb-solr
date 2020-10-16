@@ -332,11 +332,7 @@
             </java-attributes>
         </java-type>
         <java-type name="SecondaryTypeList">
-            <java-attributes>
-                <xml-element java-attribute="secondaryType" name="secondary-types">
-                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.StringSecondaryTypeAdapter"/>
-                </xml-element>
-            </java-attributes>
+            <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.SecondaryTypeListAdapter" />
         </java-type>
         <java-type name="ArtistCredit">
             <java-attributes>

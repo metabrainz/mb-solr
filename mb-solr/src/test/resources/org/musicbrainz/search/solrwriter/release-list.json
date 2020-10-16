@@ -39,6 +39,9 @@
                 "primary-type-id": "f529b476-6e62-324f-b0aa-1f3e33d313fc",
                 "secondary-types": [
                     "Compilation"
+                ],
+                "secondary-type-ids": [
+                    "dd2a21e1-0c00-3729-a7a0-de60b84eb5d1"
                 ]
             },
             "date": "2012-06-05",
