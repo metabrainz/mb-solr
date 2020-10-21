@@ -35,7 +35,7 @@
         </java-type>
         <java-type name="LifeSpan">
             <java-attributes>
-                <xml-element java-attribute="ended"  nillable="true">
+                <xml-element java-attribute="ended" nillable="true">
                     <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.BooleanStringAdapter"/>
                 </xml-element>
             </java-attributes>
@@ -219,7 +219,7 @@
             </java-attributes>
         </java-type>
         <java-type name="SecondaryTypeList">
-            <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.SecondaryTypeListAdapter" />
+            <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.SecondaryTypeListAdapter"/>
         </java-type>
         <java-type name="ArtistCredit">
             <java-attributes>
@@ -335,16 +335,16 @@
                 <xml-element java-attribute="iso31663Code" name="iso-3166-3-codes"/>
             </java-attributes>
         </java-type>
-	    <java-type name="PrimaryType">
-		    <java-attributes>
-			    <xml-element java-attribute="content" name="primary-type" />
-			    <xml-attribute java-attribute="id" name="primary-type-id" />
-		    </java-attributes>
-	    </java-type>
+        <java-type name="PrimaryType">
+            <java-attributes>
+                <xml-element java-attribute="content" name="primary-type"/>
+                <xml-attribute java-attribute="id" name="primary-type-id"/>
+            </java-attributes>
+        </java-type>
         <java-type name="Packaging">
             <java-attributes>
-                <xml-element java-attribute="content" name="packaging" />
-                <xml-attribute java-attribute="id" name="packaging-id" />
+                <xml-element java-attribute="content" name="packaging"/>
+                <xml-attribute java-attribute="id" name="packaging-id"/>
             </java-attributes>
         </java-type>
         <java-type name="Alias">
@@ -356,7 +356,8 @@
                 <xml-element java-attribute="locale" name="locale" nillable="true"/>
                 <xml-element java-attribute="type" name="type" nillable="true"/>
                 <xml-element java-attribute="primary" nillable="true">
-                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.BooleanAliasTypeAdapter"/>
+                    <xml-java-type-adapter
+                            value="org.musicbrainz.search.solrwriter.moxy.BooleanAliasTypeAdapter"/>
                 </xml-element>
             </java-attributes>
         </java-type>
