@@ -1,1 +1,39 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ns2="http://musicbrainz.org/ns/ext#-2.0"><label-list count="1" offset="0"><label id="5a584032-dcef-41bb-9f8b-19540116fb1c" type="Original Production" ns2:score="100"><name>Deutsche Grammophon</name><sort-name>Deutsche Grammophon</sort-name><label-code>173</label-code><country>DE</country><area id="85752fda-13c4-31a3-bee5-0e5cb1f51dad"><name>Germany</name><sort-name>Germany</sort-name></area><life-span><begin>1898</begin><ended>false</ended></life-span><alias-list><alias sort-name="Deutsche Grammaphon">Deutsche Grammaphon</alias><alias sort-name="Deutsche Grammophone">Deutsche Grammophone</alias><alias sort-name="Deutsche Grammophon Gesellschaft">Deutsche Grammophon Gesellschaft</alias><alias sort-name="Deutsche Grammophon GmbH">Deutsche Grammophon GmbH</alias><alias sort-name="Deutsche Grammophon (Universal)">Deutsche Grammophon (Universal)</alias><alias sort-name="Deutsche Gramophon">Deutsche Gramophon</alias><alias sort-name="DG">DG</alias></alias-list><tag-list><tag count="2"><name>classical</name></tag><tag count="1"><name>tomatito</name></tag><tag count="1"><name>deutsche grammophon beethoven</name></tag></tag-list></label></label-list></metadata>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ns2="http://musicbrainz.org/ns/ext#-2.0">
+    <label-list count="1" offset="0">
+        <label id="5a584032-dcef-41bb-9f8b-19540116fb1c" type="Original Production" ns2:score="100">
+            <name>Deutsche Grammophon</name>
+            <sort-name>Deutsche Grammophon</sort-name>
+            <label-code>173</label-code>
+            <country>DE</country>
+            <area id="85752fda-13c4-31a3-bee5-0e5cb1f51dad">
+                <name>Germany</name>
+                <sort-name>Germany</sort-name>
+            </area>
+            <life-span>
+                <begin>1898</begin>
+                <ended>false</ended>
+            </life-span>
+            <alias-list>
+                <alias sort-name="Deutsche Grammaphon">Deutsche Grammaphon</alias>
+                <alias sort-name="Deutsche Grammophone">Deutsche Grammophone</alias>
+                <alias sort-name="Deutsche Grammophon Gesellschaft">Deutsche Grammophon Gesellschaft</alias>
+                <alias sort-name="Deutsche Grammophon GmbH">Deutsche Grammophon GmbH</alias>
+                <alias sort-name="Deutsche Grammophon (Universal)">Deutsche Grammophon (Universal)</alias>
+                <alias sort-name="Deutsche Gramophon">Deutsche Gramophon</alias>
+                <alias sort-name="DG">DG</alias>
+            </alias-list>
+            <tag-list>
+                <tag count="2">
+                    <name>classical</name>
+                </tag>
+                <tag count="1">
+                    <name>tomatito</name>
+                </tag>
+                <tag count="1">
+                    <name>deutsche grammophon beethoven</name>
+                </tag>
+            </tag-list>
+        </label>
+    </label-list>
+</metadata>
