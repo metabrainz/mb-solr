@@ -1,1 +1,14 @@
-<place xmlns="http://musicbrainz.org/ns/mmd-2.0#" id="fd60135e-d173-4a56-87fd-1f1c4bc62bd1" type="Venue"><name>Ilmbühne</name><coordinates><latitude>50.99508</latitude><longitude>11.36062</longitude></coordinates><area id="c7644e45-dec4-43fd-aad6-35036b8e911d"><name>Weimar</name><sort-name>Weimar</sort-name></area><alias-list><alias sort-name="Lindenrondell" type="Search hint">Lindenrondell</alias></alias-list></place>
+<place xmlns="http://musicbrainz.org/ns/mmd-2.0#" id="fd60135e-d173-4a56-87fd-1f1c4bc62bd1" type="Venue">
+    <name>Ilmbühne</name>
+    <coordinates>
+        <latitude>50.99508</latitude>
+        <longitude>11.36062</longitude>
+    </coordinates>
+    <area id="c7644e45-dec4-43fd-aad6-35036b8e911d">
+        <name>Weimar</name>
+        <sort-name>Weimar</sort-name>
+    </area>
+    <alias-list>
+        <alias sort-name="Lindenrondell" type="Search hint">Lindenrondell</alias>
+    </alias-list>
+</place>

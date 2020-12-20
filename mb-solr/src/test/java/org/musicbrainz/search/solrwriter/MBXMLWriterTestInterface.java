@@ -25,9 +25,10 @@ public interface MBXMLWriterTestInterface extends MBWriterTestInterface {
 		Source test = Input.fromString(actual).build();
 
 		Diff d = DiffBuilder.compare(Input.fromString(expected))
+				.ignoreWhitespace()
+				.ignoreComments()
 				.withTest(test)
-				.withAttributeFilter
-						(MBXMLWriterTestInterface::cannotSkipAttribute)
+				.withAttributeFilter(MBXMLWriterTestInterface::cannotSkipAttribute)
 				.build();
 		if (d.hasDifferences()) {
 			for (Difference diff : d.getDifferences()) {

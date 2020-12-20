@@ -1,1 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ns2="http://musicbrainz.org/ns/ext#-2.0"><cdstub-list count="1" offset="0"><cdstub id="zsXyqGWvw0zF024A_saTokxIMzo-" ns2:score="100"><title>Doo-lang Doo-lang</title><artist>The Emergency</artist><barcode>700261200910</barcode><disambiguation>CD Baby id:emergency2</disambiguation><track-list count="16"/></cdstub></cdstub-list></metadata>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ns2="http://musicbrainz.org/ns/ext#-2.0">
+    <cdstub-list count="1" offset="0">
+        <cdstub id="zsXyqGWvw0zF024A_saTokxIMzo-" ns2:score="100">
+            <title>Doo-lang Doo-lang</title>
+            <artist>The Emergency</artist>
+            <barcode>700261200910</barcode>
+            <disambiguation>CD Baby id:emergency2</disambiguation>
+            <track-list count="16"/>
+        </cdstub>
+    </cdstub-list>
+</metadata>

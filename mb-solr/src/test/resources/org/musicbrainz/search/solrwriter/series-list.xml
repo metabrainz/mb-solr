@@ -1,1 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?> <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ns2="http://musicbrainz.org/ns/ext#-2.0"><series-list count="1" offset="0"><series id="d271a712-90a9-43fb-9470-3151ebb9389a" type="Release" ns2:score="100"><name>The World Roots Music Library</name><disambiguation>2008</disambiguation><alias-list><alias locale="ja" sort-name="ザ・ワールド・ルーツ・ミュージック・ライブラリー" type="Series name" primary="primary">ザ・ワールド・ルーツ・ミュージック・ライブラリー</alias><alias locale="en" sort-name="World Roots Music Library, The" type="Series name" primary="primary">The World Roots Music Library</alias></alias-list></series></series-list></metadata>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ns2="http://musicbrainz.org/ns/ext#-2.0">
+    <series-list count="1" offset="0">
+        <series id="d271a712-90a9-43fb-9470-3151ebb9389a" type="Release" ns2:score="100">
+            <name>The World Roots Music Library</name>
+            <disambiguation>2008</disambiguation>
+            <alias-list>
+                <alias locale="ja" sort-name="ザ・ワールド・ルーツ・ミュージック・ライブラリー" type="Series name" primary="primary">ザ・ワールド・ルーツ・ミュージック・ライブラリー</alias>
+                <alias locale="en" sort-name="World Roots Music Library, The" type="Series name" primary="primary">The World Roots Music Library</alias>
+            </alias-list>
+        </series>
+    </series-list>
+</metadata>
