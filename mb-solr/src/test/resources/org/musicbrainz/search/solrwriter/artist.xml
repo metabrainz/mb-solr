@@ -1,6 +1,7 @@
 <artist xmlns="http://musicbrainz.org/ns/mmd-2.0#" id="9b58672a-e68e-4972-956e-a8985a165a1f" type="Person">
     <name>Howard Shore</name>
     <sort-name>Shore, Howard</sort-name>
+    <gender id="36d3d30a-839d-3eda-8cb3-29be4384e4a9">Male</gender>
     <country>CA</country>
     <area id="71bbafaa-e825-3e15-8ca9-017dcad1748b">
         <name>Canada</name>

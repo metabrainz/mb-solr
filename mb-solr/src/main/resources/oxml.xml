@@ -44,9 +44,7 @@
             <java-attributes>
                 <xml-element java-attribute="ipiList" xml-path="."/>
                 <xml-element java-attribute="isniList" xml-path="."/>
-                <xml-element java-attribute="gender">
-                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.StringGenderAdapter"/>
-                </xml-element>
+                <xml-element java-attribute="gender" xml-path="."/>
                 <xml-element java-attribute="tagList" xml-path="."/>
                 <xml-element java-attribute="aliasList" xml-path="."/>
             </java-attributes>
@@ -339,6 +337,12 @@
             <java-attributes>
                 <xml-element java-attribute="content" name="primary-type"/>
                 <xml-attribute java-attribute="id" name="primary-type-id"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Gender">
+            <java-attributes>
+                <xml-element java-attribute="content" name="gender" />
+                <xml-attribute java-attribute="id" name="gender-id" />
             </java-attributes>
         </java-type>
         <java-type name="Packaging">
