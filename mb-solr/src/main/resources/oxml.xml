@@ -54,9 +54,7 @@
                 <xml-element java-attribute="artistCredit" xml-path="."/>
                 <xml-element java-attribute="mediumList" xml-path="."/>
                 <xml-element java-attribute="releaseEventList" xml-path="."/>
-                <xml-element java-attribute="status">
-                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.StringStatusAdapter"/>
-                </xml-element>
+                <xml-element java-attribute="status" xml-path="."/>
                 <xml-element java-attribute="packaging" xml-path="."/>
                 <xml-element java-attribute="tagList" xml-path="."/>
                 <xml-element java-attribute="labelInfoList" xml-path="."/>
@@ -349,6 +347,12 @@
             <java-attributes>
                 <xml-element java-attribute="content" name="packaging"/>
                 <xml-attribute java-attribute="id" name="packaging-id"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Status">
+            <java-attributes>
+                <xml-element java-attribute="content" name="status" />
+                <xml-attribute java-attribute="id" name="status-id" />
             </java-attributes>
         </java-type>
         <java-type name="Alias">
