@@ -13,6 +13,7 @@ public abstract class AbstractMBWriterRecordingTest extends AbstractMBWriterTest
 				"artist", "Howard Shore",
 				"artistname", "Howard Shore",
 				"creditname", "Howard Shore",
+				"firstreleasedate", "2007-11-05",
 				"video", "false"
 		}));
 	}
