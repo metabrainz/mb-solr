@@ -166,7 +166,6 @@
         </java-type>
         <java-type name="EventList">
             <java-attributes>
-                <xml-element java-attribute="event" name="events"/>
                 <xml-element java-attribute="event" name="events">
                     <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.EventAdapter"/>
                 </xml-element>
