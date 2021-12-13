@@ -99,6 +99,11 @@ A branch of the MusicBrainz server that can query a Solr server with this
 QueryResponseWriter is available on
 [GitHub](https://github.com/mineo/musicbrainz-server/tree/solr-search).
 
+### Known Vulnerabilities
+
+- [CVE-2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228):
+  It can be mitigated by setting the environement variable `LOG4J_FORMAT_MSG_NO_LOOKUPS=true`.
+
 ## Docker Installation
 
 Clone the repository with Git:
