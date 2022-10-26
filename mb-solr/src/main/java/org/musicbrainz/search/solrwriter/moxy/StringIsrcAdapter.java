@@ -30,7 +30,7 @@ package org.musicbrainz.search.solrwriter.moxy;
 
 import org.musicbrainz.mmd2.Isrc;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 public class StringIsrcAdapter extends NotUnmarshallableXmlAdapter<String, Isrc> {
     @Override
