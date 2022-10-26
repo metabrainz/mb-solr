@@ -55,15 +55,15 @@ RUN apt-get update && \
 COPY --from=builder \
      mb-solr/target/mb-solr-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
      /opt/solr/lib/
+# Pointing default Solr config to our shared lib directory
+ENV SOLR_OPTS="$SOLR_OPTS -Dsolr.sharedLib=/opt/solr/lib"
 
 ENV SOLR_HOME /opt/solr/server/solr
 COPY ./mbsssss $SOLR_HOME/mycores/mbsssss
 
-# Pointing default Solr config to our shared lib directory
+# Creating directory for seach indexes data
 # and fix permissions
-RUN sed -i'' 's|</solr>|<str name="sharedLib">/opt/solr/lib</str></solr>|' \
-        /opt/solr/server/solr/solr.xml && \
-    mkdir $SOLR_HOME/data && \
+RUN mkdir $SOLR_HOME/data && \
     chown -R solr:solr /opt/solr
 
 USER $SOLR_USER
