@@ -2,7 +2,6 @@
 [submodule "mbsssss"]
 	path = mbsssss
 	url = https://github.com/metabrainz/mbsssss.git
-	branch = master
 [submodule "mmd-schema"]
 	path = mmd-schema
 	url = https://github.com/metabrainz/mmd-schema.git
