@@ -1,4 +1,4 @@
-ARG MAVEN_TAG=3.6.1-jdk-8
+ARG MAVEN_TAG=3.8.6-eclipse-temurin-17-focal
 ARG SOLR_NAME=metabrainz/solr
 ARG SOLR_TAG=7.7.2-alpine
 
