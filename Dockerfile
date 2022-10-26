@@ -64,6 +64,6 @@ COPY ./mbsssss $SOLR_HOME/mycores/mbsssss
 # Creating directory for seach indexes data
 # and fix permissions
 RUN mkdir $SOLR_HOME/data && \
-    chown -R solr:solr /opt/solr
+    chown -R solr:solr /opt/solr /opt/solr-$SOLR_TAG
 
 USER $SOLR_USER
