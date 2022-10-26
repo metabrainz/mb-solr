@@ -33,7 +33,7 @@ import org.musicbrainz.mmd2.Relation;
 import org.musicbrainz.mmd2.RelationList;
 import org.musicbrainz.mmd2.Work;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
