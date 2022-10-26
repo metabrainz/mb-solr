@@ -44,8 +44,9 @@ LABEL org.label-schema.build-date="${BUILD_DATE}" \
 # Resetting value set in the parent image
 USER root
 
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
-    apt-get install --no-install-recommends \
+    apt-get install -y --no-install-recommends \
         # Needed to decompress search index dumps
         zstd \
         && \
