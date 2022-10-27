@@ -66,4 +66,5 @@ COPY ./mbsssss $SOLR_HOME/mycores/mbsssss
 RUN mkdir $SOLR_HOME/data && \
     chown -R solr:solr /opt/solr /opt/solr-$SOLR_TAG
 
+# Restoring value set in the parent image
 USER $SOLR_USER
