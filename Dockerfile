@@ -70,7 +70,8 @@ RUN sed -i'' 's|</solr>|<str name="sharedLib">/opt/solr/lib</str></solr>|' \
     mkdir $SOLR_HOME/data && \
     chown -R solr:solr /opt/solr
 
-USER $SOLR_USER
+# Restoring value set in the parent image
+USER solr
 
 # Mitigation for CVE-2021-44228
 ENV LOG4J_FORMAT_MSG_NO_LOOKUPS true
