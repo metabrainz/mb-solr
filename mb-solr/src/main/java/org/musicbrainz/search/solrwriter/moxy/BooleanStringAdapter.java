@@ -28,7 +28,7 @@
 
 package org.musicbrainz.search.solrwriter.moxy;
 
-import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public class BooleanStringAdapter extends XmlAdapter<Boolean, String> {
 

@@ -8,7 +8,7 @@ FROM maven:${MAVEN_TAG} AS builder
 # the dependencies are changed and not the source code.
 COPY ./mb-solr/pom.xml mb-solr/pom.xml
 COPY ./mmd-schema/brainz-mmd2-jaxb/pom.xml brainz-mmd2-jaxb/pom.xml
-RUN cd brainz-mmd2-jaxb && \
+RUN --mount=type=cache,target=/root/.m2 cd brainz-mmd2-jaxb && \
     mvn verify clean --fail-never && \
     echo BUILD SUCCESS is expected above && \
     cd ../mb-solr && \
@@ -17,8 +17,11 @@ RUN cd brainz-mmd2-jaxb && \
 
 COPY ./mmd-schema/brainz-mmd2-jaxb brainz-mmd2-jaxb
 COPY ./mb-solr mb-solr
-RUN cd brainz-mmd2-jaxb && \
+COPY ./mbsolr-jaxb mbsolr-jaxb
+RUN --mount=type=cache,target=/root/.m2 cd brainz-mmd2-jaxb && \
     mvn install && \
+    cd ../mbsolr-jaxb && \
+    mvn assembly:single && \
     cd ../mb-solr && \
     mvn package -DskipTests
 
@@ -53,10 +56,12 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder \
+     mbsolr-jaxb/target/mbsolr-jaxb-1.0-SNAPSHOT-jar-with-dependencies.jar \
+     /opt/solr/server/lib/
+
+COPY --from=builder \
      mb-solr/target/mb-solr-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
-     /opt/solr/lib/
-# Pointing default Solr config to our shared lib directory
-ENV SOLR_OPTS="$SOLR_OPTS -Dsolr.sharedLib=/opt/solr/lib"
+     /opt/solr/server/solr/lib/
 
 ENV SOLR_HOME /opt/solr/server/solr
 COPY ./mbsssss $SOLR_HOME/mycores/mbsssss
