@@ -8,7 +8,8 @@ FROM maven:${MAVEN_TAG} AS builder
 # the dependencies are changed and not the source code.
 COPY ./mb-solr/pom.xml mb-solr/pom.xml
 COPY ./mmd-schema/brainz-mmd2-jaxb/pom.xml brainz-mmd2-jaxb/pom.xml
-RUN cd brainz-mmd2-jaxb && \
+RUN --mount=type=cache,target=/root/.m2 \
+    cd brainz-mmd2-jaxb && \
     mvn verify clean --fail-never && \
     echo BUILD SUCCESS is expected above && \
     cd ../mb-solr && \
@@ -17,7 +18,8 @@ RUN cd brainz-mmd2-jaxb && \
 
 COPY ./mmd-schema/brainz-mmd2-jaxb brainz-mmd2-jaxb
 COPY ./mb-solr mb-solr
-RUN cd brainz-mmd2-jaxb && \
+RUN --mount=type=cache,target=/root/.m2 \
+    cd brainz-mmd2-jaxb && \
     # Assume that Java classes have been regenerated and patched
     find src/main/java -type f -print0 | xargs -0 touch && \
     mvn install && \
