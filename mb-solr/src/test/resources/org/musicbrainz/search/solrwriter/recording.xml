@@ -1,7 +1,7 @@
 <recording xmlns="http://musicbrainz.org/ns/mmd-2.0#" id="3e0bdde6-74e0-46d4-855a-4493589fd6b2">
     <title>Roots and Beginnings</title>
     <length>391000</length>
-    <artist-credit>
+    <artist-credit id="aca3f13c-7e5d-3f4c-8cf8-97a4cd2cf9d4">
         <name-credit>
             <artist id="9b58672a-e68e-4972-956e-a8985a165a1f">
                 <name>Howard Shore</name>

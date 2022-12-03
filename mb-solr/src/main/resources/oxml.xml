@@ -218,6 +218,7 @@
         </java-type>
         <java-type name="ArtistCredit">
             <java-attributes>
+                <xml-attribute java-attribute="id" name="artist-credit-id"/>
                 <xml-element java-attribute="nameCredit" name="artist-credit"/>
             </java-attributes>
         </java-type>
