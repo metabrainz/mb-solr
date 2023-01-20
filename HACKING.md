@@ -112,3 +112,18 @@ And setting these options will not change the output.
 See “[Query Screen](https://solr.apache.org/guide/7_7/query-screen.html#query-screen)”
 in Apache Solr Reference Guide 7.7 for more information.
 
+#### Parameters priority
+
+Some parameters are automatically set on all queries based on the core configuration.
+
+Some parameters are set based on the request handler.
+These are identified as "invariants", which means that the parameters will always be set to this value even if you specify a different value in the admin.
+For example the [`basic` request handler](https://github.com/metabrainz/mbsssss/blob/v-2021-05-14/common/requestHandler-basic.xml) erases `pf` field for good.
+
+Some parameters for ranking are set with defaults and can be overridden.
+These can be changed by copying them into the relevant fields in the admin query panel to see the resulting change in ranking order.
+For example the [release’s request parameters](https://github.com/metabrainz/mbsssss/blob/v-2021-05-14/release/conf/request-params.xml)
+has a default value for `fl` field which can be overriden if needed
+(while the `pf` value will remain erased if used from `/basic` endpoint).
+
+Finally “Raw Query Parameters” has lesser priority than other form fields.
