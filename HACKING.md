@@ -12,6 +12,7 @@ Table of contents
 - [Solr logs](#solr-logs)
 - [Solr Admin](#solr-admin)
   * [Query screen](#query-screen)
+    + [Parameters priority](#parameters-priority)
 
 <!-- tocstop -->
 
