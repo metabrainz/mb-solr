@@ -103,10 +103,11 @@ From here, different combinations can be choosed depending on your needs:
 * Restrict to a single result by setting “Raw Query Parameters” to:
   `explainOther=mbid:fe78827f-e402-42a0-ab63-a3fd11c12cc4`
 
-Alternatively to get the same output format as in MB Search API
-(only since it is incompatible with showing any details),
+Alternatively to get the same output format as in MB Search API,m
 Unselect any value in the field `wt` (writer type) and
 set “Raw Query parameters” to either `wt=mbjson` or `wt=mbxml`.
+These formats are incompatible with the `fl`, `debugQuery`, and `explainOther` flags, and setting
+these options will not change the output.
 
 See “[Query Screen](https://solr.apache.org/guide/7_7/query-screen.html#query-screen)”
 in Apache Solr Reference Guide 7.7 for more information.
