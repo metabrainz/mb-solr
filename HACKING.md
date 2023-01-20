@@ -100,7 +100,10 @@ From here, different combinations can be choosed depending on your needs:
   either `mbid,score` for the least detailed list of results
   or `*,score` for the most detailed list of results
 
-* Restrict to a single result by setting “Raw Query Parameters” to:
+* If you expect another item to show up in the search results but it doesn’t,
+  you can ask Solr to return the score logging for that item
+  and compare it with the scores of the search results,
+  by setting “Raw Query Parameters” to:
   `explainOther=mbid:fe78827f-e402-42a0-ab63-a3fd11c12cc4`
 
 Alternatively to get the same output format as in MB Search API,
