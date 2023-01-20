@@ -1,7 +1,7 @@
 The Debugger's Guide to MusicBrainz Solr
 ========================================
 
-This file gives tips to debug MusicBrainz (advanced or not) indexed search based on Solr.
+This file gives tips to debug MusicBrainz indexed search based on Solr.
 
 Table of contents
 -----------------
