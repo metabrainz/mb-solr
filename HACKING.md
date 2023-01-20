@@ -20,7 +20,7 @@ Setup
 
 Set a development setup with [`musicbrainz-docker`](https://github.com/metabrainz/musicbrainz-docker).
 
-It allows to run any released or development version of
+This can be used to run any released or development version of
 MusicBrainz Server (MBS -
 [repository](https://github.com/metabrainz/musicbrainz-server/),
 [search-related tickets](https://tickets.metabrainz.org/issues/?jql=project%20%3D%20MBS%20AND%20component%20%3D%20Search%20AND%20status%20!%3D%20Closed)
