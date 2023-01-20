@@ -50,7 +50,7 @@ See also [MusicBrainz search architecture](https://musicbrainz.org/doc/Developme
 Solr logs
 ---------
 
-Logs can be used when making a search query with MBS and when indexing documents with SIR.
+Solr logs are useful to debug making a search query with MBS and/or indexing documents with SIR.
 
 In a terminal, follow Solr logs using:
 
