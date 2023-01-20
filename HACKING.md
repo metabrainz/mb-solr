@@ -45,7 +45,7 @@ conform to the same version of MusicBrainz Relax NG schema (MMD -
 [repository](https://github.com/metabrainz/mmd-schema)
 ) as they may just not work together otherwise.
 
-See also [MusicBrainz search architecture](https://musicbrainz.org/doc/Development/Search_Architecture) for a broader overview of the whole setup.
+See also [MusicBrainz search architecture](https://musicbrainz.org/doc/Development/Search_Architecture) for a broader overview.
 
 Solr logs
 ---------
