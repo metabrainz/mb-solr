@@ -85,20 +85,20 @@ switch the Core Selector to “`release`” and click on “Query” to get to
 <http://localhost:8983/solr/#/release/query>.
 
 Then start filling the form as follows:
-* Set the first field `Request-Handler (qt)`
+* Set the first field “Request-Handler (qt)”
   to the value for `path` in the log record, with a leading slash:
   `/advanced`
-* Set the second field `q` (query string)
+* Set the second field “q” (query string)
   to the text you typed for the search
-  (that is the unescaped value for `q` in the log record):
+  (that is the unescaped value for “q” in the log record):
   `(Downward Spiral) AND format:CD`
-* Select `xml` in the field `wt` (writer type) for the most readable presentation.
+* Select `xml` in the field “wt” (writer type) for the most readable presentation.
 
 From here, different combinations can be chosen depending on your needs:
 
 * Check `debugQuery` to have a detailed score computation (using search fields and boosts) for each result.
 
-* Set `fl` (field list) to
+* Set “fl” (field list) to
   either `mbid,score` for the least detailed list of results
   or `*,score` for the most detailed list of results
 
@@ -109,10 +109,11 @@ From here, different combinations can be chosen depending on your needs:
   `explainOther=mbid:fe78827f-e402-42a0-ab63-a3fd11c12cc4`
 
 Alternatively to get the same output format as in MB Search API,
-unselect any value in the field `wt` (writer type) and
-set “Raw Query parameters” to either `wt=mbjson` or `wt=mbxml`.
-These formats are incompatible with the `fl`, `debugQuery`, and `explainOther` flags;
-And setting these options will not change the output.
+unselect any value in the field “wt” (writer type) and
+set “Raw Query Parameters” to either `wt=mbjson` or `wt=mbxml`.
+These formats are incompatible with the “fl” field and the
+`debugQuery` and `explainOther` options, so setting any of these
+will not change the output.
 
 See “[Query Screen](https://solr.apache.org/guide/7_7/query-screen.html#query-screen)”
 in Apache Solr Reference Guide 7.7 for more information.
