@@ -27,23 +27,7 @@ RUN --mount=type=cache,target=/root/.m2 \
     mvn package -DskipTests
 
 FROM ${SOLR_NAME}:${SOLR_TAG}
-
-ARG MAVEN_TAG
-ARG SOLR_NAME
 ARG SOLR_TAG
-
-ARG MB_SOLR_VERSION
-ARG BUILD_DATE
-ARG VCS_REF
-
-LABEL org.label-schema.build-date="${BUILD_DATE}" \
-      org.label-schema.schema-version="1.0.0-rc1" \
-      org.label-schema.vcs-ref="${VCS_REF}" \
-      org.label-schema.vcs-url="https://github.com/metabrainz/mb-solr.git" \
-      org.label-schema.vendor="MetaBrainz Foundation" \
-      org.metabrainz.based-on-image="${SOLR_NAME}:${SOLR_TAG}" \
-      org.metabrainz.builder-image="maven:${MAVEN_TAG}" \
-      org.metabrainz.mb-solr.version="${MB_SOLR_VERSION}"
 
 # Resetting value set in the parent image
 USER root
@@ -69,6 +53,22 @@ RUN sed -i'' 's|</solr>|<str name="sharedLib">/opt/solr/lib</str></solr>|' \
         /opt/solr/server/solr/solr.xml && \
     mkdir $SOLR_HOME/data && \
     chown -R solr:solr /opt/solr
+
+ARG MAVEN_TAG
+ARG SOLR_NAME
+
+ARG MB_SOLR_VERSION
+ARG BUILD_DATE
+ARG VCS_REF
+
+LABEL org.label-schema.build-date="${BUILD_DATE}" \
+      org.label-schema.schema-version="1.0.0-rc1" \
+      org.label-schema.vcs-ref="${VCS_REF}" \
+      org.label-schema.vcs-url="https://github.com/metabrainz/mb-solr.git" \
+      org.label-schema.vendor="MetaBrainz Foundation" \
+      org.metabrainz.based-on-image="${SOLR_NAME}:${SOLR_TAG}" \
+      org.metabrainz.builder-image="maven:${MAVEN_TAG}" \
+      org.metabrainz.mb-solr.version="${MB_SOLR_VERSION}"
 
 # Restoring value set in the parent image
 USER solr
