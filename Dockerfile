@@ -18,14 +18,11 @@ RUN --mount=type=cache,target=/root/.m2 \
 
 COPY ./mmd-schema/brainz-mmd2-jaxb brainz-mmd2-jaxb
 COPY ./mb-solr mb-solr
-COPY ./mbsolr-jaxb mbsolr-jaxb
 RUN --mount=type=cache,target=/root/.m2 \
     cd brainz-mmd2-jaxb && \
     # Assume that Java classes have been regenerated and patched
     find src/main/java -type f -print0 | xargs -0 touch && \
     mvn install && \
-    cd ../mbsolr-jaxb && \
-    mvn assembly:single && \
     cd ../mb-solr && \
     mvn package -DskipTests
 
@@ -44,12 +41,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder \
-     mbsolr-jaxb/target/mbsolr-jaxb-1.0-SNAPSHOT-jar-with-dependencies.jar \
-     /opt/solr/server/lib/
-
-COPY --from=builder \
      mb-solr/target/mb-solr-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
-     /opt/solr/server/solr/lib/
+     /opt/solr/lib/
 
 ENV SOLR_HOME /opt/solr/server/solr
 COPY ./mbsssss $SOLR_HOME/mycores/mbsssss

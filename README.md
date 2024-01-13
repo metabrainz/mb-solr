@@ -30,16 +30,6 @@ Clone the repository with Git:
 
     git clone --recursive https://github.com/metabrainz/mb-solr.git
 
-
-Navigate to **mbsolr-jaxb** and build dependencies:
-
-    mvn assembly:single
-
-This will create a file **target/mbsolr-jaxb-1.0-SNAPSHOT-jar-with-dependencies.jar**.
-Copy this file to jetty's lib directory inside your solr installation. On a default 
-binary download of solr this is `server/lib`.
-
-
 Navigate to the **mb-solr** folder in a terminal and build a JAR
 file:
 
