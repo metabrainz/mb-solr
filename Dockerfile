@@ -44,13 +44,12 @@ COPY --from=builder \
      mb-solr/target/mb-solr-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
      /opt/solr/lib/
 
-ENV SOLR_HOME /opt/solr/server/solr
-COPY ./mbsssss $SOLR_HOME/mycores/mbsssss
+COPY ./mbsssss /var/solr/data/mycores/mbsssss
 
 # Creating directory for seach indexes data
-# and fix permissions
-RUN mkdir $SOLR_HOME/data && \
-    chown -R solr:solr /opt/solr
+# with ownership to `solr` user/group,
+# so to be used for mounting volume.
+RUN install -d -g solr -o solr /var/solr/data/data
 
 ARG MAVEN_TAG
 ARG SOLR_NAME
