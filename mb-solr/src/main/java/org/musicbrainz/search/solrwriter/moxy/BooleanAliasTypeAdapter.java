@@ -29,8 +29,6 @@
 
 package org.musicbrainz.search.solrwriter.moxy;
 
-import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-
 public class BooleanAliasTypeAdapter extends NotUnmarshallableXmlAdapter<Boolean, String> {
     @Override
     public Boolean marshal(String v) throws Exception {

@@ -62,7 +62,7 @@ public class MBJSONWriter extends MBXMLWriter {
 			properties.put(JAXBContextProperties.JSON_VALUE_WRAPPER, "name");
 			return JAXBContextFactory.createContext(
 					new Class[] { Metadata.class }, properties);
-		} catch (JAXBException ex) {
+		} catch (jakarta.xml.bind.JAXBException ex) {
 			throw new RuntimeException(ex);
 		}
 	}
