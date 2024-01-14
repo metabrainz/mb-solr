@@ -40,11 +40,13 @@ RUN apt-get update && \
         && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder \
+COPY --from=builder --chown=solr:solr \
      mb-solr/target/mb-solr-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
      /opt/solr/lib/
 
-COPY ./mbsssss /var/solr/data/mycores/mbsssss
+COPY --chown=solr:solr \
+    ./mbsssss \
+    /var/solr/data/mycores/mbsssss
 
 # Creating directory for seach indexes data
 # with ownership to `solr` user/group,
