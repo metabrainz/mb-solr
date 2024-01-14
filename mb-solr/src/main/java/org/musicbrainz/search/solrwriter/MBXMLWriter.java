@@ -293,20 +293,12 @@ public class MBXMLWriter implements QueryResponseWriter {
 	}
 
 	public void init(NamedList initArgs) {
-		// JAXB uses context class loader to locate the JAXBContextFactory but Solr's shared
-		// library path is not present in the context class loader. So we need to set the
-		// context class loader to the class loader that loaded our plugin. The JAXB implementation
-		// classes are located in the same jar as this class.
-		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 		try {
-			Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
 			context = createJAXBContext();
 			errorContext = createJAXBErrorContext();
 			errorMarshaller = createErrorMarshaller();
 		} catch (JAXBException e) {
 			throw new RuntimeException(e);
-		} finally {
-			Thread.currentThread().setContextClassLoader(originalClassLoader);
 		}
 
 		/*
