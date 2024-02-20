@@ -18,6 +18,8 @@ RUN cd brainz-mmd2-jaxb && \
 COPY ./mmd-schema/brainz-mmd2-jaxb brainz-mmd2-jaxb
 COPY ./mb-solr mb-solr
 RUN cd brainz-mmd2-jaxb && \
+    # Assume that Java classes have been regenerated and patched
+    find src/main/java -type f -print0 | xargs -0 touch && \
     mvn install && \
     cd ../mb-solr && \
     mvn package -DskipTests
