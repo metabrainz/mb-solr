@@ -73,4 +73,3 @@ public class EventAdapter extends NotUnmarshallableXmlAdapter<EventAdapter.Adapt
         return adaptedEvent;
     }
 }
-

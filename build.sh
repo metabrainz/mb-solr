@@ -44,4 +44,3 @@ ${DOCKER_CMD} build \
   --build-arg VCS_REF=${vcs_ref} \
   --tag ${image_name}:${tag} . \
   | tee ./"build-${version}-at-${timestamp}.log"
-
