@@ -43,4 +43,4 @@ ${DOCKER_CMD} build \
   --build-arg BUILD_DATE=${timestamp} \
   --build-arg VCS_REF=${vcs_ref} \
   --tag ${image_name}:${tag} . \
-  | tee ./"build-${version}-at-${timestamp}.log"
+  2>&1 | tee ./"build-${version}-at-${timestamp}.log"
