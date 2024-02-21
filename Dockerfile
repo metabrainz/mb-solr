@@ -1,6 +1,6 @@
-ARG MAVEN_TAG=3.6.1-jdk-8
-ARG SOLR_NAME=metabrainz/solr
-ARG SOLR_TAG=7.7.2-alpine
+ARG MAVEN_TAG=3.9.6-eclipse-temurin-11
+ARG SOLR_NAME=solr
+ARG SOLR_TAG=7.7.2-slim
 
 FROM maven:${MAVEN_TAG} AS builder
 
@@ -44,12 +44,12 @@ LABEL org.label-schema.build-date="${BUILD_DATE}" \
 # Resetting value set in the parent image
 USER root
 
-RUN apk update && \
-    apk add --no-cache \
+RUN apt-get update && \
+    apt-get install --no-install-recommends \
         # Needed to decompress search index dumps
         zstd \
         && \
-    rm -rf /var/cache/apk/*
+    rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder \
      mb-solr/target/mb-solr-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
