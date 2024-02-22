@@ -18,7 +18,9 @@ jobs:
           distribution: 'adopt'
 
       - name: Install brainz-mmd2-jaxb
-        run: mvn install
+        run: |
+          find src/main/java -type f -print0 | xargs -0 touch
+          mvn install
         working-directory: mmd-schema/brainz-mmd2-jaxb
 
       - name: Build with Maven
