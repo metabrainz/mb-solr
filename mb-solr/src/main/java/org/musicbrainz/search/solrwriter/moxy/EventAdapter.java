@@ -32,7 +32,6 @@ import org.musicbrainz.mmd2.Event;
 import org.musicbrainz.mmd2.Relation;
 import org.musicbrainz.mmd2.RelationList;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,4 +72,3 @@ public class EventAdapter extends NotUnmarshallableXmlAdapter<EventAdapter.Adapt
         return adaptedEvent;
     }
 }
-

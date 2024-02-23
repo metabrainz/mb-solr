@@ -33,9 +33,9 @@ package org.musicbrainz.search.solrwriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
 import org.apache.solr.common.util.NamedList;
 import org.apache.solr.request.SolrQueryRequest;
@@ -53,7 +53,7 @@ public class MBJSONWriter extends MBXMLWriter {
 
 	private JAXBContext createJAXBJSONContext() {
 		try {
-			Map<String, Object> properties = new HashMap<String, Object>(3);
+			Map<String, Object> properties = new HashMap<>(3);
 			properties.put(JAXBContextProperties.OXM_METADATA_SOURCE,
 					"oxml.xml");
 			properties
@@ -62,7 +62,7 @@ public class MBJSONWriter extends MBXMLWriter {
 			properties.put(JAXBContextProperties.JSON_VALUE_WRAPPER, "name");
 			return JAXBContextFactory.createContext(
 					new Class[] { Metadata.class }, properties);
-		} catch (JAXBException ex) {
+		} catch (jakarta.xml.bind.JAXBException ex) {
 			throw new RuntimeException(ex);
 		}
 	}
@@ -78,7 +78,7 @@ public class MBJSONWriter extends MBXMLWriter {
 
 	@Override
 	protected JAXBContext createJAXBErrorContext() throws JAXBException {
-		Map<String, Object> properties = new HashMap<String, Object>();
+		Map<String, Object> properties = new HashMap<>();
 		properties
 				.put(JAXBContextProperties.MEDIA_TYPE, "application/json");
 		properties.put(JAXBContextProperties.JSON_INCLUDE_ROOT, true);

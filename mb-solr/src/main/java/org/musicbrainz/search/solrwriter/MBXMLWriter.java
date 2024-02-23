@@ -44,10 +44,10 @@ import org.apache.solr.search.DocIterator;
 import org.apache.solr.search.DocList;
 import org.musicbrainz.mmd2.*;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -293,20 +293,12 @@ public class MBXMLWriter implements QueryResponseWriter {
 	}
 
 	public void init(NamedList initArgs) {
-		// JAXB uses context class loader to locate the JAXBContextFactory but Solr's shared
-		// library path is not present in the context class loader. So we need to set the
-		// context class loader to the class loader that loaded our plugin. The JAXB implementation
-		// classes are located in the same jar as this class.
-		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 		try {
-			Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
 			context = createJAXBContext();
 			errorContext = createJAXBErrorContext();
 			errorMarshaller = createErrorMarshaller();
 		} catch (JAXBException e) {
 			throw new RuntimeException(e);
-		} finally {
-			Thread.currentThread().setContextClassLoader(originalClassLoader);
 		}
 
 		/*

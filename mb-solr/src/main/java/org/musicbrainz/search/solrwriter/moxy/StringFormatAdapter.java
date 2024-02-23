@@ -30,8 +30,6 @@ package org.musicbrainz.search.solrwriter.moxy;
 
 import org.musicbrainz.mmd2.Format;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
-
 public class StringFormatAdapter extends NotUnmarshallableXmlAdapter<String, Format> {
     @Override
     public String marshal(Format v) throws Exception {

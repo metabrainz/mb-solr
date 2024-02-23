@@ -1,6 +1,6 @@
 package org.musicbrainz.search.solrwriter.moxy;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 public abstract class NotUnmarshallableXmlAdapter<T1, T2> extends XmlAdapter<T1, T2> {
     /*
