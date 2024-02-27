@@ -16,6 +16,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'maven'
+          cache-dependency-path: |
+            mmd-schema/brainz-mmd2-jaxb/pom.xml
+            mb-solr/pom.xml
 
       - name: Install brainz-mmd2-jaxb package with Maven
         run: |
