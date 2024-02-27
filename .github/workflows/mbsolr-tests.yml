@@ -1,0 +1,32 @@
+name: MusicBrainz Solr Tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Set up Eclipse Temurin 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+          cache-dependency-path: |
+            mmd-schema/brainz-mmd2-jaxb/pom.xml
+            mb-solr/pom.xml
+
+      - name: Install brainz-mmd2-jaxb package with Maven
+        run: |
+          find src/main/java -type f -print0 | xargs -0 touch
+          mvn install
+        working-directory: mmd-schema/brainz-mmd2-jaxb
+
+      - name: Build mb-solr package with Maven
+        run: mvn package
+        working-directory: mb-solr
