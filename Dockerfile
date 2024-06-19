@@ -1,6 +1,6 @@
 ARG MAVEN_TAG=3.9.6-eclipse-temurin-17
 ARG SOLR_NAME=solr
-ARG SOLR_TAG=9.4.0-slim
+ARG SOLR_TAG=9.5.0-slim
 
 FROM maven:${MAVEN_TAG} AS builder
 
@@ -26,6 +26,10 @@ RUN --mount=type=cache,target=/root/.m2 \
     cd ../mb-solr && \
     mvn package -DskipTests
 
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn dependency:get -Dartifact=jakarta.activation:jakarta.activation-api:2.1.3 && \
+    cp -a /root/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.3/jakarta.activation-api-2.1.3.jar .
+
 FROM ${SOLR_NAME}:${SOLR_TAG}
 ARG SOLR_TAG
 
@@ -39,6 +43,10 @@ RUN apt-get update && \
         zstd \
         && \
     rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder --chown=root:root \
+     jakarta.activation-api-2.1.3.jar \
+     /opt/solr/server/lib/ext
 
 COPY --from=builder --chown=solr:solr \
      mb-solr/target/mb-solr-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
