@@ -53,8 +53,8 @@ COPY --from=builder --chown=solr:solr \
      /opt/solr/lib/
 
 COPY --chown=solr:solr \
-    ./mbsssss \
-    /var/solr/data/mycores/mbsssss
+    ./mbsssss/solr.xml \
+    /var/solr/data/solr.xml
 
 # Creating directory for seach indexes data
 # with ownership to `solr` user/group,
