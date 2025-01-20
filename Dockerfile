@@ -58,6 +58,14 @@ COPY --chown=solr:solr \
      ./mbsssss \
      /usr/lib/mbsssss
 
+RUN cd /usr/lib/mbsssss && \
+    for conf_dir in */conf; do \
+        core_name="$(dirname "$conf_dir")"; \
+        cd /usr/lib/mbsssss/"$conf_dir" && \
+        zip -r /usr/lib/mbsssss/"$core_name".zip * && \
+        chown solr:solr /usr/lib/mbsssss/"$core_name".zip * || exit 1; \
+    done
+
 COPY --chmod=0755 \
      ./docker/entrypoint-initdb.d/* \
      /docker-entrypoint-initdb.d/
