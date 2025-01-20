@@ -6,7 +6,7 @@ UPLOAD_URL="http://localhost:8983/api/cluster/configs"
 EXCLUDE_DIRS="lib common _template"
 
 # Populate the list of subdirectories
-SUBDIRS=$(ls -d $MAIN_DIR/*/ | xargs -n 1 basename)
+SUBDIRS=$(find $MAIN_DIR -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 -n 1 basename)
 
 # Exclude specified directories
 if [ -n "$EXCLUDE_DIRS" ]; then
@@ -32,20 +32,16 @@ for SUBDIR in $SUBDIRS; do
     # Create a zip file of the subdirectory
     ZIP_FILE="$SUBDIR.zip"
     echo "Zipping $FULL_PATH into $ZIP_FILE..."
-    zip -r "$ZIP_FILE" * >/dev/null
-
-    if [ $? -ne 0 ]; then
+    if ! zip -r "$ZIP_FILE" -- * >/dev/null; then
         echo "Error zipping $FULL_PATH. Skipping..."
-        cd - >/dev/null
+        cd - >/dev/null || exit 1
         continue
     fi
 
     # Make the curl PUT request
     echo "Uploading $ZIP_FILE to $UPLOAD_URL..."
-    curl -X PUT --header "Content-Type:application/octet-stream" --data-binary @"$ZIP_FILE" "$UPLOAD_URL/$SUBDIR"
-    echo ""
-
-    if [ $? -eq 0 ]; then
+    if curl -X PUT --header "Content-Type:application/octet-stream" --data-binary @"$ZIP_FILE" "$UPLOAD_URL/$SUBDIR"; then
+        echo ""
         echo "Upload successful. Deleting $ZIP_FILE..."
         rm "$ZIP_FILE"
 
@@ -59,10 +55,11 @@ for SUBDIR in $SUBDIRS; do
             }"
         echo ""
     else
+        echo ""
         echo "Upload failed for $ZIP_FILE. Keeping the file for debugging."
     fi
 
     # Return to the original directory
-    cd - >/dev/null
+    cd - >/dev/null || exit 1
 
 done
