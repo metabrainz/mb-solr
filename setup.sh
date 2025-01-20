@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e -o pipefail -u
+
 # Arguments
 MAIN_DIR="mbsssss"
 UPLOAD_URL="http://localhost:8983/api/cluster/configs"
@@ -22,20 +24,23 @@ for SUBDIR in $SUBDIRS; do
 
     # Check if the subdirectory exists
     if [ ! -d "$FULL_PATH" ]; then
-        echo "Directory $FULL_PATH does not exist. Skipping..."
-        continue
+        echo >&2 "Directory $FULL_PATH does not exist."
+        exit 66 # EX_NOINPUT
     fi
 
     # Change to the directory being zipped
-    cd "$FULL_PATH" || { echo "Failed to change to directory $FULL_PATH. Skipping..."; continue; }
+    cd "$FULL_PATH" || {
+        echo >&2 "Failed to change to directory $FULL_PATH."
+        exit 74 # EX_IOERR
+    }
 
     # Create a zip file of the subdirectory
     ZIP_FILE="$SUBDIR.zip"
     echo "Zipping $FULL_PATH into $ZIP_FILE..."
     if ! zip -r "$ZIP_FILE" -- * >/dev/null; then
-        echo "Error zipping $FULL_PATH. Skipping..."
-        cd - >/dev/null || exit 1
-        continue
+        echo >&2 "Error zipping $FULL_PATH."
+        cd - >/dev/null
+        exit 73 # EX_CANTCREAT
     fi
 
     # Make the curl PUT request
@@ -60,6 +65,6 @@ for SUBDIR in $SUBDIRS; do
     fi
 
     # Return to the original directory
-    cd - >/dev/null || exit 1
+    cd - >/dev/null
 
 done
