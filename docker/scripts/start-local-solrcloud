@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Copyright (c) 2006-2024 Apache Software Foundation
+# Copyright (c) 2025 MetaBrainz Foundation
+#
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -14,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# configure Solr to run on the local interface, and start it running in the background
+# configure Solr to run on the local interface, and start it running in the background in SolrCloud mode
 
 set -euo pipefail
 
@@ -23,7 +27,7 @@ if [[ "${VERBOSE:-}" == "yes" ]]; then
 fi
 
 echo "Running solr in the background. Logs are in /var/solr/logs"
-SOLR_OPTS="-Djetty.host=${SOLR_LOCAL_HOST:-localhost}" solr start
+SOLR_OPTS="-Djetty.host=${SOLR_LOCAL_HOST:-localhost}" solr start --cloud
 max_try=${MAX_TRY:-12}
 wait_seconds=${WAIT_SECONDS:-5}
 if ! wait-for-solr.sh --max-attempts "$max_try" --wait-seconds "$wait_seconds"; then
