@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Copyright (c) 2006-2024 Apache Software Foundation
+# Copyright (c) 2025 MetaBrainz Foundation
+#
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -14,13 +18,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This script starts Solr on localhost, creates a core with "solr create",
-# stops Solr, and then starts Solr as normal.
-# Any arguments are passed to the "solr create".
-# To simply create a core:
-#      docker run -P -d solr solr-create -c mycore
-# To create a core from mounted config:
-#      docker run -P -d -v $PWD/myconfig:/myconfig solr solr-create -c mycore -d /myconfig
+# This script starts Solr in SolrCloud mode on localhost,
+# uploads the MusicBrainz configsets through API,
+# creates the corresponding collections through API too,
+# stops Solr, and then starts Solr in SolrCloud mode as normal.
+# Any arguments are passed to the final "solr-fg --cloud" command.
 
 set -euo pipefail
 echo "Executing $0" "$@"
@@ -30,49 +32,13 @@ if [[ "${VERBOSE:-}" == "yes" ]]; then
 fi
 
 # Could set env-variables for solr-fg
+# Install Solr configuration file
 source run-initdb
 
-# solr uses "-c corename". Parse the arguments to determine the core name.
-CORE_NAME="$(
-  while (( $# > 0 )); do
-    if [[ "$1" == '-c' ]]; then
-      shift
-      echo "$1"
-    fi
-    shift
-  done
-)"
-if [[ -z "${CORE_NAME:-}" ]]; then
-  echo "Could not determine core name"
-  exit 1
-fi
+start-local-solrcloud
 
-coresdir=/var/solr/data
-CORE_DIR="$coresdir/$CORE_NAME"
+create-musicbrainz-collections
 
-if [[ -d $CORE_DIR ]]; then
-    echo "Directory $CORE_DIR exists; skipping core creation"
-else
-    start-local-solr
+stop-local-solr
 
-    echo "Creating core with:" "${@:1}"
-    /opt/solr/bin/solr create "${@:1}"
-
-    # See https://github.com/docker-solr/docker-solr/issues/27
-    echo "Checking core"
-    if ! wget -O - "http://localhost:${SOLR_PORT:-8983}/solr/admin/cores?action=STATUS" | grep instanceDir >/dev/null; then
-      echo "Could not find any cores"
-      exit 1
-    fi
-
-    echo "Created core with:" "${@:1}"
-    stop-local-solr
-
-    # check the core_dir exists; otherwise the detecting above will fail after stop/start
-    if [ ! -d "$CORE_DIR" ]; then
-        echo "Missing $CORE_DIR"
-        exit 1
-    fi
-fi
-
-exec solr-fg
+exec solr-fg --cloud "$@"
