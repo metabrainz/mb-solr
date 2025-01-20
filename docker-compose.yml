@@ -12,7 +12,7 @@ services:
       - "127.0.0.1:8983:8983"
     volumes:
       - solr-data:/var/solr
-    command: solr-foreground --cloud
+    command: start-musicbrainz-solrcloud
 
 volumes:
   solr-data:
