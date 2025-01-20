@@ -53,13 +53,17 @@ COPY --from=builder --chown=solr:solr \
      /opt/solr/lib/
 
 COPY --chown=solr:solr \
-    ./mbsssss/solr.xml \
-    /var/solr/data/solr.xml
+     ./mbsssss \
+     /usr/lib/mbsssss
+
+COPY --chmod=0755 \
+     ./docker/entrypoint-initdb.d/* \
+     /docker-entrypoint-initdb.d/
 
 # Creating directory for seach indexes data
 # with ownership to `solr` user/group,
 # so to be used for mounting volume.
-RUN install -d -g solr -o solr /var/solr/data/data
+RUN install -d -g solr -o solr /var/solr/data
 
 ARG MAVEN_TAG
 ARG SOLR_NAME
