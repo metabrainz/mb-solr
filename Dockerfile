@@ -39,6 +39,8 @@ USER root
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+        # Needed to prepare uploading configsets
+        zip \
         # Needed to decompress search index dumps
         zstd \
         && \
@@ -59,6 +61,10 @@ COPY --chown=solr:solr \
 COPY --chmod=0755 \
      ./docker/entrypoint-initdb.d/* \
      /docker-entrypoint-initdb.d/
+
+COPY --chmod=0755 \
+     ./docker/scripts/* \
+     /opt/solr/docker/scripts/
 
 ARG MAVEN_TAG
 ARG SOLR_NAME

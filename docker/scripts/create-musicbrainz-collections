@@ -3,7 +3,7 @@
 set -e -o pipefail -u
 
 # Arguments
-MAIN_DIR="mbsssss"
+MAIN_DIR="/usr/lib/mbsssss"
 UPLOAD_URL="http://localhost:8983/api/cluster/configs"
 EXCLUDE_DIRS="lib common _template"
 
