@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# This script installs the Solr configuration file from
+# MusicBrainz simple Solr search server schema (mbsssss).
+
 # Execute in a sub-shell to preserve the environment
 # (See the script run-initdb from Solr 9.7 repository)
 (
