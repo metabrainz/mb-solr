@@ -17,6 +17,7 @@
     then
         echo 'Installing Solr configuration file...'
         install --mode=0644 "$mbsssss_dir/$solr_conf_file" "$SOLR_HOME/"
+        touch $SOLR_HOME/musicbrainz-solrcloud-first-run
         echo 'Done installing Solr configuration file.'
     fi
 )

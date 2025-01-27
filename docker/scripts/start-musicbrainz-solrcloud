@@ -18,10 +18,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This script starts Solr in SolrCloud mode on localhost,
+# At first run only, this script starts Solr in SolrCloud mode on localhost,
 # uploads the MusicBrainz configsets through API,
 # creates the corresponding collections through API too,
-# stops Solr, and then starts Solr in SolrCloud mode as normal.
+# and stops Solr.
+# Then, at any run, it starts Solr in SolrCloud mode as normal.
 # Any arguments are passed to the final "solr-fg --cloud" command.
 
 set -euo pipefail
@@ -35,10 +36,14 @@ fi
 # Install Solr configuration file
 source run-initdb
 
-start-local-solrcloud
+if [[ -f $SOLR_HOME/musicbrainz-solrcloud-first-run ]]; then
+    start-local-solrcloud
 
-create-musicbrainz-collections
+    create-musicbrainz-collections
 
-stop-local-solr
+    stop-local-solr
+
+    rm "$SOLR_HOME/musicbrainz-solrcloud-first-run"
+fi
 
 exec solr-fg --cloud "$@"
