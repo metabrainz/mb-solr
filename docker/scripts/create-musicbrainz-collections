@@ -9,7 +9,8 @@ fi
 
 # Arguments
 MAIN_DIR="/usr/lib/mbsssss"
-UPLOAD_URL="http://localhost:8983/api/cluster/configs"
+SOLR_BASE_URL="http://${SOLR_LOCAL_HOST:-localhost}:${SOLR_PORT:-8983}"
+UPLOAD_URL="$SOLR_BASE_URL/api/cluster/configs"
 EXCLUDE_DIRS="lib common _template"
 
 # Populate the list of subdirectories
@@ -64,7 +65,7 @@ for SUBDIR in $SUBDIRS; do
         echo "Upload successful."
 
         echo "Creating collection $SUBDIR..."
-        curl -X POST http://localhost:8983/api/collections \
+        curl -X POST "$SOLR_BASE_URL/api/collections" \
             -H 'Content-Type: application/json' \
             --data-binary "{
                 \"name\": \"${SUBDIR}\",
