@@ -5,6 +5,10 @@
 (
     set -e -o pipefail -u
 
+    if [[ "${VERBOSE:-}" == "yes" ]]; then
+        set -x
+    fi
+
     mbsssss_dir='/usr/lib/mbsssss'
     solr_conf_file='solr.xml'
 

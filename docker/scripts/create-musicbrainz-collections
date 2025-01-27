@@ -1,6 +1,11 @@
 #!/bin/bash
 
-set -e -o pipefail -u
+set -euo pipefail
+echo "Executing $0" "$@"
+
+if [[ "${VERBOSE:-}" == "yes" ]]; then
+    set -x
+fi
 
 # Arguments
 MAIN_DIR="/usr/lib/mbsssss"
