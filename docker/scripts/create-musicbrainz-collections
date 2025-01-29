@@ -38,7 +38,15 @@ cd "$MAIN_DIR" >/dev/null
 for SUBDIR in $SUBDIRS; do
     FULL_PATH="$MAIN_DIR/$SUBDIR/conf"
     FULL_PATH=$(realpath "$FULL_PATH")
+    SOLR7SUBDIR_PATH="/var/solr/$SUBDIR"
     ZIP_FILE="$MAIN_DIR/$SUBDIR.zip"
+
+    # Check if Solr 7 data exists
+    if [[ -d "$SOLR7SUBDIR_PATH" ]]; then
+        echo "Removing Solr 7 data for $SUBDIR..."
+        rm -fr "$SOLR7SUBDIR_PATH"
+        echo "Removal successful."
+    fi
 
     # Check if the zip file exists
     if [ ! -f "$ZIP_FILE" ]; then
