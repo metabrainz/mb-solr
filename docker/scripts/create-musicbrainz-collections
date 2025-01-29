@@ -61,28 +61,33 @@ for SUBDIR in $SUBDIRS; do
             echo >&2 "Error zipping $FULL_PATH."
             exit 73 # EX_CANTCREAT
         fi
+        echo "Zip successful."
 
         # Return to the original directory
         cd - >/dev/null
     fi
 
     # Make the curl PUT request
-    echo "Uploading $ZIP_FILE to $UPLOAD_URL..."
-    if curl -X PUT --header "Content-Type:application/octet-stream" --data-binary @"$ZIP_FILE" "$UPLOAD_URL/$SUBDIR"; then
-        echo ""
+    echo "Uploading $ZIP_FILE to $UPLOAD_URL/$SUBDIR..."
+    if curl -sS -X PUT --header "Content-Type: application/octet-stream" --data-binary @"$ZIP_FILE" "$UPLOAD_URL/$SUBDIR"; then
+        echo
         echo "Upload successful."
 
         echo "Creating collection $SUBDIR..."
-        curl -X POST "$SOLR_BASE_URL/api/collections" \
+        curl -sS -X POST "$SOLR_BASE_URL/api/collections" \
             -H 'Content-Type: application/json' \
             --data-binary "{
                 \"name\": \"${SUBDIR}\",
                 \"config\": \"${SUBDIR}\",
                 \"numShards\": 1
             }"
+        echo
+        echo "Collection creation successful."
     else
-        echo ""
-        echo "Upload failed for $ZIP_FILE. Keeping the file for debugging."
+        echo
+        echo >&2 "Upload failed for $ZIP_FILE. Keeping the file for debugging."
+        exit 70 # EX_SOFTWARE
     fi
+    echo
 
 done
