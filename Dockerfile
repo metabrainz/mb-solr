@@ -39,6 +39,8 @@ USER root
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+        # Needed to parse API JSON output in scripts
+        jq \
         # Needed to prepare uploading configsets
         zip \
         # Needed to decompress search index dumps
