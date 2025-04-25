@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+set -e -o pipefail -u
+
+DUMP_DIR="${MUSICBRAINZ_SEARCH_DUMP_DIR:-/media/searchdump}"
+
+SCRIPT_NAME=$(basename "$0")
+HELP=$(cat <<EOH
+Usage: $SCRIPT_NAME [<options>]
+
+Remove MusicBrainz Solr collection backup archives.
+
+Options:
+  -h, --help    Print this help message
+
+Environment:
+  MUSICBRAINZ_SEARCH_DUMP_DIR   path to directory with Solr backup archives
+                                (default: /media/searchdump)
+
+Notes:
+  It doesn't remove timestamp, checksum, and signature files, because
+  their size is insignificant but they are useful to investigate issues.
+EOH
+)
+
+# Parse arguments
+
+if [[ $# -gt 0 && $1 =~ ^-*h(elp)?$ ]]
+then
+	echo "$HELP"
+	exit 0 # EX_OK
+elif [[ $# -gt 0 ]]
+then
+	echo >&2 "$SCRIPT_NAME: unrecognized arguments"
+	echo >&2 "Try '$SCRIPT_NAME help' for usage."
+	exit 64 # EX_USAGE
+fi
+
+# Just remove MusicBrainz Solr collection backup archives/dumps
+
+dump_size="$(du -h "$DUMP_DIR" | cut -f1))"
+rm -frv "${DUMP_DIR:?}/"*.tar.zst
+echo "$SCRIPT_NAME: $(date): Removed $dump_size of Solr backup archives."
+
+# vi: set noexpandtab softtabstop=0:
