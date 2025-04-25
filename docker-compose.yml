@@ -11,7 +11,8 @@ services:
     ports:
       - "127.0.0.1:8983:8983"
     volumes:
-      - solr-data:/opt/solr/server/solr/data
+      - solr-data:/var/solr
+    command: start-musicbrainz-solrcloud
 
 volumes:
   solr-data:

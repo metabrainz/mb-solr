@@ -1,6 +1,6 @@
 ARG MAVEN_TAG=3.9.6-eclipse-temurin-17
 ARG SOLR_NAME=solr
-ARG SOLR_TAG=9.6.1
+ARG SOLR_TAG=9.7.0
 
 FROM maven:${MAVEN_TAG} AS builder
 
@@ -39,6 +39,8 @@ USER root
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+        # Needed to prepare uploading configsets
+        zip \
         # Needed to decompress search index dumps
         zstd \
         && \
@@ -53,13 +55,24 @@ COPY --from=builder --chown=solr:solr \
      /opt/solr/lib/
 
 COPY --chown=solr:solr \
-    ./mbsssss \
-    /var/solr/data/mycores/mbsssss
+     ./mbsssss \
+     /usr/lib/mbsssss
 
-# Creating directory for seach indexes data
-# with ownership to `solr` user/group,
-# so to be used for mounting volume.
-RUN install -d -g solr -o solr /var/solr/data/data
+RUN cd /usr/lib/mbsssss && \
+    for conf_dir in */conf; do \
+        core_name="$(dirname "$conf_dir")"; \
+        cd /usr/lib/mbsssss/"$conf_dir" && \
+        zip -r /usr/lib/mbsssss/"$core_name".zip * && \
+        chown solr:solr /usr/lib/mbsssss/"$core_name".zip * || exit 1; \
+    done
+
+COPY --chmod=0755 \
+     ./docker/entrypoint-initdb.d/* \
+     /docker-entrypoint-initdb.d/
+
+COPY --chmod=0755 \
+     ./docker/scripts/* \
+     /opt/solr/docker/scripts/
 
 ARG MAVEN_TAG
 ARG SOLR_NAME

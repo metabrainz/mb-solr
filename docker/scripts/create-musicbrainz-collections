@@ -1,0 +1,102 @@
+#!/bin/bash
+
+# This script uploads configsets to ZooKeeper through Solr API
+# and then creates Solr collections for MusicBrainz assuming:
+# - the file $SOLR_HOME/solr.xml is in place
+# - Solr is running in SolrCloud mode locally
+# - no configset has been uploaded yet
+# - no collection has been created either
+# It ignores arguments.
+
+set -euo pipefail
+echo "Executing $0" "$@"
+
+if [[ "${VERBOSE:-}" == "yes" ]]; then
+    set -x
+fi
+
+# Arguments
+MAIN_DIR="/usr/lib/mbsssss"
+SOLR_BASE_URL="http://${SOLR_LOCAL_HOST:-localhost}:${SOLR_PORT:-8983}"
+UPLOAD_URL="$SOLR_BASE_URL/api/cluster/configs"
+EXCLUDE_DIRS="lib common _template"
+
+# Populate the list of subdirectories
+SUBDIRS=$(find $MAIN_DIR -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 -n 1 basename | sort)
+
+# Exclude specified directories
+if [ -n "$EXCLUDE_DIRS" ]; then
+    for EXCLUDE_DIR in $EXCLUDE_DIRS; do
+        SUBDIRS=$(echo "$SUBDIRS" | grep -v "^$EXCLUDE_DIR$")
+    done
+fi
+
+# Go to the main directory for mbsssss
+cd "$MAIN_DIR" >/dev/null
+
+# Iterate over the filtered subdirectories
+for SUBDIR in $SUBDIRS; do
+    FULL_PATH="$MAIN_DIR/$SUBDIR/conf"
+    FULL_PATH=$(realpath "$FULL_PATH")
+    SOLR7SUBDIR_PATH="/var/solr/$SUBDIR"
+    ZIP_FILE="$MAIN_DIR/$SUBDIR.zip"
+
+    # Check if Solr 7 data exists
+    if [[ -d "$SOLR7SUBDIR_PATH" ]]; then
+        echo "Removing Solr 7 data for $SUBDIR..."
+        rm -fr "$SOLR7SUBDIR_PATH"
+        echo "Removal successful."
+    fi
+
+    # Check if the zip file exists
+    if [ ! -f "$ZIP_FILE" ]; then
+        # Check if the subdirectory exists
+        if [ ! -d "$FULL_PATH" ]; then
+            echo >&2 "Directory $FULL_PATH does not exist."
+            exit 66 # EX_NOINPUT
+        fi
+
+        # Change to the directory being zipped
+        cd "$FULL_PATH" || {
+            echo >&2 "Failed to change to directory $FULL_PATH."
+            exit 74 # EX_IOERR
+        }
+
+        # Create a zip file of the subdirectory
+        ZIP_FILE="$MAIN_DIR/$SUBDIR.zip"
+        echo "Zipping $FULL_PATH into $ZIP_FILE..."
+        if ! zip -r "$ZIP_FILE" -- * >/dev/null; then
+            echo >&2 "Error zipping $FULL_PATH."
+            exit 73 # EX_CANTCREAT
+        fi
+        echo "Zip successful."
+
+        # Return to the original directory
+        cd - >/dev/null
+    fi
+
+    # Make the curl PUT request
+    echo "Uploading $ZIP_FILE to $UPLOAD_URL/$SUBDIR..."
+    if curl -sS -X PUT --header "Content-Type: application/octet-stream" --data-binary @"$ZIP_FILE" "$UPLOAD_URL/$SUBDIR"; then
+        echo
+        echo "Upload successful."
+
+        echo "Creating collection $SUBDIR..."
+        curl -sS -X POST "$SOLR_BASE_URL/api/collections" \
+            -H 'Content-Type: application/json' \
+            --data-binary "{
+                \"name\": \"${SUBDIR}\",
+                \"config\": \"${SUBDIR}\",
+                \"numShards\": 1,
+                \"waitForFinalState\": true
+            }"
+        echo
+        echo "Collection creation successful."
+    else
+        echo
+        echo >&2 "Upload failed for $ZIP_FILE. Keeping the file for debugging."
+        exit 70 # EX_SOFTWARE
+    fi
+    echo
+
+done
