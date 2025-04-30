@@ -81,13 +81,17 @@ for SUBDIR in $SUBDIRS; do
         echo
         echo "Upload successful."
 
+        case "$SUBDIR" in
+          'recording') SHARDS_COUNT=4;;
+          *) SHARDS_COUNT=1;;
+        esac
         echo "Creating collection $SUBDIR..."
         curl -sS -X POST "$SOLR_BASE_URL/api/collections" \
             -H 'Content-Type: application/json' \
             --data-binary "{
                 \"name\": \"${SUBDIR}\",
                 \"config\": \"${SUBDIR}\",
-                \"numShards\": 1,
+                \"numShards\": $SHARDS_COUNT,
                 \"waitForFinalState\": true
             }"
         echo
