@@ -77,8 +77,8 @@ for SUBDIR in $SUBDIRS; do
 
     # Make the curl PUT request
     echo "Uploading $ZIP_FILE to $UPLOAD_URL/$SUBDIR..."
-    if curl -sS -X PUT --header "Content-Type: application/octet-stream" --data-binary @"$ZIP_FILE" "$UPLOAD_URL/$SUBDIR"; then
-        echo
+    upload_output="$(curl -sS -X PUT --header "Content-Type: application/octet-stream" --data-binary @"$ZIP_FILE" "$UPLOAD_URL/$SUBDIR")"
+    if [[ "$(echo "$upload_output" | jq .responseHeader.status)" =~ 0 ]]; then
         echo "Upload successful."
 
         case "$SUBDIR" in
@@ -86,19 +86,27 @@ for SUBDIR in $SUBDIRS; do
           *) SHARDS_COUNT=1;;
         esac
         echo "Creating collection $SUBDIR..."
-        curl -sS -X POST "$SOLR_BASE_URL/api/collections" \
-            -H 'Content-Type: application/json' \
-            --data-binary "{
-                \"name\": \"${SUBDIR}\",
-                \"config\": \"${SUBDIR}\",
-                \"numShards\": $SHARDS_COUNT,
-                \"waitForFinalState\": true
-            }"
-        echo
-        echo "Collection creation successful."
+        creation_output="$(
+            curl -sS -X POST "$SOLR_BASE_URL/api/collections" \
+                -H 'Content-Type: application/json' \
+                --data-binary "{
+                    \"name\": \"${SUBDIR}\",
+                    \"config\": \"${SUBDIR}\",
+                    \"numShards\": $SHARDS_COUNT,
+                    \"waitForFinalState\": true
+                }"
+            )"
+        if [[ "$(echo "$creation_output" | jq .responseHeader.status)" =~ 0 ]]; then
+            echo "$creation_output" | jq .success
+            echo "Collection creation successful."
+        else
+            echo >&2 "Collection creation failed for $SUBDIR. Leaving as is for debugging."
+            echo "$creation_output" | jq >&2
+            exit 70 # EX_SOFTWARE
+        fi
     else
-        echo
         echo >&2 "Upload failed for $ZIP_FILE. Keeping the file for debugging."
+        echo "$upload_output" | jq >&2
         exit 70 # EX_SOFTWARE
     fi
     echo
