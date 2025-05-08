@@ -75,9 +75,12 @@ for collection in "${collections[@]}"
 do
 	collection_index=$((collection_index + 1))
 	echo -n "Posting deletion query for the collection ($collection_index/$COLLECTIONS_TOTAL_COUNT) '$collection'... "
-	post \
-		-c "$collection" \
-		-d '<delete><query>*:*</query></delete>' >/dev/null
+	solr post \
+		--name "$collection" \
+		--mode args \
+		--type application/xml \
+		'<delete><query>*:*</query></delete>' \
+		2> >(grep -v deprecated >&2)
 	echo Done
 done
 
