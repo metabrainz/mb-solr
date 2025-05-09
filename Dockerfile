@@ -39,6 +39,8 @@ USER root
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+        # Needed to parse API JSON output in scripts
+        jq \
         # Needed to prepare uploading configsets
         zip \
         # Needed to decompress search index dumps
@@ -64,7 +66,9 @@ RUN cd /usr/lib/mbsssss && \
         cd /usr/lib/mbsssss/"$conf_dir" && \
         zip -r /usr/lib/mbsssss/"$core_name".zip * && \
         chown solr:solr /usr/lib/mbsssss/"$core_name".zip * || exit 1; \
-    done
+    done && \
+    mkdir -p -m0770 /var/cache/musicbrainz/solr-backups && \
+    chown -R "$SOLR_USER:0" /var/cache/musicbrainz/solr-backups
 
 COPY --chmod=0755 \
      ./docker/entrypoint-initdb.d/* \
@@ -89,6 +93,8 @@ LABEL org.label-schema.build-date="${BUILD_DATE}" \
       org.metabrainz.based-on-image="${SOLR_NAME}:${SOLR_TAG}" \
       org.metabrainz.builder-image="maven:${MAVEN_TAG}" \
       org.metabrainz.mb-solr.version="${MB_SOLR_VERSION}"
+
+VOLUME /var/cache/musicbrainz/solr-backups
 
 # Restoring value set in the parent image
 USER solr

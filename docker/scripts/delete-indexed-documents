@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+set -e -o pipefail -u
+
+SCRIPT_NAME=$(basename "$0")
+HELP=$(cat <<EOH
+Usage: $SCRIPT_NAME --all
+   or: $SCRIPT_NAME COLLECTION... (for example: $SCRIPT_NAME artist release)
+   or: $SCRIPT_NAME --help
+
+For all or each of the given MusicBrainz Solr collections,
+delete the indexed documents.
+
+Pre-requisites:
+  Solr must be running (in SolrCloud mode).
+EOH
+)
+
+# Parse arguments
+
+if [ $# -eq 0 ]
+then
+	echo >&2 "$SCRIPT_NAME: missing argument"
+	echo >&2 "Try '$SCRIPT_NAME --help' for usage."
+	exit 64 # EX_USAGE
+elif [[ "$*" =~ ^-*h(elp)?$ ]]
+then
+	echo "$HELP"
+	exit 0 # EX_OK
+elif [[ $# -eq 1 && $1 =~ ^-*all$ ]]
+then
+	collections=()
+else
+	collections=("$@")
+fi
+
+# Check pre-requisites
+
+max_try=${MAX_TRY:-12}
+wait_seconds=${WAIT_SECONDS:-5}
+local_tries=1
+while [[ -f $SOLR_HOME/musicbrainz-solrcloud-first-run && $local_tries -lt $max_try ]]
+do
+	local_tries=$((local_tries + 1))
+	sleep "$wait_seconds"
+done
+if [[ -f $SOLR_HOME/musicbrainz-solrcloud-first-run ]] # $local_tries -eq $max_try
+then
+	echo >&2 "$SCRIPT_NAME: Solr first run is not complete (after waiting for $((max_try * wait_seconds)) seconds)"
+	echo >&2 "Try '$SCRIPT_NAME help' for pre-requisites."
+	exit 69 # EX_UNAVAILABLE
+fi
+if ! wait-for-solr.sh --max-attempts "$max_try" --wait-seconds "$wait_seconds"
+then
+	echo >&2 "$SCRIPT_NAME: Solr is not running (after waiting for $((max_try * wait_seconds)) seconds)"
+	echo >&2 "Try '$SCRIPT_NAME help' for pre-requisites."
+	exit 69 # EX_UNAVAILABLE
+fi
+
+# List all the collections if needed
+
+if [[ ${#collections[@]} -eq 0 ]]
+then
+	readarray -t collections < <(find '/usr/lib/mbsssss' \
+		-maxdepth 1 -mindepth 1 -type d \
+		-not -name 'lib' -not -name 'common' -not -name '_template' \
+		-print0 | xargs -0 -n 1 basename | sort)
+fi
+
+# For each collection, delete all the indexed documents
+
+COLLECTIONS_TOTAL_COUNT=${#collections[@]}
+collection_index=0
+for collection in "${collections[@]}"
+do
+	collection_index=$((collection_index + 1))
+	echo -n "Posting deletion query for the collection ($collection_index/$COLLECTIONS_TOTAL_COUNT) '$collection'... "
+	solr post \
+		--name "$collection" \
+		--mode args \
+		--type application/xml \
+		'<delete><query>*:*</query></delete>' \
+		2> >(grep -v deprecated >&2)
+	echo Done
+done
+
+echo "Successfully posted all the deletion queries."
+
+# vi: set noexpandtab softtabstop=0:

@@ -1,0 +1,163 @@
+#!/usr/bin/env bash
+
+set -e -o pipefail -u
+
+DB_DUMP_DIR=/media/dbdump
+SEARCH_DUMP_DIR=/var/cache/musicbrainz/solr-backups
+BASE_DOWNLOAD_URL="${MUSICBRAINZ_BASE_DOWNLOAD_URL:-https://data.metabrainz.org/pub/musicbrainz}"
+WGET_CMD=(wget)
+
+SCRIPT_NAME=$(basename "$0")
+HELP=$(cat <<EOH
+Usage: $SCRIPT_NAME [<options>]
+
+Fetch backup archives of the MusicBrainz SolrCloud collections.
+
+Options:
+  --base-download-url <url>     Specify URL of a MetaBrainz/MusicBrainz download server.
+                                (Default: '$BASE_DOWNLOAD_URL')
+  --wget-options <wget options> Specify additional options to be passed to wget,
+                                these should be separated with whitespace,
+                                the list should be a single argument
+                                (escape whitespaces if needed).
+  -h, --help                    Print this help message and exit.
+
+Environment:
+  MUSICBRAINZ_BASE_DOWNLOAD_URL Default URL for MetaBrainz/MusicBrainz download server.
+EOH
+)
+
+# Parse arguments
+
+while [[ $# -gt 0 ]]
+do
+	case "$1" in
+		--base-download-url )
+			shift
+			BASE_DOWNLOAD_URL="${1%/data/fullexport/}"
+			if ! [[ $BASE_DOWNLOAD_URL =~ ^(ftp|https?):// ]]
+			then
+				echo >&2 "$SCRIPT_NAME: --base-download-url must begin with ftp://, http:// or https://"
+				exit 64 # EX_USAGE
+			fi
+			;;
+		--wget-options )
+			shift
+			IFS=' ' read -r -a WGET_OPTIONS <<< "$1"
+			WGET_CMD+=("${WGET_OPTIONS[@]}")
+			unset WGET_OPTIONS
+			;;
+		-h | --help )
+			echo "$HELP"
+			exit 0 # EX_OK
+			;;
+		-* )
+			echo >&2 "$SCRIPT_NAME: unrecognized option '$1'"
+			echo >&2 "Try '$SCRIPT_NAME --help' for usage."
+			exit 64 # EX_USAGE
+			;;
+		* )
+			echo >&2 "$SCRIPT_NAME: unrecognized argument '$1'"
+			echo >&2 "Try '$SCRIPT_NAME --help' for usage."
+			exit 64 # EX_USAGE
+			;;
+	esac
+	shift
+done
+
+# Show information about signing up for data use
+
+if [[ ! -a "$DB_DUMP_DIR/.for-commercial-use" &&
+	! -a  "$DB_DUMP_DIR/.for-non-commercial-use" &&
+	! -a "$SEARCH_DUMP_DIR/.for-commercial-use" &&
+	! -a  "$SEARCH_DUMP_DIR/.for-non-commercial-use" ]]
+then
+	prompt=$(cat <<-EOQ
+		The data you are about to download is provided by the MetaBrainz Foundation.
+		Are you planning to use this data for commercial or business purposes?
+		(y/n)
+	EOQ
+	)
+	read -e -p "$prompt " -r
+	while [[ ! ${REPLY:0:1} =~ [YNyn] ]]
+	do
+		read -e -p "Invalid reply. Yes or no? " -r
+	done
+	echo
+	if [[ ${REPLY:0:1} =~ [Yy] ]]
+	then
+		prompt=$(cat <<-EOQ
+			The MetaBrainz Foundation is supported by commercial users of our data and
+			through end-user donations. If you are using our data in a commercial context,
+			we require you to support MetaBrainz financially in order for us ensure the
+			availability of these datasets in the future.
+			
+			Please sign up at https://metabrainz.org/supporters/account-type
+			
+			[Press any key when OK]
+		EOQ
+		)
+		read -e -N 1 -p "$prompt" -r -s
+		echo OK
+		touch "$SEARCH_DUMP_DIR/.for-commercial-use"
+	else
+		prompt=$(cat <<-EOQ
+			Could you please sign up at https://metabrainz.org/supporters/account-type
+			(for free!) so that we may better understand how our data is being used?
+			
+			We also encourage our non-commercial users who can afford it to make a donation
+			to the MetaBrainz Foundation so that we may continue our mission:
+			https://metabrainz.org/donate
+			
+			[Press any key when OK]
+		EOQ
+		)
+		read -e -N 1 -p "$prompt" -r -s
+		echo OK
+		touch "$SEARCH_DUMP_DIR/.for-non-commercial-use"
+	fi
+fi
+
+# Check timestamp for previously downloaded archives
+
+echo "$(date): 1/3: Checking timestamps of available archives..."
+
+PREVIOUS_DUMP_TIMESTAMP=''
+if [[ -a "$SEARCH_DUMP_DIR/LATEST" ]]
+then
+	PREVIOUS_DUMP_TIMESTAMP=$(<"$SEARCH_DUMP_DIR/LATEST")
+	rm -f "$SEARCH_DUMP_DIR/LATEST"
+fi
+
+# Check timestamp for remotely available archives
+
+"${WGET_CMD[@]}" -nd -nH -P "$SEARCH_DUMP_DIR" \
+	"${BASE_DOWNLOAD_URL}/data/solr-backups/LATEST"
+DUMP_TIMESTAMP=$(<"$SEARCH_DUMP_DIR/LATEST")
+
+# Remove previously downloaded files if new archives are available
+
+if [[ $PREVIOUS_DUMP_TIMESTAMP != "$DUMP_TIMESTAMP" ]]
+then
+	find "$SEARCH_DUMP_DIR" \
+		! -path "$SEARCH_DUMP_DIR" \
+		! -path "$SEARCH_DUMP_DIR/.for-commercial-use" \
+		! -path "$SEARCH_DUMP_DIR/.for-non-commercial-use" \
+		! -path "$SEARCH_DUMP_DIR/LATEST" \
+		-delete
+fi
+
+# Actually fetch latest MusicBrainz Solr backup archives
+
+echo "$(date): 2/3: Fetching MusicBrainz Solr backup archives..."
+"${WGET_CMD[@]}" -nd -nH -c -r -P "$SEARCH_DUMP_DIR" \
+	--accept 'MD5SUMS,*.tar.zst' --no-parent --relative \
+	"${BASE_DOWNLOAD_URL}/data/solr-backups/$DUMP_TIMESTAMP/"
+
+# Check archives integrity
+
+echo "$(date): 3/3: Checking MD5 sums..."
+cd "$SEARCH_DUMP_DIR" && md5sum -c MD5SUMS && cd - >/dev/null
+
+echo "$(date): Done fetching MusicBrainz Solr backup archives."
+# vi: set noexpandtab softtabstop=0:

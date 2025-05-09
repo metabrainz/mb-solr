@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+set -e -o pipefail -u
+
+DUMP_DIR="${MUSICBRAINZ_SEARCH_DUMP_DIR:-/var/cache/musicbrainz/solr-backups}"
+SOLR_BACKUPS_DIR="${SOLR_BACKUPS_DIR:-/var/solr/data/backups}"
+SOLR_BASE_URL="http://${SOLR_LOCAL_HOST:-localhost}:${SOLR_PORT:-8983}"
+
+SCRIPT_NAME=$(basename "$0")
+HELP=$(cat <<EOH
+Usage: $SCRIPT_NAME [<options>]
+
+Load MusicBrainz Solr collections from Solr backup (tar) archives.
+
+Options:
+  -h, --help    Print this help message
+
+Environment:
+  MUSICBRAINZ_SEARCH_DUMP_DIR   path to directory with Solr backup tar archives
+                                (default: /var/cache/musicbrainz/solr-backups)
+  SOLR_BACKUPS_DIR              path to directory with Solr backup files
+                                (default: /var/solr/data/backups)
+  SOLR_LOCAL_HOST               upstream Solr server listening host
+                                (default: localhost)
+  SOLR_PORT                     upstream Solr server listening port
+                                (default: 8983)
+
+Pre-requisites:
+  Solr must be running (in SolrCloud mode).
+
+Notes:
+  It doesn't matter whether or not Solr has collections beforehand.
+
+  This command doesn't fetch the backup tar archives beforehand.
+  This command doesn't remove the backup tar archives afterwards.
+
+  In detail, it extracts the backup files from the tar archives, then
+  it queries Solr API to restore the collections from these backup files,
+  and last it deletes these backup files (not the backup tar archives).
+EOH
+)
+
+# Parse arguments
+
+if [[ $# -gt 0 && $1 =~ ^-*h(elp)?$ ]]
+then
+	echo "$HELP"
+	exit 0 # EX_OK
+elif [[ $# -gt 0 ]]
+then
+	echo >&2 "$SCRIPT_NAME: unrecognized arguments"
+	echo >&2 "Try '$SCRIPT_NAME help' for usage."
+	exit 64 # EX_USAGE
+fi
+
+# Check pre-requisites
+
+max_try=${MAX_TRY:-12}
+wait_seconds=${WAIT_SECONDS:-5}
+local_tries=1
+while [[ -f $SOLR_HOME/musicbrainz-solrcloud-first-run && $local_tries -lt $max_try ]]
+do
+	local_tries=$((local_tries + 1))
+	sleep "$wait_seconds"
+done
+if [[ -f $SOLR_HOME/musicbrainz-solrcloud-first-run && $local_tries -eq $max_try ]]
+then
+	echo >&2 "$SCRIPT_NAME: Solr first run is not complete (after waiting for $((max_try * wait_seconds)) seconds)"
+	echo >&2 "Try '$SCRIPT_NAME help' for pre-requisites."
+	exit 69 # EX_UNAVAILABLE
+fi
+if ! wait-for-solr.sh --max-attempts "$max_try" --wait-seconds "$wait_seconds"
+then
+	echo >&2 "$SCRIPT_NAME: Solr is not running (after waiting for $((max_try * wait_seconds)) seconds)"
+	echo >&2 "Try '$SCRIPT_NAME help' for pre-requisites."
+	exit 69 # EX_UNAVAILABLE
+fi
+
+# Process MusicBrainz Solr collection backup archives/dumps
+
+cd "$DUMP_DIR"
+
+mkdir -p "$SOLR_BACKUPS_DIR"
+
+DUMP_TOTAL_COUNT=$(find . -maxdepth 1 -name '*.tar.zst' 2>/dev/null | wc -l)
+dump_proc_count=0
+
+for dump_file in *.tar.zst
+do
+	collection=${dump_file/.tar.zst}
+	dump_proc_count=$((dump_proc_count + 1))
+	echo "$SCRIPT_NAME: $(date): Load MusicBrainz Solr collection ($dump_proc_count/$DUMP_TOTAL_COUNT): '$collection'..."
+
+	if find "$SOLR_BACKUPS_DIR" -path "./$collection" -type d 2>/dev/null
+	then
+		echo "$SCRIPT_NAME: $(date): Delete the pre-existing backup '$collection'..."
+		rm -fr "${SOLR_BACKUPS_DIR:?}/$collection"
+	fi
+
+	echo "$SCRIPT_NAME: $(date): Extract the backup archive '$dump_file' ($(du -h "$dump_file" | cut -f1))..."
+	# Skip the files COPYING and README that would get Solr stuck otherwise
+	tar -x --zstd -f "$DUMP_DIR/$dump_file" -C "$SOLR_BACKUPS_DIR" "$collection/$collection"
+
+	echo "$SCRIPT_NAME: $(date): Restore the collection '$collection' from extracted backup..."
+	restore_output="$(curl -sS "$SOLR_BASE_URL/solr/admin/collections?action=RESTORE&collection=$collection&name=$collection&location=$SOLR_BACKUPS_DIR")"
+	if [[ ! "$(echo "$restore_output" | jq .responseHeader.status)" =~ 0 ]]
+	then
+		echo >&2 "$SCRIPT_NAME: Fatal error while restoring the collection '$collection':"
+		echo >&2 "$(echo "$restore_output" | jq .error.code): $(echo "$restore_output" | jq -r .error.msg)"
+		exit 70 # EX_SOFTWARE
+	fi
+
+	echo "$SCRIPT_NAME: $(date): Delete the no-longer-needed extracted backup '$collection'..."
+	find "$SOLR_BACKUPS_DIR/$collection" -type f -delete
+
+	echo "$SCRIPT_NAME: $(date): Done loading MusicBrainz Solr collection '$collection'."
+done
+
+echo "$SCRIPT_NAME: $(date): Done loading all the MusicBrainz Solr collections."
+
+# vi: set noexpandtab softtabstop=0:
