@@ -10,13 +10,13 @@ SCRIPT_NAME=$(basename "$0")
 HELP=$(cat <<EOH
 Usage: $SCRIPT_NAME [<options>]
 
-Load MusicBrainz Solr collections from fetched Solr backup archives.
+Load MusicBrainz Solr collections from Solr backup (tar) archives.
 
 Options:
   -h, --help    Print this help message
 
 Environment:
-  MUSICBRAINZ_SEARCH_DUMP_DIR   path to directory with Solr backup archives
+  MUSICBRAINZ_SEARCH_DUMP_DIR   path to directory with Solr backup tar archives
                                 (default: /var/cache/musicbrainz/solr-backups)
   SOLR_BACKUPS_DIR              path to directory with Solr backup files
                                 (default: /var/solr/data/backups)
@@ -31,8 +31,12 @@ Pre-requisites:
 Notes:
   It doesn't matter whether or not Solr has collections beforehand.
 
-  This command doesn't fetch the backup archives beforehand.
-  This command doesn't remove the backup archives afterwards.
+  This command doesn't fetch the backup tar archives beforehand.
+  This command doesn't remove the backup tar archives afterwards.
+
+  In detail, it extracts the backup files from the tar archives, then
+  it queries Solr API to restore the collections from these backup files,
+  and last it deletes these backup files (not the backup tar archives).
 EOH
 )
 
@@ -97,7 +101,7 @@ do
 	# Skip the files COPYING and README that would get Solr stuck otherwise
 	tar -x --zstd -f "$DUMP_DIR/$dump_file" -C "$SOLR_BACKUPS_DIR" "$collection/$collection"
 
-	echo "$SCRIPT_NAME: $(date): Restore the collection '$collection' from backup..."
+	echo "$SCRIPT_NAME: $(date): Restore the collection '$collection' from extracted backup..."
 	restore_output="$(curl -sS "$SOLR_BASE_URL/solr/admin/collections?action=RESTORE&collection=$collection&name=$collection&location=$SOLR_BACKUPS_DIR")"
 	if [[ ! "$(echo "$restore_output" | jq .responseHeader.status)" =~ 0 ]]
 	then
@@ -106,7 +110,7 @@ do
 		exit 70 # EX_SOFTWARE
 	fi
 
-	echo "$SCRIPT_NAME: $(date): Delete the no-longer-needed backup '$collection'..."
+	echo "$SCRIPT_NAME: $(date): Delete the no-longer-needed extracted backup '$collection'..."
 	find "$SOLR_BACKUPS_DIR/$collection" -type f -delete
 
 	echo "$SCRIPT_NAME: $(date): Done loading MusicBrainz Solr collection '$collection'."
