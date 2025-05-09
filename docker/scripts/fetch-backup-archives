@@ -3,7 +3,7 @@
 set -e -o pipefail -u
 
 DB_DUMP_DIR=/media/dbdump
-SEARCH_DUMP_DIR=/media/searchdump
+SEARCH_DUMP_DIR=/var/cache/musicbrainz/solr-backups
 BASE_DOWNLOAD_URL="${MUSICBRAINZ_BASE_DOWNLOAD_URL:-https://data.metabrainz.org/pub/musicbrainz}"
 WGET_CMD=(wget)
 

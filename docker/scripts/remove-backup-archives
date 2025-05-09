@@ -2,7 +2,7 @@
 
 set -e -o pipefail -u
 
-DUMP_DIR="${MUSICBRAINZ_SEARCH_DUMP_DIR:-/media/searchdump}"
+DUMP_DIR="${MUSICBRAINZ_SEARCH_DUMP_DIR:-/var/cache/musicbrainz/solr-backups}"
 
 SCRIPT_NAME=$(basename "$0")
 HELP=$(cat <<EOH
@@ -15,7 +15,7 @@ Options:
 
 Environment:
   MUSICBRAINZ_SEARCH_DUMP_DIR   path to directory with Solr backup archives
-                                (default: /media/searchdump)
+                                (default: /var/cache/musicbrainz/solr-backups)
 
 Notes:
   It doesn't remove timestamp, checksum, and signature files, because
