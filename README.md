@@ -25,7 +25,31 @@ Required software:
 
 ## Installation
 
-### Installing brainz-mmd2-jaxb
+The generally recommended installation method is using [Docker](https://docs.docker.com).
+A Docker image is available through the eponymous [Docker Hub repository](https://hub.docker.com/r/metabrainz/mb-solr) for each release of MusicBrainz Solr.
+These images can be used through the [MusicBrainz Docker Compose project](https://github.com/metabrainz/musicbrainz-docker) which comes with instructions.
+
+For [development](#development) or other purposes, these images can also be run alone, see the below subsection “[Installation without MusicBrainz Server](#installation-without-musicbrainz-server)”.
+
+To set up a cluster of Solr nodes, it can be preferred to install to the host system directly, see the below subsection “[Installation without Docker](#installation-without-docker)” and the [Apache Solr Reference Guide 9.7](https://solr.apache.org/guide/solr/9_7/).
+
+### Installation without MusicBrainz Server
+
+Clone the repository with Git:
+
+    git clone --recursive https://github.com/metabrainz/mb-solr.git
+
+Run it alone on port 8983 with Docker:
+
+    docker compose up
+
+### Installation without Docker
+
+:warning: This section is outdated as it predates upgrading to SolrCloud 9.
+
+:newspaper: The MusicBrainz Solr cluster powering musicbrainz.org is using [Ansible](https://docs.ansible.com/) for deployment.
+
+#### Installing brainz-mmd2-jaxb
 
 Clone the repository with Git:
 
@@ -36,7 +60,7 @@ And install the package:
     cd mmd-schema/brainz-mmd2-jaxb
     mvn install
 
-### Installing the query writer
+#### Installing the query writer
 
 Clone the repository with Git:
 
@@ -110,16 +134,24 @@ A branch of the MusicBrainz server that can query a Solr server with this
 QueryResponseWriter is available on
 [GitHub](https://github.com/mineo/musicbrainz-server/tree/solr-search).
 
-## Docker Installation
+## Development
 
-Clone the repository with Git:
+If you followed “[Installation without MusicBrainz Server](#installation-without-musicbrainz-server)”,
+just stop the last command and run it again after having made some changes.
 
-    git clone --recursive https://github.com/metabrainz/mb-solr.git
+Otherwise, if you need it to be tested with either the indexer or MusicBrainz Server:
 
-Either run it alone on port 8983:
+1. Make some changes in your local Git clone (of MusicBrainz Solr)
+   (The two next steps are optional but recommended to better identify images.)
+2. Commit these changes to your local Git branch.
+3. Tag this commit with a meaningful version:
 
-    docker-compose up
+    git tag adastrawberry-1969
 
-Or build a tagged image to run with [MusicBrainz Docker](https://github.com/metabrainz/musicbrainz-docker):
+4. Build a docker image:
 
     ./build.sh
+
+5. Use this tag to [set `MB_SOLR_VERSION` in MusicBrainz Docker Compose project](https://github.com/metabrainz/musicbrainz-docker?tab=readme-ov-file#local-development-of-musicbrainz-solr).
+
+See also [The Debugger’s Guide to MusicBrainz Solr](HACKING.md).
