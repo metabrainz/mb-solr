@@ -155,3 +155,25 @@ Otherwise, if you need it to be tested with either the indexer or MusicBrainz Se
 5. Use this tag to [set `MB_SOLR_VERSION` in MusicBrainz Docker Compose project](https://github.com/metabrainz/musicbrainz-docker?tab=readme-ov-file#local-development-of-musicbrainz-solr).
 
 See also [The Debugger’s Guide to MusicBrainz Solr](HACKING.md).
+
+## Helper commands
+
+SolrCloud collections backups from the MusicBrainz Solr cluster
+powering musicbrainz.org are made available twice a week to save
+mirror owners the initial cost of indexing the whole MusicBrainz data
+from scratch which can take hours and significant resources.
+Those backups are provided as Zstandard-compressed tar archives.
+Helper commands to handle these archives are provided in Docker images:
+
+   fetch-backup-archives
+   load-backup-archives
+   remove-backup-archives
+
+In May 2025, the measured time for fetching 60 GB was 12 min (depending on your bandwidth,)
+and the measured time for loading was 12 min (depending on your CPU/RAM/Disk speed.)
+
+A fourth helper command allows to delete all the Solr data if needed:
+
+   delete-indexed-documents
+
+Each of these commands is self-documented through the option `--help`.
