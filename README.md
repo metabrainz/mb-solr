@@ -6,11 +6,6 @@ for Apache Solr that will generate
 [mmd-schema](https://github.com/metabrainz/mmd-schema) compliant responses
 for Solr cores running on an [mbsssss](https://github.com/metabrainz/mbsssss) schema.
 
-## Licensing
-
-Note - Part of the code at org.musicbrainz.search.analysis is adapted almost entirely from Lucene core libs.
-As such those files are licensed under Apache 2.0 license which is compatible with the existing BSD license of MB-Solr.
-
 ## Installation
 
 ### Installing brainz-mmd2-jaxb
