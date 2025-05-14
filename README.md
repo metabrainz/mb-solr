@@ -69,7 +69,6 @@ Valid values are:
 - cdstub
 - editor
 - event
-- freedb
 - instrument
 - label
 - place
