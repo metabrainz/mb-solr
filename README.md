@@ -1,10 +1,10 @@
-# MusicBrainz Solr [![Build Status](https://travis-ci.org/metabrainz/mb-solr.svg?branch=master)](https://travis-ci.org/metabrainz/mb-solr)
+# MusicBrainz Solr
 
 This package includes a
-[QueryResponseWriter](https://cwiki.apache.org/confluence/display/solr/Response+Writers)
+[QueryResponseWriter](https://solr.apache.org/guide/solr/9_7/query-guide/response-writers.html)
 for Apache Solr that will generate
 [mmd-schema](https://github.com/metabrainz/mmd-schema) compliant responses
-for Solr cores running on an [mbsssss](https://github.com/mineo/mbsssss) schema.
+for Solr cores running on an [mbsssss](https://github.com/metabrainz/mbsssss) schema.
 
 ## Licensing
 
@@ -40,11 +40,11 @@ This will create a file called
 
 Now you need to make this JAR file available to all Solr cores that need it.
 The easiest option is to configure a **sharedLib** in your
-[solr.xml](https://cwiki.apache.org/confluence/display/solr/Format+of+solr.xml)
+[solr.xml](https://solr.apache.org/guide/solr/9_7/configuration-guide/configuring-solr-xml.html)
 and put the JAR file into that.
 
 All that's left to do now is enabling the Query Response Writers in your cores
-[solrconfig.xml](https://cwiki.apache.org/confluence/display/solr/Configuring+solrconfig.xml).
+[solrconfig.xml](https://solr.apache.org/guide/solr/9_7/configuration-guide/configuring-solrconfig-xml.html).
 To do that, add the following lines as children of the **config** element:
 
 ```xml
@@ -57,7 +57,7 @@ To do that, add the following lines as children of the **config** element:
 ```
 
 The solrconfig.xml of the cores defined by
-[mbsssss](https://github.com/mineo/mbsssss) already includes this snippet, as
+[mbsssss](https://github.com/metabrainz/mbsssss) already includes this snippet, as
 well as the **sharedLib** configuration in the solr.xml file.
 
 **$entitytype** needs to be replaced by the entity type of the documents in the store.
@@ -83,15 +83,15 @@ Valid values are:
 
 Now the core needs to be reloaded.
 After that, two new values for the
-[wt paramter](https://cwiki.apache.org/confluence/display/solr/Response+Writers)
+[wt paramter](https://solr.apache.org/guide/solr/9_7/query-guide/common-query-parameters.html#wt-parameter)
 are available:
 
 - **mbxml**, which returns mmd-compliant XML documents
-- **mbjson**, which returns JSON document as described by
-  [this page](https://beta.musicbrainz.org/doc/Development/JSON_Web_Service)
+- **mbjson**, which returns JSON document as described by the
+  [MusicBrainz API documentation page](https://musicbrainz.org/doc/MusicBrainz_API)
 
 At the moment, the
-[field list](https://cwiki.apache.org/confluence/display/solr/Common+Query+Parameters#CommonQueryParameters-Thefl)
+[field list](https://solr.apache.org/guide/solr/9_7/query-guide/common-query-parameters.html#fl-field-list-parameter)
 parameter of each query needs to include the **score** field for the code to
 work correctly.
 
