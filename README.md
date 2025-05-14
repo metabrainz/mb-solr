@@ -6,6 +6,23 @@ for Apache Solr that will generate
 [mmd-schema](https://github.com/metabrainz/mmd-schema) compliant responses
 for Solr cores running on an [mbsssss](https://github.com/metabrainz/mbsssss) schema.
 
+## Prerequisites
+
+In May 2025, Solr data for indexing the whole MusicBrainz database takes ~75 GB of disk space.
+Since indexing takes hours, you might want to load the Zstandard-compressed backup archives.
+Those archives take ~60 GB of disk space and their temporarily extracted files take ~75 GB more.
+Hence, it is currently recommended to provision at least 250 GB of disk space for Solr.
+
+Recommendations:
+* RAM: 4 GB
+* CPU: 8 threads, x86-64 architecture
+* Disk Space: 250 GB (or 100 GB if you don't load backups.)
+
+Required software:
+* Git
+* Docker 2
+  (or Java SE 17, Maven 3, and Solr 9.7.0)
+
 ## Installation
 
 ### Installing brainz-mmd2-jaxb
