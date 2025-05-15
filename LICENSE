@@ -12,6 +12,8 @@ which is included in this file below the License text:
 
 * start-local-solrcloud is derived from start-local-solr
 * start-musicbrainz-solrcloud is derived from start-create
+* mb-solr/src/main/java/org/musicbrainz/search/analysis/*.java
+  are adapted almost entirely from the Lucene Core libraries
 
 License
 -------

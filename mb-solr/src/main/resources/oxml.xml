@@ -18,7 +18,6 @@
                 <xml-element java-attribute="recordingList" xml-path="."/>
                 <xml-element java-attribute="urlList" xml-path="."/>
                 <xml-element java-attribute="cdstubList" xml-path="."/>
-                <xml-element java-attribute="freedbDiscList" xml-path="."/>
                 <xml-element java-attribute="releaseList" xml-path="."/>
                 <xml-element java-attribute="tagList" xml-path="."/>
                 <xml-element java-attribute="workList" xml-path="."/>
@@ -231,16 +230,6 @@
             </java-attributes>
         </java-type>
         <java-type name="Cdstub">
-            <java-attributes>
-                <xml-element java-attribute="trackList" xml-path="."/>
-            </java-attributes>
-        </java-type>
-        <java-type name="FreedbDiscList">
-            <java-attributes>
-                <xml-element java-attribute="freedbDisc" name="freedb-discs"/>
-            </java-attributes>
-        </java-type>
-        <java-type name="FreedbDisc">
             <java-attributes>
                 <xml-element java-attribute="trackList" xml-path="."/>
             </java-attributes>

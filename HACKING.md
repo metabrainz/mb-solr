@@ -54,8 +54,8 @@ Solr logs are useful to debug making a search query with MBS and/or indexing doc
 
 In a terminal, follow Solr logs using:
 
-```sh
-docker-compose logs -f --tail 1 search
+```bash
+docker compose logs -f --tail 1 search
 ```
 
 For an example, browse your local MusicBrainz Server instance at
@@ -73,7 +73,7 @@ Solr Admin
 To debug how other components (MBS, SIR) interact with the search server,
 the Solr Admin web interface (browsable from <http://localhost:8983>) is your friend.
 
-See “[Getting Started / Solr Admin UI](https://solr.apache.org/guide/solr/latest/getting-started/solr-admin-ui.html)"
+See “[Getting Started / Solr Admin UI](https://solr.apache.org/guide/solr/9_7/getting-started/solr-admin-ui.html)"
 in the Apache Solr Reference Guide 9.7 for more information.
 
 ### Query screen
@@ -124,11 +124,11 @@ Some parameters are automatically set on all queries based on the core configura
 
 Some parameters are set based on the request handler.
 These are identified as "invariants", which means that the parameters will always be set to this value even if you specify a different value in the admin interface.
-For example the [`basic` request handler](https://github.com/metabrainz/mbsssss/blob/v-2021-05-14/common/requestHandler-basic.xml) erases the `pf` field for good.
+For example the [`basic` request handler](https://github.com/metabrainz/mbsssss/blob/v-2025-05-13/common/requestHandler-basic.xml) erases the `pf` field for good.
 
 Some parameters for ranking are set with defaults and can be overridden.
 These can be changed by copying them into the relevant fields in the admin query panel to see the resulting change in ranking order.
-For example the [release’s request parameters](https://github.com/metabrainz/mbsssss/blob/v-2021-05-14/release/conf/request-params.xml)
+For example the [release’s request parameters](https://github.com/metabrainz/mbsssss/blob/v-2025-05-13/release/conf/request-params.xml)
 has a default value for the `fl` field which can be overriden if needed
 (while the `pf` value will still be erased if used from the `/basic` endpoint).
 
