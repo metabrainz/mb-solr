@@ -37,11 +37,15 @@ To set up a cluster of Solr nodes, it can be preferred to install to the host sy
 
 Clone the repository with Git:
 
-    git clone --recursive https://github.com/metabrainz/mb-solr.git
+```bash
+git clone --recursive https://github.com/metabrainz/mb-solr.git
+```
 
 Run it alone on port 8983 with Docker:
 
-    docker compose up
+```bash
+docker compose up
+```
 
 ### Installation without Docker
 
@@ -53,23 +57,31 @@ Run it alone on port 8983 with Docker:
 
 Clone the repository with Git:
 
-    git clone https://github.com/metabrainz/mmd-schema.git
+```bash
+git clone https://github.com/metabrainz/mmd-schema.git
+```
 
 And install the package:
 
-    cd mmd-schema/brainz-mmd2-jaxb
-    mvn install
+```bash
+cd mmd-schema/brainz-mmd2-jaxb
+mvn install
+```
 
 #### Installing the query writer
 
 Clone the repository with Git:
 
-    git clone --recursive https://github.com/metabrainz/mb-solr.git
+```bash
+git clone --recursive https://github.com/metabrainz/mb-solr.git
+```
 
 Navigate to the **mb-solr** folder in a terminal and build a JAR
 file:
 
-    mvn package
+```bash
+mvn package
+```
 
 This will create a file called
 **solrwriter-0.0.1-SNAPSHOT-jar-with-dependencies.jar** in the **target** folder.
@@ -84,12 +96,12 @@ All that's left to do now is enabling the Query Response Writers in your cores
 To do that, add the following lines as children of the **config** element:
 
 ```xml
-    <queryResponseWriter name="mbxml" class="org.musicbrainz.search.solrwriter.MBXMLWriter">
-        <str name="entitytype">$entitytype</str>
-    </queryResponseWriter>
-    <queryResponseWriter name="mbjson" class="org.musicbrainz.search.solrwriter.MBJSONWriter">
-        <str name="entitytype">$entitytype</str>
-    </queryResponseWriter>
+<queryResponseWriter name="mbxml" class="org.musicbrainz.search.solrwriter.MBXMLWriter">
+    <str name="entitytype">$entitytype</str>
+</queryResponseWriter>
+<queryResponseWriter name="mbjson" class="org.musicbrainz.search.solrwriter.MBJSONWriter">
+    <str name="entitytype">$entitytype</str>
+</queryResponseWriter>
 ```
 
 The solrconfig.xml of the cores defined by
@@ -146,11 +158,15 @@ Otherwise, if you need it to be tested with either the indexer or MusicBrainz Se
 2. Commit these changes to your local Git branch.
 3. Tag this commit with a meaningful version:
 
-    git tag adastrawberry-1969
+   ```bash
+   git tag adastrawberry-1969
+   ```
 
 4. Build a docker image:
 
-    ./build.sh
+   ```bash
+   ./build.sh
+   ```
 
 5. Use this tag to [set `MB_SOLR_VERSION` in MusicBrainz Docker Compose project](https://github.com/metabrainz/musicbrainz-docker?tab=readme-ov-file#local-development-of-musicbrainz-solr).
 
@@ -165,15 +181,19 @@ from scratch which can take hours and significant resources.
 Those backups are provided as Zstandard-compressed tar archives.
 Helper commands to handle these archives are provided in Docker images:
 
-   fetch-backup-archives
-   load-backup-archives
-   remove-backup-archives
+```bash
+fetch-backup-archives
+load-backup-archives
+remove-backup-archives
+```
 
 In May 2025, the measured time for fetching 60 GB was 12 min (depending on your bandwidth,)
 and the measured time for loading was 12 min (depending on your CPU/RAM/Disk speed.)
 
 A fourth helper command allows to delete all the Solr data if needed:
 
-   delete-indexed-documents
+```bash
+delete-indexed-documents
+```
 
 Each of these commands is self-documented through the option `--help`.

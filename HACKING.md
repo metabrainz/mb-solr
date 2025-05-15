@@ -54,8 +54,8 @@ Solr logs are useful to debug making a search query with MBS and/or indexing doc
 
 In a terminal, follow Solr logs using:
 
-```sh
-docker-compose logs -f --tail 1 search
+```bash
+docker compose logs -f --tail 1 search
 ```
 
 For an example, browse your local MusicBrainz Server instance at
