@@ -95,6 +95,7 @@ LABEL org.label-schema.build-date="${BUILD_DATE}" \
       org.metabrainz.mb-solr.version="${MB_SOLR_VERSION}"
 
 VOLUME /var/cache/musicbrainz/solr-backups
+CMD start-musicbrainz-solrcloud
 
 # Restoring value set in the parent image
 USER solr
