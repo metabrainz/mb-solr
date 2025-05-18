@@ -87,6 +87,7 @@
                     "media": [
                         {
                             "position": 1,
+                            "id": "ac404674-891f-4e01-8d28-d77b43690d2a",
                             "format": "CD",
                             "track": [
                                 {
@@ -138,6 +139,7 @@
                     "media": [
                         {
                             "position": 5,
+                            "id": "01b9d64d-1d6d-4494-af8e-830ecf9f737d",
                             "format": "DVD",
                             "track": [
                                 {
