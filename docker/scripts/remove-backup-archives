@@ -38,7 +38,7 @@ fi
 
 # Just remove MusicBrainz Solr collection backup archives/dumps
 
-dump_size="$(du -h "$DUMP_DIR" | cut -f1))"
+dump_size="$(du -h "$DUMP_DIR" | cut -f1)"
 rm -frv "${DUMP_DIR:?}/"*.tar.zst
 echo "$SCRIPT_NAME: $(date): Removed $dump_size of Solr backup archives."
 
