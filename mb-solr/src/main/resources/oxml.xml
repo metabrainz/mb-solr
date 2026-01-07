@@ -145,7 +145,9 @@
         </java-type>
         <java-type name="UrlList">
             <java-attributes>
-                <xml-element java-attribute="url" name="urls"/>
+                <xml-element java-attribute="url" name="urls">
+                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.UrlAdapter"/>
+                </xml-element>
             </java-attributes>
         </java-type>
         <java-type name="PuidList">
