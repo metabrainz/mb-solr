@@ -38,7 +38,7 @@ import java.util.List;
 public class EventAdapter extends NotUnmarshallableXmlAdapter<EventAdapter.AdaptedEvent, Event> {
 
     public static class AdaptedEvent extends Event {
-        public List<Relation> relations = new ArrayList<Relation>();
+        public List<RelationAdapter.AdaptedRelation> relations;
     }
 
     /**
@@ -50,11 +50,7 @@ public class EventAdapter extends NotUnmarshallableXmlAdapter<EventAdapter.Adapt
     @Override
     public AdaptedEvent marshal(Event event) throws Exception {
         AdaptedEvent adaptedEvent = new AdaptedEvent();
-        for(RelationList relationList : event.getRelationList()) {
-            for(Relation relation : relationList.getRelation()) {
-                adaptedEvent.relations.add(relation);
-            }
-        }
+        adaptedEvent.relations = RelationListUtil.marshal(event.getRelationList());
 
         //Also need to copy any other elements/attributes we may want to output
         adaptedEvent.setAliasList(event.getAliasList());
