@@ -39,7 +39,7 @@ import java.util.List;
 public class WorkAdapter extends NotUnmarshallableXmlAdapter<WorkAdapter.AdaptedWork, Work> {
 
     public static class AdaptedWork extends Work {
-        public List<Relation> relations = new ArrayList<Relation>();
+        public List<RelationAdapter.AdaptedRelation> relations;
         public List<String> languages = new ArrayList<String>();
     }
 
@@ -53,11 +53,7 @@ public class WorkAdapter extends NotUnmarshallableXmlAdapter<WorkAdapter.Adapted
     public AdaptedWork marshal(Work work) throws Exception {
 
         AdaptedWork adaptedWork = new AdaptedWork();
-        for(RelationList relationList : work.getRelationList()) {
-            for(Relation relation : relationList.getRelation()) {
-                adaptedWork.relations.add(relation);
-            }
-        }
+        adaptedWork.relations = RelationListUtil.marshal(work.getRelationList());
 
         LanguageList languageList = work.getLanguageList();
         if (languageList != null)
