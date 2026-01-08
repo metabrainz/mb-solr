@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metadata created="2026-01-07T21:23:20.116Z" xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ns2="http://musicbrainz.org/ns/ext#-2.0">
+	<url-list count="1" offset="0">
+		<url id="bd9db597-5ccf-427d-94d9-c3bd23c00f37" ns2:score="100">
+			<resource>https://www.nin.com/</resource>
+			<relation-list target-type="artist">
+				<relation type="official homepage" type-id="fe33d22f-c3b0-4d68-bd53-a856badf2b15">
+					<target>b7ffd2af-418f-4be2-bdd1-22f8b48613da</target>
+					<direction>backward</direction>
+					<artist id="b7ffd2af-418f-4be2-bdd1-22f8b48613da">
+						<name>Nine Inch Nails</name>
+						<sort-name>Nine Inch Nails</sort-name>
+					</artist>
+				</relation>
+			</relation-list>
+		</url>
+	</url-list>
+</metadata>
