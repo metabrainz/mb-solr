@@ -154,8 +154,10 @@
             </java-attributes>
         </java-type>
         <java-type name="AreaList">
-            <java-attributes>
-                <xml-element java-attribute="area" name="areas"/>
+            <java-attributes>>
+                <xml-element java-attribute="area" name="areas">
+                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.AreaAdapter"/>
+                </xml-element>
             </java-attributes>
         </java-type>
         <java-type name="PlaceList">
