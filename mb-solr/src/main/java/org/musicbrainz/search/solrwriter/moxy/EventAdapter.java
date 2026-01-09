@@ -42,10 +42,10 @@ public class EventAdapter extends NotUnmarshallableXmlAdapter<EventAdapter.Adapt
     }
 
     /**
-     * Call when convert model to json, replaces work in model with adaptedWork
+     * Call when convert model to json, replaces event in model with adaptedEvent
      * which does not contain a list of RelationList, instead all relations in each existing
      * RelationList are merged into a list of relations. We do this because it is not possible to merge
-     * a List of RelationLists into the work using oxml.xml mapping
+     * a List of RelationLists into the event using oxml.xml mapping
      */
     @Override
     public AdaptedEvent marshal(Event event) throws Exception {
