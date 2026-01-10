@@ -26,7 +26,6 @@
                     "target-type": "artist",
                     "type": "writer",
                     "type-id": "a255bca1-b157-4518-9108-7b147dc3fc68",
-                    "target": "650e7db6-b795-4eb5-a702-5ea2fc46c848",
                     "direction": "backward",
                     "artist": {
                         "id": "650e7db6-b795-4eb5-a702-5ea2fc46c848",
@@ -38,7 +37,6 @@
                     "target-type": "artist",
                     "type": "writer",
                     "type-id": "a255bca1-b157-4518-9108-7b147dc3fc68",
-                    "target": "8c84402d-f282-4afc-8d64-049bdaabb92d",
                     "direction": "backward",
                     "artist": {
                         "id": "8c84402d-f282-4afc-8d64-049bdaabb92d",
@@ -50,7 +48,6 @@
                     "target-type": "recording",
                     "type": "performance",
                     "type-id": "a3005666-a872-32c3-ad06-98af558e99b0",
-                    "target": "f8bbe5a7-bc01-4780-aee0-aef98666b874",
                     "direction": "backward",
                     "recording": {
                         "id": "f8bbe5a7-bc01-4780-aee0-aef98666b874",
