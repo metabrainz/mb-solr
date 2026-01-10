@@ -1,0 +1,29 @@
+{
+    "created": "${json-unit.matches:validXMLGregorianCalendar}",
+    "count": 1,
+    "offset": 0,
+    "events": [
+        {
+            "id": "183ba1ec-a87b-4c0e-85dd-496b7cea4399",
+            "type": "Festival",
+            "score": 100,
+            "name": "Wacken Open Air 2024",
+            "life-span": {
+                "begin": "2024-07-31",
+                "end": "2024-08-03"
+            },
+            "relations": [
+                {
+                    "type": "held at",
+                    "type-id": "e2c6f697-07dc-38b1-be0b-83d740165532",
+                    "target": "3acd3d34-e8ea-4b9d-be0f-bd1e128aa8ba",
+                    "direction": "backward",
+                    "place": {
+                        "id": "3acd3d34-e8ea-4b9d-be0f-bd1e128aa8ba",
+                        "name": "Wacken Open Air Festival Grounds"
+                    }
+                }
+            ]
+        }
+    ]
+}
