@@ -17,7 +17,6 @@
                     "target-type": "place",
                     "type": "held at",
                     "type-id": "e2c6f697-07dc-38b1-be0b-83d740165532",
-                    "target": "3acd3d34-e8ea-4b9d-be0f-bd1e128aa8ba",
                     "direction": "backward",
                     "place": {
                         "id": "3acd3d34-e8ea-4b9d-be0f-bd1e128aa8ba",

@@ -282,9 +282,7 @@
             <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.RelationAdapter"/>
             <java-attributes>
                 <xml-element java-attribute="attributeList" xml-path="."/>
-                <xml-element java-attribute="target">
-                    <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.StringTargetAdapter"/>
-                </xml-element>
+                <xml-transient java-attribute="target"/>
             </java-attributes>
         </java-type>
         <java-type name="Relation$AttributeList">
