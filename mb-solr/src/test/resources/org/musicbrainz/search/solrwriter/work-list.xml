@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metadata created="2026-01-14T04:52:47.571Z" xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ns2="http://musicbrainz.org/ns/ext#-2.0">
+	<work-list count="1" offset="0">
+		<work id="9f6363b8-7df7-3732-b2b6-94c0f02e0bde" type="Song" type-id="f061270a-2fd6-32f1-a641-f0f8676d14e6" ns2:score="100">
+			<title>Poker Face</title>
+			<language>eng</language>
+			<language-list>
+				<language>eng</language>
+			</language-list>
+			<iswc-list>
+				<iswc>T-901.751.548-9</iswc>
+			</iswc-list>
+			<alias-list>
+				<alias sort-name="Poker Face (Tommy Sparks &amp; The Fury remix)">Poker Face (Tommy Sparks &amp; The Fury remix)</alias>
+			</alias-list>
+			<relation-list target-type="artist">
+				<relation type="writer" type-id="a255bca1-b157-4518-9108-7b147dc3fc68">
+					<target>650e7db6-b795-4eb5-a702-5ea2fc46c848</target>
+					<direction>backward</direction>
+					<artist id="650e7db6-b795-4eb5-a702-5ea2fc46c848">
+						<name>Lady Gaga</name>
+						<sort-name>Lady Gaga</sort-name>
+					</artist>
+				</relation>
+				<relation type="writer" type-id="a255bca1-b157-4518-9108-7b147dc3fc68">
+					<target>8c84402d-f282-4afc-8d64-049bdaabb92d</target>
+					<direction>backward</direction>
+					<artist id="8c84402d-f282-4afc-8d64-049bdaabb92d">
+						<name>RedOne</name>
+						<sort-name>RedOne</sort-name>
+					</artist>
+				</relation>
+			</relation-list>
+			<relation-list target-type="recording">
+				<relation type="performance" type-id="a3005666-a872-32c3-ad06-98af558e99b0">
+					<target>f8bbe5a7-bc01-4780-aee0-aef98666b874</target>
+					<direction>backward</direction>
+					<attribute-list/>
+					<recording id="f8bbe5a7-bc01-4780-aee0-aef98666b874">
+						<title>Poker Face (piano version)</title>
+					</recording>
+				</relation>
+			</relation-list>
+		</work>
+	</work-list>
+</metadata>
