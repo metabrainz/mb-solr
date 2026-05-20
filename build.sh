@@ -38,9 +38,10 @@ fi
 tag=${version}
 timestamp=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 
-${DOCKER_CMD} build \
+${DOCKER_CMD} buildx build \
   --build-arg MB_SOLR_VERSION=${version} \
   --build-arg BUILD_DATE=${timestamp} \
   --build-arg VCS_REF=${vcs_ref} \
+  --platform linux/arm64,linux/amd64 \
   --tag ${image_name}:${tag} . \
   2>&1 | tee ./"build-${version}-at-${timestamp}.log"
