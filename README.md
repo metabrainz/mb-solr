@@ -15,7 +15,7 @@ Hence, it is currently recommended to provision at least 250 GB of disk space fo
 
 Recommendations:
 * RAM: 4 GB
-* CPU: 8 threads, x86-64 architecture
+* CPU: 8 threads, amd64 (x86-64) or arm64 (aarch64) architecture
 * Disk Space: 250 GB (or 100 GB if you don't load backups.)
 
 Required software:
