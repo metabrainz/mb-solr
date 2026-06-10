@@ -165,7 +165,7 @@ Otherwise, if you need it to be tested with either the indexer or MusicBrainz Se
 4. Build a docker image:
 
    ```bash
-   ./build.sh
+   ./build.sh --local-platform
    ```
 
 5. Use this tag to [set `MB_SOLR_VERSION` in MusicBrainz Docker Compose project](https://github.com/metabrainz/musicbrainz-docker?tab=readme-ov-file#local-development-of-musicbrainz-solr).

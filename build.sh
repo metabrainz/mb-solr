@@ -18,6 +18,46 @@
 
 set -e -u
 
+SCRIPT_NAME=$(basename "$0")
+HELP=$(cat <<EOH
+Usage: $SCRIPT_NAME [--help|--local-platform]
+
+Options:
+  --help                Print this help message
+
+  --local-platform      Build image to run on the host platform only.
+                        This is intended for local development and testing,
+                        to skip building images for unnecessary targets.
+
+                        Do not use it to build image for a public repository.
+
+  Notes:
+    For multi-platform builds, there are some prerequisites to the host; see:
+    https://docs.docker.com/build/building/multi-platform/
+EOH
+)
+
+if [[ $# -eq 0 ]]
+then
+  platform_option='--platform linux/arm64,linux/amd64'
+elif [[ $# -gt 1 ]]
+then
+  echo >&2 "$SCRIPT_NAME: too many arguments"
+  echo >&2 "Try '$SCRIPT_NAME --help' for usage."
+  exit 64 # EX_USAGE
+elif [[ $1 =~ -*h(elp)? ]]
+then
+  echo "$HELP"
+  exit 0 # EX_OK
+elif [[ $1 =~ --local-platform ]]
+then
+  platform_option=''
+else
+  echo >&2 "$SCRIPT_NAME: unknown option: '$1'"
+  echo >&2 "Try '$SCRIPT_NAME --help' for usage."
+  exit 64 # EX_USAGE
+fi
+
 image_name='metabrainz/mb-solr'
 
 cd "$(dirname "${BASH_SOURCE[0]}")/"
@@ -42,6 +82,6 @@ ${DOCKER_CMD} buildx build \
   --build-arg MB_SOLR_VERSION=${version} \
   --build-arg BUILD_DATE=${timestamp} \
   --build-arg VCS_REF=${vcs_ref} \
-  --platform linux/arm64,linux/amd64 \
+  ${platform_option} \
   --tag ${image_name}:${tag} . \
   2>&1 | tee ./"build-${version}-at-${timestamp}.log"
