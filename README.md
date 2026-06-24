@@ -15,7 +15,7 @@ Hence, it is currently recommended to provision at least 250 GB of disk space fo
 
 Recommendations:
 * RAM: 4 GB
-* CPU: 8 threads, x86-64 architecture
+* CPU: 8 threads, amd64 (x86-64) or arm64 (aarch64) architecture
 * Disk Space: 250 GB (or 100 GB if you don't load backups.)
 
 Required software:
@@ -165,7 +165,7 @@ Otherwise, if you need it to be tested with either the indexer or MusicBrainz Se
 4. Build a docker image:
 
    ```bash
-   ./build.sh
+   ./build.sh --local-platform
    ```
 
 5. Use this tag to [set `MB_SOLR_VERSION` in MusicBrainz Docker Compose project](https://github.com/metabrainz/musicbrainz-docker?tab=readme-ov-file#local-development-of-musicbrainz-solr).
