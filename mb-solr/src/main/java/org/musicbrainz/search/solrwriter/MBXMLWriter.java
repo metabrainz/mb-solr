@@ -106,7 +106,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 	 * for different entity types, as well as calling the appropriate method to
 	 * set the list on the {@link Metadata} object.
 	 */
-	class MetadataListWrapper {
+	public class MetadataListWrapper {
 		private List objList = null;
 		private Object MMDList = null;
 		private Metadata metadata = null;
@@ -311,7 +311,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 				.orElseThrow(() -> new RuntimeException("no valid entitytype given"));
 	}
 
-	private static void adjustScore(float maxScore, Object object,
+	public static void adjustScore(float maxScore, Object object,
 			float objectScore) {
 		Method setScoreMethod;
 		try {
