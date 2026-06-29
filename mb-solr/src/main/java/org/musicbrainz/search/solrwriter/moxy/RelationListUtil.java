@@ -1,4 +1,4 @@
-/* Copyright (c) 2012 Paul Taylor
+/* Copyright (c) 2026 MetaBrainz Foundation
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,43 +28,24 @@
 
 package org.musicbrainz.search.solrwriter.moxy;
 
-import org.musicbrainz.mmd2.Event;
 import org.musicbrainz.mmd2.Relation;
 import org.musicbrainz.mmd2.RelationList;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventAdapter extends NotUnmarshallableXmlAdapter<EventAdapter.AdaptedEvent, Event> {
+public class RelationListUtil {
 
-    public static class AdaptedEvent extends Event {
-        public List<RelationAdapter.AdaptedRelation> relations;
-    }
-
-    /**
-     * Call when convert model to json, replaces event in model with adaptedEvent
-     * which does not contain a list of RelationList, instead all relations in each existing
-     * RelationList are merged into a list of relations. We do this because it is not possible to merge
-     * a List of RelationLists into the event using oxml.xml mapping
-     */
-    @Override
-    public AdaptedEvent marshal(Event event) throws Exception {
-        AdaptedEvent adaptedEvent = new AdaptedEvent();
-        adaptedEvent.relations = RelationListUtil.marshal(event.getRelationList());
-
-        //Also need to copy any other elements/attributes we may want to output
-        adaptedEvent.setAliasList(event.getAliasList());
-        adaptedEvent.setDisambiguation(event.getDisambiguation());
-        adaptedEvent.setId(event.getId());
-        adaptedEvent.setName(event.getName());
-        adaptedEvent.setTime(event.getTime());
-        adaptedEvent.setLifeSpan(event.getLifeSpan());
-        adaptedEvent.setRating(event.getRating());
-        adaptedEvent.setScore(event.getScore());
-        adaptedEvent.setTagList(event.getTagList());
-        adaptedEvent.setType(event.getType());
-        adaptedEvent.setUserRating(event.getUserRating());
-        adaptedEvent.setUserTagList(event.getUserTagList());
-        return adaptedEvent;
+    public static List<RelationAdapter.AdaptedRelation> marshal(List<RelationList> relationLists) throws Exception {
+        List<RelationAdapter.AdaptedRelation> relations = new ArrayList<>();
+        RelationAdapter adapter = new RelationAdapter();
+        for (RelationList relationList : relationLists) {
+            String targetType = relationList.getTargetType();
+            for (Relation relation : relationList.getRelation()) {
+                RelationAdapter.AdaptedRelation adaptedRelation = adapter.marshal(relation);
+                adaptedRelation.targetType = targetType;
+                relations.add(adaptedRelation);
+            }
+        }
+        return relations;
     }
 }

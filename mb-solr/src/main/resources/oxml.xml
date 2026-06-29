@@ -275,6 +275,7 @@
             </java-attributes>
         </java-type>
         <java-type name="Relation">
+            <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.RelationAdapter"/>
             <java-attributes>
                 <xml-element java-attribute="attributeList" xml-path="."/>
                 <xml-element java-attribute="target">
