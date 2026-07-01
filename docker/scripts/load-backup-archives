@@ -155,7 +155,12 @@ do
 			exit 75 # EX_TEMPFAIL
 		fi
 	done
-	curl -sS "$SOLR_BASE_URL/solr/admin/collections?action=DELETESTATUS&requestid=$async_id" > /dev/null
+	deletestatus_output="$(curl -sS "$SOLR_BASE_URL/solr/admin/collections?action=DELETESTATUS&requestid=$async_id")"
+	if [[ "$(echo "$deletestatus_output" | jq -r .responseHeader.status)" != '0' ]]
+	then
+		echo >&2 "$SCRIPT_NAME: Warning: failed to delete async status for '$async_id':"
+		echo >&2 "$(echo "$deletestatus_output" | jq -r '.error.msg // .')"
+	fi
 
 	echo "$SCRIPT_NAME: $(date): Delete the no-longer-needed extracted backup '$collection'..."
 	find "$SOLR_BACKUPS_DIR/$collection" -type f -delete
