@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2005
 
 set -e -o pipefail -u
 
 DUMP_DIR="${MUSICBRAINZ_SEARCH_DUMP_DIR:-/var/cache/musicbrainz/solr-backups}"
+MAX_POLL="${MUSICBRAINZ_SEARCH_MAX_POLL:-360}" # 360 × 10s = 1h
 SOLR_BACKUPS_DIR="${SOLR_BACKUPS_DIR:-/var/solr/data/backups}"
 SOLR_BASE_URL="http://${SOLR_LOCAL_HOST:-localhost}:${SOLR_PORT:-8983}"
 
@@ -18,6 +20,10 @@ Options:
 Environment:
   MUSICBRAINZ_SEARCH_DUMP_DIR   path to directory with Solr backup tar archives
                                 (default: /var/cache/musicbrainz/solr-backups)
+  MUSICBRAINZ_SEARCH_MAX_POLL   maximum number of polling attempts for
+                                asynchronous requests sent to the Solr API,
+                                with a pause of 10s between each attempt
+                                (default: 360 attempts, that is about 1h)
   SOLR_BACKUPS_DIR              path to directory with Solr backup files
                                 (default: /var/solr/data/backups)
   SOLR_LOCAL_HOST               upstream Solr server listening host
@@ -102,12 +108,61 @@ do
 	tar -x --zstd -f "$DUMP_DIR/$dump_file" -C "$SOLR_BACKUPS_DIR" "$collection/$collection"
 
 	echo "$SCRIPT_NAME: $(date): Restore the collection '$collection' from extracted backup..."
-	restore_output="$(curl -sS "$SOLR_BASE_URL/solr/admin/collections?action=RESTORE&collection=$collection&name=$collection&location=$SOLR_BACKUPS_DIR")"
-	if [[ ! "$(echo "$restore_output" | jq .responseHeader.status)" =~ 0 ]]
+	# Submit the restore asynchronously: the synchronous Collections API call
+	# hard-times-out after 180 seconds server-side, which large collections
+	# (release-group, url, recording) routinely exceed.
+	async_id="load-backup-$collection-pid$$-ts$(date +%s)"
+	restore_output="$(curl -sS "$SOLR_BASE_URL/solr/admin/collections?action=RESTORE&collection=$collection&name=$collection&location=$SOLR_BACKUPS_DIR&async=$async_id")"
+	if [[ "$(echo "$restore_output" | jq -r .responseHeader.status)" != '0' ]]
 	then
-		echo >&2 "$SCRIPT_NAME: Fatal error while restoring the collection '$collection':"
+		echo >&2 "$SCRIPT_NAME: Fatal error while submitting the restore of the collection '$collection':"
 		echo >&2 "$(echo "$restore_output" | jq .error.code): $(echo "$restore_output" | jq -r .error.msg)"
 		exit 70 # EX_SOFTWARE
+	fi
+	poll_attempt=0
+	while true
+	do
+		sleep 10
+		poll_attempt=$((poll_attempt + 1))
+		status_output="$(curl -sS "$SOLR_BASE_URL/solr/admin/collections?action=REQUESTSTATUS&requestid=$async_id")"
+		restore_state="$(echo "$status_output" | jq -r .status.state)"
+		case "$restore_state" in
+			completed)
+				break
+				;;
+			running|submitted)
+				if (( poll_attempt % 6 == 1 ))
+				then
+					echo "$SCRIPT_NAME: $(date): Still waiting for the restore of the collection '$collection' to complete (state: $restore_state, attempt $poll_attempt/$MAX_POLL)..."
+				fi
+				;;
+			failed|notfound)
+				echo >&2 "$SCRIPT_NAME: Fatal error while restoring the collection '$collection' (async state: $restore_state):"
+				echo >&2 "$(echo "$status_output" | jq -r '.status.msg // .error.msg // .')"
+				exit 70 # EX_SOFTWARE
+				;;
+			null)
+				echo >&2 "$SCRIPT_NAME: No restore state for the collection '$collection'; Solr response:"
+				echo >&2 "$(echo "$status_output" | jq .)"
+				exit 75 # EX_TEMPFAIL
+				;;
+			*)
+				echo >&2 "$SCRIPT_NAME: Unknown restore state '$restore_state' for the collection '$collection'; Solr response:"
+				echo >&2 "$(echo "$status_output" | jq .)"
+				exit 76 # EX_PROTOCOL
+				;;
+		esac
+		if [[ $poll_attempt -ge $MAX_POLL ]]
+		then
+			echo >&2 "$SCRIPT_NAME: Timed out waiting for restore of the collection '$collection' (after $((MAX_POLL * 10)) seconds)"
+			exit 75 # EX_TEMPFAIL
+		fi
+	done
+	deletestatus_output="$(curl -sS "$SOLR_BASE_URL/solr/admin/collections?action=DELETESTATUS&requestid=$async_id")"
+	if [[ "$(echo "$deletestatus_output" | jq -r .responseHeader.status)" != '0' ]]
+	then
+		echo >&2 "$SCRIPT_NAME: Warning: failed to delete async status for '$async_id':"
+		echo >&2 "$(echo "$deletestatus_output" | jq -r '.error.msg // .')"
 	fi
 
 	echo "$SCRIPT_NAME: $(date): Delete the no-longer-needed extracted backup '$collection'..."
