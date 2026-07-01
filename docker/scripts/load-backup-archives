@@ -131,7 +131,10 @@ do
 				break
 				;;
 			running|submitted)
-				continue
+				if (( poll_attempt % 6 == 1 ))
+				then
+					echo "$SCRIPT_NAME: $(date): Still waiting for the restore of the collection '$collection' to complete (state: $restore_state, attempt $poll_attempt/$MAX_POLL)..."
+				fi
 				;;
 			failed|notfound)
 				echo >&2 "$SCRIPT_NAME: Fatal error while restoring the collection '$collection' (async state: $restore_state):"
