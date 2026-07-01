@@ -111,7 +111,7 @@ do
 	# Submit the restore asynchronously: the synchronous Collections API call
 	# hard-times-out after 180 seconds server-side, which large collections
 	# (release-group, url, recording) routinely exceed.
-	async_id="load-backup-$collection-$$"
+	async_id="load-backup-$collection-pid$$-ts$(date +%s)"
 	restore_output="$(curl -sS "$SOLR_BASE_URL/solr/admin/collections?action=RESTORE&collection=$collection&name=$collection&location=$SOLR_BACKUPS_DIR&async=$async_id")"
 	if [[ "$(echo "$restore_output" | jq -r .responseHeader.status)" != '0' ]]
 	then
