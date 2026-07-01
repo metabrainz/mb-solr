@@ -4,6 +4,7 @@
 set -e -o pipefail -u
 
 DUMP_DIR="${MUSICBRAINZ_SEARCH_DUMP_DIR:-/var/cache/musicbrainz/solr-backups}"
+MAX_POLL="${MUSICBRAINZ_SEARCH_MAX_POLL:-360}" # 360 × 10s = 1h
 SOLR_BACKUPS_DIR="${SOLR_BACKUPS_DIR:-/var/solr/data/backups}"
 SOLR_BASE_URL="http://${SOLR_LOCAL_HOST:-localhost}:${SOLR_PORT:-8983}"
 
@@ -19,6 +20,10 @@ Options:
 Environment:
   MUSICBRAINZ_SEARCH_DUMP_DIR   path to directory with Solr backup tar archives
                                 (default: /var/cache/musicbrainz/solr-backups)
+  MUSICBRAINZ_SEARCH_MAX_POLL   maximum number of polling attempts for
+                                asynchronous requests sent to the Solr API,
+                                with a pause of 10s between each attempt
+                                (default: 360 attempts, that is about 1h)
   SOLR_BACKUPS_DIR              path to directory with Solr backup files
                                 (default: /var/solr/data/backups)
   SOLR_LOCAL_HOST               upstream Solr server listening host
@@ -118,9 +123,11 @@ do
 		echo >&2 "$(echo "$restore_output" | jq .error.code): $(echo "$restore_output" | jq -r .error.msg)"
 		exit 70 # EX_SOFTWARE
 	fi
+	poll_attempt=0
 	while true
 	do
 		sleep 10
+		poll_attempt=$((poll_attempt + 1))
 		status_output="$(curl -sS "$SOLR_BASE_URL/solr/admin/collections?action=REQUESTSTATUS&requestid=$async_id")"
 		restore_state="$(echo "$status_output" | jq -r .status.state)"
 		case "$restore_state" in
@@ -146,6 +153,11 @@ do
 				exit 76 # EX_PROTOCOL
 				;;
 		esac
+		if [[ $poll_attempt -ge $MAX_POLL ]]
+		then
+			echo >&2 "$SCRIPT_NAME: Timed out waiting for restore of the collection '$collection' (after $((MAX_POLL * 10)) seconds)"
+			exit 75 # EX_TEMPFAIL
+		fi
 	done
 	curl -sS "$SOLR_BASE_URL/solr/admin/collections?action=DELETESTATUS&requestid=$async_id" > /dev/null
 
