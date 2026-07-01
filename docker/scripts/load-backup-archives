@@ -127,10 +127,23 @@ do
 			completed)
 				break
 				;;
+			running|submitted)
+				continue
+				;;
 			failed|notfound)
 				echo >&2 "$SCRIPT_NAME: Fatal error while restoring the collection '$collection' (async state: $restore_state):"
 				echo >&2 "$(echo "$status_output" | jq -r '.status.msg // .error.msg // .')"
 				exit 70 # EX_SOFTWARE
+				;;
+			null)
+				echo >&2 "$SCRIPT_NAME: No restore state for the collection '$collection'; Solr response:"
+				echo >&2 "$(echo "$status_output" | jq .)"
+				exit 75 # EX_TEMPFAIL
+				;;
+			*)
+				echo >&2 "$SCRIPT_NAME: Unknown restore state '$restore_state' for the collection '$collection'; Solr response:"
+				echo >&2 "$(echo "$status_output" | jq .)"
+				exit 76 # EX_PROTOCOL
 				;;
 		esac
 	done
