@@ -1,4 +1,4 @@
-/* Copyright (c) 2018 MetaBrainz Foundation
+/* Copyright (c) 2026 MetaBrainz Foundation
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,12 +28,24 @@
 
 package org.musicbrainz.search.solrwriter.moxy;
 
-import org.musicbrainz.mmd2.Target;
+import org.musicbrainz.mmd2.Relation;
+import org.musicbrainz.mmd2.RelationList;
+import java.util.ArrayList;
+import java.util.List;
 
-public class StringTargetAdapter extends NotUnmarshallableXmlAdapter<String, Target> {
-    @Override
-    public String marshal(Target v) throws Exception {
-        return v.getValue();
+public class RelationListUtil {
+
+    public static List<RelationAdapter.AdaptedRelation> marshal(List<RelationList> relationLists) throws Exception {
+        List<RelationAdapter.AdaptedRelation> relations = new ArrayList<>();
+        RelationAdapter adapter = new RelationAdapter();
+        for (RelationList relationList : relationLists) {
+            String targetType = relationList.getTargetType();
+            for (Relation relation : relationList.getRelation()) {
+                RelationAdapter.AdaptedRelation adaptedRelation = adapter.marshal(relation);
+                adaptedRelation.targetType = targetType;
+                relations.add(adaptedRelation);
+            }
+        }
+        return relations;
     }
-
 }

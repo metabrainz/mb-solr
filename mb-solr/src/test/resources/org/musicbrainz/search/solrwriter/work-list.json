@@ -1,0 +1,62 @@
+{
+    "created": "${json-unit.matches:validXMLGregorianCalendar}",
+    "count": 1,
+    "offset": 0,
+    "works": [
+        {
+            "id": "9f6363b8-7df7-3732-b2b6-94c0f02e0bde",
+            "type": "Song",
+            "score": 100,
+            "title": "Poker Face",
+            "language": "eng",
+            "iswcs": ["T-901.751.548-9"],
+            "aliases": [
+                {
+                    "sort-name": "Poker Face (Tommy Sparks & The Fury remix)",
+                    "name": "Poker Face (Tommy Sparks & The Fury remix)",
+                    "locale": null,
+                    "type": null,
+                    "primary": null,
+                    "begin-date": null,
+                    "end-date": null
+                }
+            ],
+            "relations": [
+                {
+                    "target-type": "artist",
+                    "type": "writer",
+                    "type-id": "a255bca1-b157-4518-9108-7b147dc3fc68",
+                    "direction": "backward",
+                    "artist": {
+                        "id": "650e7db6-b795-4eb5-a702-5ea2fc46c848",
+                        "name": "Lady Gaga",
+                        "sort-name": "Lady Gaga"
+                    }
+                },
+                {
+                    "target-type": "artist",
+                    "type": "writer",
+                    "type-id": "a255bca1-b157-4518-9108-7b147dc3fc68",
+                    "direction": "backward",
+                    "artist": {
+                        "id": "8c84402d-f282-4afc-8d64-049bdaabb92d",
+                        "name": "RedOne",
+                        "sort-name": "RedOne"
+                    }
+                },
+                {
+                    "target-type": "recording",
+                    "type": "performance",
+                    "type-id": "a3005666-a872-32c3-ad06-98af558e99b0",
+                    "direction": "backward",
+                    "recording": {
+                        "id": "f8bbe5a7-bc01-4780-aee0-aef98666b874",
+                        "title": "Poker Face (piano version)",
+                        "video": null
+                    }
+                }
+            ],
+            "languages": ["eng"]
+        }
+    ]
+}

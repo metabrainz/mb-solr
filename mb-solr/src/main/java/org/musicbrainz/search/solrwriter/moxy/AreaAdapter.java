@@ -1,4 +1,4 @@
-/* Copyright (c) 2012 Paul Taylor
+/* Copyright (c) 2026 MetaBrainz Foundation
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,55 +28,49 @@
 
 package org.musicbrainz.search.solrwriter.moxy;
 
-import org.musicbrainz.mmd2.LanguageList;
 import org.musicbrainz.mmd2.Relation;
 import org.musicbrainz.mmd2.RelationList;
-import org.musicbrainz.mmd2.Work;
+import org.musicbrainz.mmd2.DefAreaElementInner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkAdapter extends NotUnmarshallableXmlAdapter<WorkAdapter.AdaptedWork, Work> {
+public class AreaAdapter extends NotUnmarshallableXmlAdapter<AreaAdapter.AdaptedArea, DefAreaElementInner> {
 
-    public static class AdaptedWork extends Work {
+    public static class AdaptedArea extends DefAreaElementInner {
         public List<RelationAdapter.AdaptedRelation> relations;
-        public List<String> languages = new ArrayList<String>();
     }
 
     /**
-     * Call when convert model to json, replaces work in model with adaptedWork
+     * Call when convert model to json, replaces area in model with adaptedArea
      * which does not contain a list of RelationList, instead all relations in each existing
      * RelationList are merged into a list of relations. We do this because it is not possible to merge
-     * a List of RelationLists into the work using oxml.xml mapping
+     * a List of RelationLists into the area using oxml.xml mapping
      */
     @Override
-    public AdaptedWork marshal(Work work) throws Exception {
-
-        AdaptedWork adaptedWork = new AdaptedWork();
-        adaptedWork.relations = RelationListUtil.marshal(work.getRelationList());
-
-        LanguageList languageList = work.getLanguageList();
-        if (languageList != null)
-        {
-            for(LanguageList.Language language: languageList.getLanguage())
-                adaptedWork.languages.add(language.getValue());
-        }
-
+    public AdaptedArea marshal(DefAreaElementInner area) throws Exception {
+        AdaptedArea adaptedArea = new AdaptedArea();
+        adaptedArea.relations = RelationListUtil.marshal(area.getRelationList());
 
         //Also need to copy any other elements/attributes we may want to output
-        adaptedWork.setAliasList(work.getAliasList());
-        adaptedWork.setArtistCredit(work.getArtistCredit());
-        adaptedWork.setDisambiguation(work.getDisambiguation());
-        adaptedWork.setId(work.getId());
-        adaptedWork.setIswcList(work.getIswcList());
-        adaptedWork.setLanguage(work.getLanguage());
-        adaptedWork.setRating(work.getRating());
-        adaptedWork.setScore(work.getScore());
-        adaptedWork.setTitle(work.getTitle());
-        adaptedWork.setTagList(work.getTagList());
-        adaptedWork.setType(work.getType());
-        adaptedWork.setUserRating(work.getUserRating());
-        adaptedWork.setUserTagList(work.getUserTagList());
-        return adaptedWork;
+        adaptedArea.setName(area.getName());
+        adaptedArea.setSortName(area.getSortName());
+        adaptedArea.setDisambiguation(area.getDisambiguation());
+        adaptedArea.setIso31661CodeList(area.getIso31661CodeList());
+        adaptedArea.setIso31662CodeList(area.getIso31662CodeList());
+        adaptedArea.setIso31663CodeList(area.getIso31663CodeList());
+        adaptedArea.setAnnotation(area.getAnnotation());
+        adaptedArea.setLifeSpan(area.getLifeSpan());
+        adaptedArea.setAliasList(area.getAliasList());
+        adaptedArea.setTagList(area.getTagList());
+        adaptedArea.setUserTagList(area.getUserTagList());
+        adaptedArea.setGenreList(area.getGenreList());
+        adaptedArea.setUserGenreList(area.getUserGenreList());
+        adaptedArea.setId(area.getId());
+        adaptedArea.setType(area.getType());
+        adaptedArea.setTypeId(area.getTypeId());
+        adaptedArea.setScore(area.getScore());
+
+        return adaptedArea;
     }
 }
