@@ -44,7 +44,7 @@ import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.eclipse.persistence.jaxb.JAXBContextProperties;
 import org.musicbrainz.mmd2.Metadata;
 
-public class MBJSONWriter extends MBXMLWriter {
+public class MBJSONWriter extends MBFlatXMLWriter {
 	/**
 	 * A separate context for json. The context for XML is still necessary to
 	 * *un*marshal the _store field

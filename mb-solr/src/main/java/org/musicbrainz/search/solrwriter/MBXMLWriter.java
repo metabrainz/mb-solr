@@ -84,9 +84,9 @@ public class MBXMLWriter implements QueryResponseWriter {
 	/**
 	 * The entity type of this MBXMLWriter
 	 */
-	private entityTypes entityType = null;
+	protected entityTypes entityType = null;
 
-	private enum entityTypes {
+	protected enum entityTypes {
 		annotation, artist, area, cdstub, editor, event, instrument, label, place, recording,
 		release, release_group, series, tag, work, url;
 
@@ -365,7 +365,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 		}
 		else if (response instanceof SolrDocumentList)
 		{
-			parseSolrResponse((SolrDocumentList) response, metadatalistwrapper);
+			parseSolrResponse((SolrDocumentList) response, metadatalistwrapper, req);
 		}
 		XMLGregorianCalendar now = getNow();
 
@@ -452,7 +452,8 @@ public class MBXMLWriter implements QueryResponseWriter {
 	}
 
 
-	public void parseSolrResponse(SolrDocumentList doclist, MetadataListWrapper metadatalistwrapper)
+	public void parseSolrResponse(SolrDocumentList doclist, MetadataListWrapper metadatalistwrapper,
+			SolrQueryRequest req)
 	{
 
 
