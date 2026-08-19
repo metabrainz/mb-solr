@@ -9,6 +9,8 @@ public abstract class AbstractMBWriterCDStubTest extends AbstractMBWriterTest {
 		return new ArrayList<>(Arrays.asList(new String[]{
 				"id", "1",
 				"discid", "zsXyqGWvw0zF024A_saTokxIMzo-",
-				"title", "Doo-lang Doo-lang"}));
+				"title", "Doo-lang Doo-lang", "artist", "The Emergency",
+				"barcode", "700261200910", "comment", "CD Baby id:emergency2",
+				"tracks", "16"}));
 	}
 }

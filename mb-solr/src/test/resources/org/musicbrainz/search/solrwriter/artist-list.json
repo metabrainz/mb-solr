@@ -7,7 +7,6 @@
             "id": "9b58672a-e68e-4972-956e-a8985a165a1f",
             "type": "Person",
             "score": 100,
-            "count": 10,
             "name": "Howard Shore",
             "sort-name": "Shore, Howard",
             "country": "CA",
@@ -23,10 +22,9 @@
                 "name": "Toronto",
                 "sort-name": "Toronto"
             },
-            "disambiguation": "",
+            "disambiguation": "Canadian score composer",
             "life-span": {
                 "begin": "1946-10-18",
-                "end": "",
                 "ended": null
             },
             "aliases": [

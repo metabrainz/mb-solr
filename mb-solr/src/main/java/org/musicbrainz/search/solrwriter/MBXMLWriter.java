@@ -84,9 +84,9 @@ public class MBXMLWriter implements QueryResponseWriter {
 	/**
 	 * The entity type of this MBXMLWriter
 	 */
-	private entityTypes entityType = null;
+	protected entityTypes entityType = null;
 
-	private enum entityTypes {
+	protected enum entityTypes {
 		annotation, artist, area, cdstub, editor, event, instrument, label, place, recording,
 		release, release_group, series, tag, work, url;
 
@@ -106,7 +106,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 	 * for different entity types, as well as calling the appropriate method to
 	 * set the list on the {@link Metadata} object.
 	 */
-	class MetadataListWrapper {
+	public class MetadataListWrapper {
 		private List objList = null;
 		private Object MMDList = null;
 		private Metadata metadata = null;
@@ -311,7 +311,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 				.orElseThrow(() -> new RuntimeException("no valid entitytype given"));
 	}
 
-	private static void adjustScore(float maxScore, Object object,
+	public static void adjustScore(float maxScore, Object object,
 			float objectScore) {
 		Method setScoreMethod;
 		try {
@@ -365,7 +365,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 		}
 		else if (response instanceof SolrDocumentList)
 		{
-			parseSolrResponse((SolrDocumentList) response, metadatalistwrapper);
+			parseSolrResponse((SolrDocumentList) response, metadatalistwrapper, req);
 		}
 		XMLGregorianCalendar now = getNow();
 
@@ -452,7 +452,8 @@ public class MBXMLWriter implements QueryResponseWriter {
 	}
 
 
-	public void parseSolrResponse(SolrDocumentList doclist, MetadataListWrapper metadatalistwrapper)
+	public void parseSolrResponse(SolrDocumentList doclist, MetadataListWrapper metadatalistwrapper,
+			SolrQueryRequest req)
 	{
 
 
