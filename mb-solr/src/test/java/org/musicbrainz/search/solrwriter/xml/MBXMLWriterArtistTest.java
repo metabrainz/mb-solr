@@ -1,9 +1,9 @@
 package org.musicbrainz.search.solrwriter.xml;
 
 import org.musicbrainz.search.solrwriter.AbstractMBWriterArtistTest;
-import org.musicbrainz.search.solrwriter.MBXMLWriterTestInterface;
+import org.musicbrainz.search.solrwriter.MBFlatXMLWriterTestInterface;
 
-public class MBXMLWriterArtistTest extends AbstractMBWriterArtistTest implements MBXMLWriterTestInterface {
+public class MBXMLWriterArtistTest extends AbstractMBWriterArtistTest implements MBFlatXMLWriterTestInterface {
 	static {
 		corename = "artist";
 	}

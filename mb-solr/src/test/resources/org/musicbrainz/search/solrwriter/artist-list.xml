@@ -14,10 +14,9 @@
                 <name>Toronto</name>
                 <sort-name>Toronto</sort-name>
             </begin-area>
-            <disambiguation></disambiguation>
+            <disambiguation>Canadian score composer</disambiguation>
             <life-span>
                 <begin>1946-10-18</begin>
-                <end></end>
                 <ended>false</ended>
             </life-span>
             <alias-list>
@@ -25,7 +24,7 @@
                 <alias sort-name="Howard Shaw">Howard Shaw</alias>
                 <alias sort-name="H. Shore">H. Shore</alias>
             </alias-list>
-            <tag-list count="10">
+            <tag-list>
                 <tag count="1">
                     <name>lord of the rings</name>
                 </tag>
