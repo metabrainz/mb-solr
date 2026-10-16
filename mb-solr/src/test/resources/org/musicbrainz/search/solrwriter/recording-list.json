@@ -89,7 +89,7 @@
                             "position": 1,
                             "id": "ac404674-891f-4e01-8d28-d77b43690d2a",
                             "format": "CD",
-                            "track": [
+                            "tracks": [
                                 {
                                     "id": "fc51bf50-c329-3d93-bb1b-e4f55cf00db8",
                                     "number": "1",
@@ -141,7 +141,7 @@
                             "position": 5,
                             "id": "01b9d64d-1d6d-4494-af8e-830ecf9f737d",
                             "format": "DVD",
-                            "track": [
+                            "tracks": [
                                 {
                                     "id": "af77973d-3ca5-38e3-89ff-c742c94f59af",
                                     "number": "1",

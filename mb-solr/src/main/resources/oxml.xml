@@ -264,6 +264,7 @@
         </java-type>
         <java-type name="Medium$TrackList">
             <java-attributes>
+                <xml-element java-attribute="defTrack" name="tracks"/>
                 <xml-element java-attribute="count" name="track-count"/>
                 <xml-element java-attribute="offset" name="track-offset"/>
             </java-attributes>
