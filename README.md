@@ -1,7 +1,7 @@
 # MusicBrainz Solr
 
 This package includes a
-[QueryResponseWriter](https://solr.apache.org/guide/solr/9_7/query-guide/response-writers.html)
+[QueryResponseWriter](https://solr.apache.org/guide/solr/10_1/query-guide/response-writers.html)
 for Apache Solr that will generate
 [mmd-schema](https://github.com/metabrainz/mmd-schema) compliant responses
 for Solr cores running on an [mbsssss](https://github.com/metabrainz/mbsssss) schema.
@@ -21,7 +21,7 @@ Recommendations:
 Required software:
 * Git
 * Docker 2
-  (or Java SE 17, Maven 3, and Solr 9.7.0)
+  (or Java SE 21, Maven 3, and Solr 10.1.0)
 
 ## Installation
 
@@ -31,7 +31,7 @@ These images can be used through the [MusicBrainz Docker Compose project](https:
 
 For [development](#development) or other purposes, these images can also be run alone, see the below subsection “[Installation without MusicBrainz Server](#installation-without-musicbrainz-server)”.
 
-To set up a cluster of Solr nodes, it can be preferred to install to the host system directly, see the below subsection “[Installation without Docker](#installation-without-docker)” and the [Apache Solr Reference Guide 9.7](https://solr.apache.org/guide/solr/9_7/).
+To set up a cluster of Solr nodes, it can be preferred to install to the host system directly, see the below subsection “[Installation without Docker](#installation-without-docker)” and the [Apache Solr Reference Guide 10.1](https://solr.apache.org/guide/solr/10_1/).
 
 ### Installation without MusicBrainz Server
 
@@ -88,11 +88,11 @@ This will create a file called
 
 Now you need to make this JAR file available to all Solr cores that need it.
 The easiest option is to configure a **sharedLib** in your
-[solr.xml](https://solr.apache.org/guide/solr/9_7/configuration-guide/configuring-solr-xml.html)
+[solr.xml](https://solr.apache.org/guide/solr/10_1/configuration-guide/configuring-solr-xml.html)
 and put the JAR file into that.
 
 All that's left to do now is enabling the Query Response Writers in your cores
-[solrconfig.xml](https://solr.apache.org/guide/solr/9_7/configuration-guide/configuring-solrconfig-xml.html).
+[solrconfig.xml](https://solr.apache.org/guide/solr/10_1/configuration-guide/configuring-solrconfig-xml.html).
 To do that, add the following lines as children of the **config** element:
 
 ```xml
@@ -131,7 +131,7 @@ Valid values are:
 
 Now the core needs to be reloaded.
 After that, two new values for the
-[wt paramter](https://solr.apache.org/guide/solr/9_7/query-guide/common-query-parameters.html#wt-parameter)
+[wt paramter](https://solr.apache.org/guide/solr/10_1/query-guide/common-query-parameters.html#wt-parameter)
 are available:
 
 - **mbxml**, which returns mmd-compliant XML documents
@@ -139,7 +139,7 @@ are available:
   [MusicBrainz API documentation page](https://musicbrainz.org/doc/MusicBrainz_API)
 
 At the moment, the
-[field list](https://solr.apache.org/guide/solr/9_7/query-guide/common-query-parameters.html#fl-field-list-parameter)
+[field list](https://solr.apache.org/guide/solr/10_1/query-guide/common-query-parameters.html#fl-field-list-parameter)
 parameter of each query needs to include the **score** field for the code to
 work correctly.
 

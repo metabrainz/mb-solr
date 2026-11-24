@@ -4,7 +4,7 @@
 # MusicBrainz simple Solr search server schema (mbsssss).
 
 # Execute in a sub-shell to preserve the environment
-# (See the script run-initdb from Solr 9.7 repository)
+# (See the script run-initdb from Solr 10.1 repository)
 (
     set -e -o pipefail -u
 

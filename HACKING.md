@@ -73,8 +73,8 @@ Solr Admin
 To debug how other components (MBS, SIR) interact with the search server,
 the Solr Admin web interface (browsable from <http://localhost:8983>) is your friend.
 
-See “[Getting Started / Solr Admin UI](https://solr.apache.org/guide/solr/9_7/getting-started/solr-admin-ui.html)"
-in the Apache Solr Reference Guide 9.7 for more information.
+See “[Getting Started / Solr Admin UI](https://solr.apache.org/guide/solr/10_1/getting-started/solr-admin-ui.html)"
+in the Apache Solr Reference Guide 10.1 for more information.
 
 ### Query screen
 
@@ -115,8 +115,8 @@ These formats are incompatible with the “fl” field and the
 `debugQuery` and `explainOther` options, so setting any of these
 will not change the output.
 
-See “[Query Screen](https://solr.apache.org/guide/solr/9_7/query-guide/query-screen.html)"
-in Apache Solr Reference Guide 9.7 for more information.
+See “[Query Screen](https://solr.apache.org/guide/solr/10_1/query-guide/query-screen.html)"
+in Apache Solr Reference Guide 10.1 for more information.
 
 #### Parameter priority
 

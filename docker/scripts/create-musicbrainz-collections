@@ -18,7 +18,7 @@ fi
 # Arguments
 MAIN_DIR="/usr/lib/mbsssss"
 SOLR_BASE_URL="http://${SOLR_LOCAL_HOST:-localhost}:${SOLR_PORT:-8983}"
-UPLOAD_URL="$SOLR_BASE_URL/api/cluster/configs"
+UPLOAD_URL="$SOLR_BASE_URL/api/configsets"
 EXCLUDE_DIRS="lib common _template"
 
 # Populate the list of subdirectories

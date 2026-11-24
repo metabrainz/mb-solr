@@ -8,7 +8,6 @@ public abstract class AbstractMBWriterLabelTest extends AbstractMBWriterTest {
 	public ArrayList<String> getDoc() {
 		return new ArrayList<>(Arrays.asList(new String[]{
 				"mbid", uuid,
-				"laid", uuid,
 				"label", "Deutsche Grammophon"}));
 	}
 }

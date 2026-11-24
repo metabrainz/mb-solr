@@ -53,11 +53,14 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
@@ -338,6 +341,15 @@ public class MBXMLWriter implements QueryResponseWriter {
 		}
 	}
 
+	@Override
+	public void write(OutputStream out, SolrQueryRequest req,
+			SolrQueryResponse res, String contentType) throws IOException {
+		// Solr 10 only provides an output stream; both writers emit UTF-8.
+		Writer writer = new OutputStreamWriter(out, StandardCharsets.UTF_8);
+		write(writer, req, res);
+		writer.flush();
+	}
+
 	public void write(Writer writer, SolrQueryRequest req, SolrQueryResponse res)
 			throws IOException {
 
@@ -409,7 +421,7 @@ public class MBXMLWriter implements QueryResponseWriter {
 		while (iter.hasNext()) {
 			String store;
 			int id = iter.nextDoc();
-			Document doc = req.getSearcher().doc(id);
+			Document doc = req.getSearcher().storedFields().document(id);
 			try {
 				store = doc.getField("_store").stringValue();
 			} catch (NullPointerException e) {

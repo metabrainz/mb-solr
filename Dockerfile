@@ -1,6 +1,6 @@
-ARG MAVEN_TAG=3.9.6-eclipse-temurin-17
+ARG MAVEN_TAG=3.9.16-eclipse-temurin-21
 ARG SOLR_NAME=solr
-ARG SOLR_TAG=9.7.0
+ARG SOLR_TAG=10.1.0
 
 FROM maven:${MAVEN_TAG} AS builder
 

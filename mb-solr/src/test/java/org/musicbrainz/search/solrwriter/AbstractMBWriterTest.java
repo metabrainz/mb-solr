@@ -7,7 +7,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,7 +18,7 @@ public abstract class AbstractMBWriterTest extends SolrTestCaseJ4 implements
 	@BeforeClass
 	public static void beforeClass() throws Exception {
 		System.setProperty("solr.directoryFactory", "solr.NRTCachingDirectoryFactory");
-		initCore("solrconfig.xml", "schema.xml", new File("../mbsssss").getAbsolutePath(), getCorename());
+		initCore("solrconfig.xml", "schema.xml", Paths.get("../mbsssss").toAbsolutePath(), getCorename());
 	}
 
 	public static String corename;
