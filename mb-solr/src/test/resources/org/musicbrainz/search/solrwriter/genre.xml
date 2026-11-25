@@ -1,0 +1,7 @@
+<genre xmlns="http://musicbrainz.org/ns/mmd-2.0#" id="fff523fa-f2db-40eb-be81-f4544b43f39c">
+    <name>shoegaze</name>
+    <disambiguation>test genre</disambiguation>
+    <alias-list>
+        <alias locale="en" sort-name="shoegazing" type="Genre name" primary="primary">shoegazing</alias>
+    </alias-list>
+</genre>

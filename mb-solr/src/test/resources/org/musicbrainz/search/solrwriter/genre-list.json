@@ -1,0 +1,24 @@
+{
+    "created": "${json-unit.matches:validXMLGregorianCalendar}",
+    "count": 1,
+    "offset": 0,
+    "genres": [
+        {
+            "id": "fff523fa-f2db-40eb-be81-f4544b43f39c",
+            "score": 100,
+            "name": "shoegaze",
+            "disambiguation": "test genre",
+            "aliases": [
+                {
+                    "sort-name": "shoegazing",
+                    "name": "shoegazing",
+                    "locale": "en",
+                    "type": "Genre name",
+                    "primary": true,
+                    "begin-date": null,
+                    "end-date": null
+                }
+            ]
+        }
+    ]
+}

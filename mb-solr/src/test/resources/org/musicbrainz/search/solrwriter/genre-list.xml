@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#" xmlns:ns2="http://musicbrainz.org/ns/ext#-2.0">
+    <genre-list count="1" offset="0">
+        <genre id="fff523fa-f2db-40eb-be81-f4544b43f39c" ns2:score="100">
+            <name>shoegaze</name>
+            <disambiguation>test genre</disambiguation>
+            <alias-list>
+                <alias locale="en" sort-name="shoegazing" type="Genre name" primary="primary">shoegazing</alias>
+            </alias-list>
+        </genre>
+    </genre-list>
+</metadata>
