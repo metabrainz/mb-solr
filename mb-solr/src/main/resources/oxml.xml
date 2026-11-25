@@ -10,6 +10,7 @@
                 <xml-element java-attribute="editorList" xml-path="."/>
                 <xml-element java-attribute="placeList" xml-path="."/>
                 <xml-element java-attribute="eventList" xml-path="."/>
+                <xml-element java-attribute="genreList" xml-path="."/>
                 <xml-element java-attribute="areaList" xml-path="."/>
                 <xml-element java-attribute="artistList" xml-path="."/>
                 <xml-element java-attribute="releaseGroupList" xml-path="."/>
@@ -115,6 +116,11 @@
                 <xml-element java-attribute="aliasList" xml-path="."/>
             </java-attributes>
         </java-type>
+        <java-type name="Genre">
+            <java-attributes>
+                <xml-element java-attribute="aliasList" xml-path="."/>
+            </java-attributes>
+        </java-type>
         <java-type name="Instrument">
             <java-attributes>
                 <xml-element java-attribute="tagList" xml-path="."/>
@@ -172,6 +178,11 @@
                 <xml-element java-attribute="event" name="events">
                     <xml-java-type-adapter value="org.musicbrainz.search.solrwriter.moxy.EventAdapter"/>
                 </xml-element>
+            </java-attributes>
+        </java-type>
+        <java-type name="GenreList">
+            <java-attributes>
+                <xml-element java-attribute="genre" name="genres"/>
             </java-attributes>
         </java-type>
         <java-type name="InstrumentList">

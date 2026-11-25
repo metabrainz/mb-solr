@@ -117,6 +117,7 @@ Valid values are:
 - cdstub
 - editor
 - event
+- genre
 - instrument
 - label
 - place
